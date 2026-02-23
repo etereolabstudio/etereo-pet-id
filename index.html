@@ -5,273 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Identidad Digital | Etéreo Lab</title>
     <meta name="robots" content="noindex, nofollow">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-deep: #010a18;
-            --bg-light: #0a162b;
-            --accent: #e6dfd1;
-            --accent-glow: rgba(230, 223, 209, 0.4);
-            --text-main: #ffffff;
-            --text-sub: #8b9bb4;
-            --success: #1DB954;
-            --alert: #ff4b4b;
-            --glass-bg: rgba(10, 22, 43, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --bg-deep: #010a18; --bg-light: #0a162b; --accent: #e6dfd1;
+            --text-main: #ffffff; --text-sub: #8b9bb4; --success: #1DB954;
+            --glass-bg: rgba(10, 22, 43, 0.45); --glass-border: rgba(255, 255, 255, 0.08);
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg-deep); color: var(--text-main); min-height: 100vh; display: flex; justify-content: center; overflow-x: hidden; position: relative; }
+        
+        /* Animación de Fondo */
+        .background-orbs { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -1; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: float 20s infinite ease-in-out alternate; }
+        .orb-1 { width: 300px; height: 300px; background: #102a52; top: -50px; left: -100px; }
+        .orb-2 { width: 250px; height: 250px; background: #1c3d6e; bottom: -50px; right: -50px; animation-delay: -5s; }
+        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.1); } }
+        
+        .container { width: 100%; max-width: 480px; padding: 30px 20px 50px 20px; display: none; flex-direction: column; align-items: center; }
+        .fade-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
+        
+        .brand-container { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .brand { font-size: 12px; font-weight: 800; letter-spacing: 4px; color: var(--accent); opacity: 0.7; }
+        .btn-share { background: transparent; border: none; color: var(--accent); cursor: pointer; padding: 5px; opacity: 0.8; transition: opacity 0.3s; }
+        .btn-share:active { opacity: 0.5; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* --- FONDO ANIMADO (MESH GRADIENT) --- */
-        .background-orbs {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            overflow: hidden;
-            z-index: -1;
-        }
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-            animation: float 20s infinite ease-in-out alternate;
-        }
-        .orb-1 {
-            width: 300px; height: 300px;
-            background: #102a52;
-            top: -50px; left: -100px;
-        }
-        .orb-2 {
-            width: 250px; height: 250px;
-            background: #1c3d6e;
-            bottom: -50px; right: -50px;
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, 50px) scale(1.1); }
-        }
-
-        /* --- CONTENEDOR PRINCIPAL --- */
-        .container {
-            width: 100%;
-            max-width: 480px;
-            padding: 30px 20px 50px 20px;
-            display: none; /* Oculto hasta cargar */
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* --- ANIMACIONES DE ENTRADA --- */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Delay escalonado para cada elemento */
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-
-        /* --- CABECERA Y FOTO --- */
-        .brand {
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 4px;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            opacity: 0.7;
-        }
-
-        .profile-pic-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .profile-pic-container::before {
-            content: '';
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--accent), transparent, var(--bg-light));
-            z-index: -1;
-            animation: spin 4s linear infinite;
-        }
+        /* Efecto Radar NFC en Foto */
+        .profile-pic-container { position: relative; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; width: 170px; height: 170px;}
+        .radar-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; background-color: rgba(230, 223, 209, 0.2); z-index: -2; animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(1.3); opacity: 0; } }
+        .profile-pic-container::before { content: ''; position: absolute; width: 160px; height: 160px; border-radius: 50%; background: linear-gradient(45deg, var(--accent), transparent, var(--bg-light)); z-index: -1; animation: spin 4s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        .profile-pic {
-            width: 150px; height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--bg-deep);
-            background-color: var(--bg-light);
-        }
-
-        h1 {
-            font-size: 34px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            text-align: center;
-            margin-bottom: 5px;
-            background: linear-gradient(to right, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            font-size: 16px;
-            color: var(--accent);
-            font-weight: 400;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        /* --- BOTONES DE ACCIÓN --- */
-        .action-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width: 100%;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            padding: 16px;
-            border-radius: 16px;
-            font-size: 15px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background-color: var(--success);
-            color: #000;
-            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
-            animation: pulse-green 2s infinite;
-        }
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(29, 185, 84, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0); }
-        }
-
-        .btn-secondary {
-            background-color: var(--glass-bg);
-            color: var(--text-main);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-
+        .profile-pic { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg-deep); background-color: var(--bg-light); z-index: 1; }
+        
+        h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.5px; text-align: center; margin-bottom: 5px; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { font-size: 16px; color: var(--accent); font-weight: 400; margin-bottom: 30px; text-align: center; opacity: 0.9; }
+        
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 15px; }
+        .btn { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 16px; border-radius: 16px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; }
+        .btn-primary { background-color: var(--success); color: #000; box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3); animation: pulse-green 2s infinite; }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(29, 185, 84, 0); } 100% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0); } }
+        .btn-secondary { background-color: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(10px); }
+        .btn-location { background-color: rgba(230, 223, 209, 0.1); color: var(--accent); border: 1px solid var(--accent); width: 100%; margin-bottom: 30px; }
         .btn:active { transform: scale(0.96); }
-
-        /* --- TARJETAS GLASSMORPHISM --- */
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            width: 100%;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .card-alert {
-            background: rgba(43, 15, 30, 0.6);
-            border: 1px solid rgba(255, 75, 75, 0.2);
-        }
-        .card-alert h3 { color: #ffb3b3 !important; }
-
-        .card h3 {
-            font-size: 13px;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        
+        .card { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 24px; width: 100%; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .card-alert { background: rgba(43, 15, 30, 0.6); border: 1px solid rgba(255, 75, 75, 0.2); }
+        .card h3 { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .data-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .data-row:last-child { border-bottom: none; padding-bottom: 0; }
-
         .label { color: var(--text-sub); font-size: 14px; font-weight: 400; }
         .value { color: var(--text-main); font-size: 15px; font-weight: 600; text-align: right; }
-
-        /* --- ESTADOS DE CARGA --- */
-        .loader-container {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-        .spinner {
-            width: 40px; height: 40px;
-            border: 3px solid rgba(230, 223, 209, 0.2);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin-loader 1s linear infinite;
-        }
-        @keyframes spin-loader { to { transform: rotate(360deg); } }
+        .link-maps { color: #4da6ff; text-decoration: none; display: flex; align-items: center; gap: 5px; }
         
-        .error-box {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-sub);
-        }
-        .error-box h2 { color: var(--accent); margin-bottom: 10px; }
+        .loader-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(230, 223, 209, 0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin-loader 1s linear infinite; }
+        @keyframes spin-loader { to { transform: rotate(360deg); } }
 
+        /* Toast de notificación */
+        #toast { visibility: hidden; min-width: 200px; background-color: var(--success); color: #000; text-align: center; border-radius: 10px; padding: 16px; position: fixed; z-index: 100; left: 50%; bottom: 30px; font-weight: bold; font-size: 14px; transform: translateX(-50%); opacity: 0; transition: opacity 0.5s, bottom 0.5s; }
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
     </style>
 </head>
 <body>
-
-    <div class="background-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-    </div>
-
+    <div class="background-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
+    
     <div id="pantalla-carga" class="loader-container">
         <div class="spinner"></div>
         <div style="color: var(--text-sub); font-size: 14px; letter-spacing: 1px;">Sincronizando identidad...</div>
@@ -279,40 +80,48 @@
 
     <div id="perfil-mascota" class="container">
         
-        <div class="brand fade-up">ETÉREO LAB STUDIO</div>
+        <div class="brand-container fade-up">
+            <div class="brand">ETÉREO LAB</div>
+            <button class="btn-share" onclick="compartirPerfil()" aria-label="Compartir Perfil">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+        </div>
 
         <div class="profile-pic-container fade-up delay-1">
-            <img id="foto" class="profile-pic" src="" alt="Foto" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%230a162b\'/><text x=\'50\' y=\'55\' font-family=\'Arial\' font-size=\'12\' fill=\'%238b9bb4\' text-anchor=\'middle\'>SIN FOTO</text></svg>'">
+            <div class="radar-pulse"></div>
+            <img id="foto" class="profile-pic" src="">
         </div>
-
-        <h1 id="nombre" class="fade-up delay-1">Cargando...</h1>
-        <div id="raza" class="subtitle fade-up delay-1">Cargando...</div>
+        
+        <h1 id="nombre" class="fade-up delay-1">...</h1>
+        <div id="raza" class="subtitle fade-up delay-1">...</div>
 
         <div class="action-grid fade-up delay-2">
-            <a id="btn-llamar" href="#" class="btn btn-primary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                Llamar Dueño
-            </a>
-            <a id="btn-wa" href="#" class="btn btn-secondary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                WhatsApp
-            </a>
+            <a id="btn-llamar" href="#" class="btn btn-primary">📞 Llamar Dueño</a>
+            <a id="btn-wa" href="#" class="btn btn-secondary">💬 WhatsApp</a>
         </div>
+        
+        <button id="btn-gps" class="btn btn-location fade-up delay-2" onclick="enviarUbicacion()">📍 Enviar mi ubicación al dueño</button>
 
         <div id="tarjeta-medica" class="card card-alert fade-up delay-3" style="display: none;">
-            <h3>⚕️ Alertas Médicas Registradas</h3>
+            <h3 style="color: #ffb3b3;">⚕️ Alertas Médicas</h3>
             <p id="condiciones" style="color: #fff; font-size: 15px; line-height: 1.6;"></p>
         </div>
 
         <div class="card fade-up delay-3">
-            <h3>📋 Biometría y Datos</h3>
+            <h3>📋 Biometría</h3>
             <div class="data-row"><span class="label">Sexo</span><span id="sexo" class="value">-</span></div>
             <div class="data-row"><span class="label">Nacimiento</span><span id="nacimiento" class="value">-</span></div>
-            <div class="data-row"><span class="label">Nº Microchip</span><span id="microchip" class="value">-</span></div>
+            <div class="data-row"><span class="label">Microchip</span><span id="microchip" class="value">-</span></div>
+        </div>
+
+        <div id="tarjeta-vet" class="card fade-up delay-3" style="display: none;">
+            <h3>🏥 Clínica Veterinaria</h3>
+            <div class="data-row"><span class="label">Doctor/Clínica</span><span id="vet-nombre" class="value">-</span></div>
+            <div class="data-row"><span class="label">Teléfono</span><span id="vet-tel" class="value">-</span></div>
         </div>
 
         <div class="card fade-up delay-4">
-            <h3>🛡️ Contacto de Rescate</h3>
+            <h3>🛡️ Red de Rescate</h3>
             <div class="data-row"><span class="label">Propietario</span><span id="dueno" class="value">-</span></div>
             <div class="data-row"><span class="label">Tel. Principal</span><span id="tel1" class="value">-</span></div>
             <div class="data-row"><span class="label">Emergencia</span><span id="tel2" class="value">-</span></div>
@@ -322,69 +131,109 @@
         <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;" class="fade-up delay-4">
             <span style="font-size: 11px; color: var(--text-sub); opacity: 0.5;">POWERED BY ETÉREO LAB STUDIO</span>
         </div>
-
     </div>
+
+    <div id="toast">Enlace copiado al portapapeles</div>
 
     <script>
         const parametros = new URLSearchParams(window.location.search);
         const idMascota = parametros.get('id');
-        const pantallaCarga = document.getElementById('pantalla-carga');
-        const perfilMascota = document.getElementById('perfil-mascota');
+        let telefonoDueñoGlobal = '';
+        let nombreMascotaGlobal = '';
 
         if (!idMascota) {
-            pantallaCarga.innerHTML = '<div class="error-box"><h2>⚠️ Placa Inactiva</h2><p>Por favor escanea un código QR oficial de Etéreo Lab.</p></div>';
+            document.getElementById('pantalla-carga').innerHTML = '<div style="text-align:center; color:#8b9bb4;"><h2>⚠️ Placa Inactiva</h2><p>Escanea un código oficial de Etéreo.</p></div>';
         } else {
-            // EL ROMPE-CACHÉ (Para que siempre muestre los datos más nuevos)
             fetch('base_datos.json?nocache=' + new Date().getTime())
-                .then(respuesta => respuesta.json())
+                .then(r => r.json())
                 .then(datos => {
                     if (datos[idMascota]) {
-                        const mascota = datos[idMascota];
+                        const m = datos[idMascota];
+                        nombreMascotaGlobal = m.nombre;
                         
-                        document.title = `${mascota.nombre} | Etéreo ID`;
-                        document.getElementById('nombre').innerText = mascota.nombre;
-                        
-                        // Si hay apellidos, unirlos a la raza o ponerlos sutiles
-                        let subtitulo = mascota.especie_raza || 'Mascota';
-                        if(mascota.apellidos) subtitulo = `${mascota.apellidos} • ${subtitulo}`;
-                        document.getElementById('raza').innerText = subtitulo;
-                        
-                        if(mascota.foto) {
-                            // Rompe caché también en la imagen para evitar que muestre foto vieja si se edita
-                            document.getElementById('foto').src = `fotos/${mascota.foto}?v=${new Date().getTime()}`;
-                        }
+                        document.title = `${m.nombre} | Etéreo ID`;
+                        document.getElementById('nombre').innerText = m.nombre;
+                        document.getElementById('raza').innerText = m.apellidos ? `${m.apellidos} • ${m.especie_raza || 'Mascota'}` : (m.especie_raza || 'Mascota');
+                        if(m.foto) document.getElementById('foto').src = `fotos/${m.foto}?v=${new Date().getTime()}`;
 
-                        const telLimpio = mascota.contacto_principal.telefono.replace(/[^0-9+]/g, '');
-                        document.getElementById('btn-llamar').href = `tel:${telLimpio}`;
-                        document.getElementById('btn-wa').href = `https://wa.me/${telLimpio.replace('+','')}?text=¡Hola!%20Escaneé%20la%20placa%20de%20${mascota.nombre}%20y%20lo%20tengo%20conmigo.`;
+                        telefonoDueñoGlobal = m.contacto_principal.telefono.replace(/[^0-9+]/g, '');
+                        document.getElementById('btn-llamar').href = `tel:${telefonoDueñoGlobal}`;
+                        document.getElementById('btn-wa').href = `https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=¡Hola!%20Escaneé%20la%20placa%20de%20${m.nombre}%20y%20lo%20tengo%20conmigo.`;
 
-                        if(mascota.condiciones_medicas) {
+                        if(m.condiciones_medicas) {
                             document.getElementById('tarjeta-medica').style.display = 'block';
-                            document.getElementById('condiciones').innerText = mascota.condiciones_medicas;
+                            document.getElementById('condiciones').innerText = m.condiciones_medicas;
                         }
 
-                        document.getElementById('sexo').innerText = mascota.sexo || '-';
-                        document.getElementById('nacimiento').innerText = mascota.fecha_nacimiento || '-';
-                        document.getElementById('microchip').innerText = mascota.microchip || '-';
+                        if(m.veterinario && (m.veterinario.nombre || m.veterinario.telefono)) {
+                            document.getElementById('tarjeta-vet').style.display = 'block';
+                            document.getElementById('vet-nombre').innerText = m.veterinario.nombre || '-';
+                            if(m.veterinario.telefono) {
+                                document.getElementById('vet-tel').innerHTML = `<a href="tel:${m.veterinario.telefono.replace(/[^0-9+]/g, '')}" class="link-maps">📞 ${m.veterinario.telefono}</a>`;
+                            }
+                        }
+
+                        document.getElementById('sexo').innerText = m.sexo || '-';
+                        document.getElementById('nacimiento').innerText = m.fecha_nacimiento || '-';
+                        document.getElementById('microchip').innerText = m.microchip || '-';
+                        document.getElementById('dueno').innerText = m.contacto_principal.nombre || '-';
+                        document.getElementById('tel1').innerText = m.contacto_principal.telefono || '-';
+                        document.getElementById('tel2').innerText = m.contacto_emergencia.telefono || '-';
                         
-                        document.getElementById('dueno').innerText = mascota.contacto_principal.nombre || '-';
-                        document.getElementById('tel1').innerText = mascota.contacto_principal.telefono || '-';
-                        document.getElementById('tel2').innerText = mascota.contacto_emergencia.telefono || '-';
-                        document.getElementById('direccion').innerText = mascota.direccion_opcional || '-';
+                        if(m.direccion_opcional) {
+                            const dirCodificada = encodeURIComponent(m.direccion_opcional);
+                            document.getElementById('direccion').innerHTML = `<a href="http://googleusercontent.com/maps.google.com/5{dirCodificada}" target="_blank" class="link-maps">🗺️ Ver Mapa</a>`;
+                        }
 
-                        // Transición suave al cargar
                         setTimeout(() => {
-                            pantallaCarga.style.display = 'none';
-                            perfilMascota.style.display = 'flex';
-                        }, 400); // Pequeño delay intencional para ver el spinner premium
-
+                            document.getElementById('pantalla-carga').style.display = 'none';
+                            document.getElementById('perfil-mascota').style.display = 'flex';
+                        }, 400);
                     } else {
-                        pantallaCarga.innerHTML = '<div class="error-box"><h2>🔍 ID No Encontrado</h2><p>Este perfil de Etéreo aún no ha sido registrado o ha sido dado de baja.</p></div>';
+                        document.getElementById('pantalla-carga').innerHTML = '<div style="text-align:center; color:#8b9bb4;"><h2>🔍 ID No Encontrado</h2></div>';
                     }
                 })
-                .catch(error => {
-                    pantallaCarga.innerHTML = '<div class="error-box"><h2>❌ Falla de Red</h2><p>No pudimos conectar con los servidores de Etéreo.</p></div>';
+                .catch(e => {
+                    document.getElementById('pantalla-carga').innerHTML = '<div style="text-align:center; color:#8b9bb4;"><h2>❌ Error de Red</h2></div>';
                 });
+        }
+
+        function enviarUbicacion() {
+            const btn = document.getElementById('btn-gps');
+            btn.innerText = "⏳ Obteniendo ubicación...";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (posicion) => {
+                        const lat = posicion.coords.latitude;
+                        const lon = posicion.coords.longitude;
+                        const linkMaps = `http://googleusercontent.com/maps.google.com/6{lat},${lon}`;
+                        const mensaje = `¡URGENTE! Tengo a ${nombreMascotaGlobal}. Estoy exactamente aquí: ${linkMaps}`;
+                        btn.innerText = "📍 Enviar mi ubicación al dueño";
+                        window.open(`https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=${encodeURIComponent(mensaje)}`, '_blank');
+                    },
+                    (error) => { alert("Asegúrate de tener el GPS activado y dar permisos al navegador."); btn.innerText = "📍 Enviar mi ubicación al dueño"; },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                alert("Tu navegador no soporta geolocalización.");
+                btn.innerText = "📍 Enviar mi ubicación al dueño";
+            }
+        }
+
+        function compartirPerfil() {
+            if (navigator.share) {
+                navigator.share({
+                    title: `Identidad de ${nombreMascotaGlobal}`,
+                    text: `Mira el expediente digital de ${nombreMascotaGlobal} protegido por Etéreo Lab Studio.`,
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    const toast = document.getElementById("toast");
+                    toast.className = "show";
+                    setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+                });
+            }
         }
     </script>
 </body>
