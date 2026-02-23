@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Mascota | Etéreo Lab Studio</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --fondo: #011129;
+            --acento: #e6dfd1;
+            --texto: #f8f9fa;
+            --tarjeta: rgba(10, 22, 43, 0.7);
+            --borde: rgba(230, 223, 209, 0.2);
+            --alerta: rgba(43, 15, 30, 0.8);
+            --exito: #1DB954;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--fondo);
+            color: var(--texto);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at top, #0a1c3a 0%, var(--fondo) 70%);
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 480px; /* Tamaño ideal de celular */
+            padding: 20px;
+            box-sizing: border-box;
+            display: none; /* Se oculta hasta que carguen los datos */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-etereo {
+            width: 120px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .foto-perfil {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--acento);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .raza {
+            color: var(--acento);
+            font-size: 16px;
+            margin-top: 5px;
+            margin-bottom: 25px;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .botones-accion {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+
+        .btn:active { transform: scale(0.95); }
+
+        .btn-llamar {
+            background-color: var(--exito);
+            color: #000;
+        }
+
+        .btn-whatsapp {
+            background-color: transparent;
+            color: var(--acento);
+            border: 1.5px solid var(--acento);
+        }
+
+        .tarjeta {
+            background: var(--tarjeta);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--borde);
+            border-radius: 20px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .tarjeta-medica {
+            background: var(--alerta);
+            border-color: rgba(230, 223, 209, 0.3);
+        }
+
+        .tarjeta h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: var(--acento);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fila-dato {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .fila-dato:last-child { border-bottom: none; }
+        
+        .etiqueta { color: #8b9bb4; font-size: 14px; }
+        .valor { font-weight: bold; font-size: 14px; text-align: right; }
+
+        .estado-carga {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--acento);
+            font-size: 18px;
+        }
+
+        .error-msg {
+            text-align: center;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="pantalla-carga" class="estado-carga">
+        Buscando identidad...
+    </div>
+
+    <div id="perfil-mascota" class="contenedor">
+        <h3 style="color: var(--acento); margin-bottom: 25px; letter-spacing: 3px;">ETÉREO LAB</h3>
+
+        <img id="foto" class="foto-perfil" src="" alt="Foto de la mascota" onerror="this.src='https://via.placeholder.com/160/0a162b/e6dfd1?text=Sin+Foto'">
+        
+        <h1 id="nombre">Cargando...</h1>
+        <div id="raza" class="raza">Cargando...</div>
+
+        <div class="botones-accion">
+            <a id="btn-llamar" href="#" class="btn btn-llamar">📞 Llamar Dueño</a>
+            <a id="btn-wa" href="#" class="btn btn-whatsapp">💬 WhatsApp</a>
+        </div>
+
+        <div id="tarjeta-medica" class="tarjeta" style="display: none;">
+            <h3 style="color: #f4ebd9;">⚕️ Alertas Médicas</h3>
+            <p id="condiciones" style="margin: 0; font-size: 14px; line-height: 1.5; color: #f4ebd9;"></p>
+        </div>
+
+        <div class="tarjeta">
+            <h3>📋 Información General</h3>
+            <div class="fila-dato"><span class="etiqueta">Sexo</span><span id="sexo" class="valor">-</span></div>
+            <div class="fila-dato"><span class="etiqueta">Nacimiento</span><span id="nacimiento" class="valor">-</span></div>
+            <div class="fila-dato"><span class="etiqueta">Microchip</span><span id="microchip" class="valor">-</span></div>
+        </div>
+
+        <div class="tarjeta">
+            <h3>👤 Datos de Rescate</h3>
+            <div class="fila-dato"><span class="etiqueta">Propietario</span><span id="dueno" class="valor">-</span></div>
+            <div class="fila-dato"><span class="etiqueta">Tel. Principal</span><span id="tel1" class="valor">-</span></div>
+            <div class="fila-dato"><span class="etiqueta">Emergencia</span><span id="tel2" class="valor">-</span></div>
+            <div class="fila-dato"><span class="etiqueta">Zona</span><span id="direccion" class="valor">-</span></div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Obtener el ID de la barra de direcciones (Ej: ?id=ETR-123)
+        const parametros = new URLSearchParams(window.location.search);
+        const idMascota = parametros.get('id');
+
+        const pantallaCarga = document.getElementById('pantalla-carga');
+        const perfilMascota = document.getElementById('perfil-mascota');
+
+        if (!idMascota) {
+            pantallaCarga.innerHTML = '<div class="error-msg"><h2>⚠️ Placa no registrada</h2><p>Escanea un código QR válido.</p></div>';
+        } else {
+            // 2. Descargar la base de datos JSON
+            fetch('base_datos.json')
+                .then(respuesta => respuesta.json())
+                .then(datos => {
+                    if (datos[idMascota]) {
+                        const mascota = datos[idMascota];
+                        
+                        // 3. Inyectar los datos en el HTML
+                        document.title = `${mascota.nombre} | Etéreo Pet ID`;
+                        document.getElementById('nombre').innerText = mascota.nombre;
+                        document.getElementById('raza').innerText = mascota.especie_raza || 'Mascota';
+                        
+                        // Cargar foto si existe
+                        if(mascota.foto) {
+                            document.getElementById('foto').src = `fotos/${mascota.foto}`;
+                        }
+
+                        // Botones de acción
+                        const telLimpio = mascota.contacto_principal.telefono.replace(/[^0-9+]/g, '');
+                        document.getElementById('btn-llamar').href = `tel:${telLimpio}`;
+                        document.getElementById('btn-wa').href = `https://wa.me/${telLimpio.replace('+','')}?text=¡Hola!%20Encontré%20a%20${mascota.nombre}.`;
+
+                        // Tarjeta Médica Condicional
+                        if(mascota.condiciones_medicas) {
+                            document.getElementById('tarjeta-medica').style.display = 'block';
+                            document.getElementById('tarjeta-medica').classList.add('tarjeta-medica');
+                            document.getElementById('condiciones').innerText = mascota.condiciones_medicas;
+                        }
+
+                        // Llenar tablas
+                        document.getElementById('sexo').innerText = mascota.sexo || '-';
+                        document.getElementById('nacimiento').innerText = mascota.fecha_nacimiento || '-';
+                        document.getElementById('microchip').innerText = mascota.microchip || '-';
+                        
+                        document.getElementById('dueno').innerText = mascota.contacto_principal.nombre || '-';
+                        document.getElementById('tel1').innerText = mascota.contacto_principal.telefono || '-';
+                        document.getElementById('tel2').innerText = mascota.contacto_emergencia.telefono || '-';
+                        document.getElementById('direccion').innerText = mascota.direccion_opcional || '-';
+
+                        // Ocultar carga y mostrar perfil
+                        pantallaCarga.style.display = 'none';
+                        perfilMascota.style.display = 'flex';
+
+                    } else {
+                        pantallaCarga.innerHTML = '<div class="error-msg"><h2>🔍 Mascota no encontrada</h2><p>El ID no existe en la base de datos de Etéreo.</p></div>';
+                    }
+                })
+                .catch(error => {
+                    pantallaCarga.innerHTML = '<div class="error-msg"><h2>❌ Error de conexión</h2><p>No se pudo cargar la base de datos.</p></div>';
+                    console.error("Error cargando JSON:", error);
+                });
+        }
+    </script>
+</body>
+</html>
