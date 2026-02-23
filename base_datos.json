@@ -16,5 +16,23 @@
         },
         "direccion_opcional": "Guadalajara, Jalisco",
         "foto": "ETR-750C80.jpg"
+    },
+    "ETR-E92990": {
+        "nombre": "Talpita",
+        "apellidos": "Jimenez",
+        "especie_raza": "Mestiza (coydog)",
+        "sexo": "Hembra",
+        "fecha_nacimiento": "12/04/2025",
+        "condiciones_medicas": "",
+        "microchip": "",
+        "contacto_principal": {
+            "nombre": "Mafer Jimenez",
+            "telefono": "+528311072082"
+        },
+        "contacto_emergencia": {
+            "telefono": ""
+        },
+        "direccion_opcional": "Av. Federalistas #1500 col. La cima Zapopan, Jalisco",
+        "foto": "ETR-E92990.jpg"
     }
 }
