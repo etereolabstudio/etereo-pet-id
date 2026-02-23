@@ -1,1 +1,20 @@
-{}
+{
+    "ETR-750C80": {
+        "nombre": "Kitty",
+        "apellidos": "Navarro",
+        "especie_raza": "Pug",
+        "sexo": "Macho",
+        "fecha_nacimiento": "23/02/2001",
+        "condiciones_medicas": "",
+        "microchip": "31354583453463",
+        "contacto_principal": {
+            "nombre": "Andres Navarro",
+            "telefono": "+523322486655"
+        },
+        "contacto_emergencia": {
+            "telefono": ""
+        },
+        "direccion_opcional": "Guadalajara, Jalisco",
+        "foto": "ETR-750C80.jpg"
+    }
+}
