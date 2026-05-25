@@ -16,5 +16,15 @@
         },
         "direccion_opcional": "Av. Federalistas #1500 col. La cima Zapopan, Jalisco",
         "foto": "ETR-E92990.jpg"
+    },
+    "ETR-2": {
+        "nombre": "Luna",
+        "contacto_principal": {
+            "nombre": "",
+            "telefono": ""
+        },
+        "contacto_emergencia": {
+            "telefono": ""
+        }
     }
 }
