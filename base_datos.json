@@ -18,19 +18,19 @@
         "foto": "ETR-E92990.jpg"
     },
     "ETR-2": {
-        "nombre": "Luna",
-        "apellidos": "",
-        "especie_raza": "",
+        "nombre": "Pupas",
+        "apellidos": "Navarro",
+        "especie_raza": "Criollo",
         "microchip": "",
         "contacto_principal": {
-            "nombre": "",
-            "telefono": ""
+            "nombre": "Mariana Navarro",
+            "telefono": "3322486655"
         },
         "contacto_emergencia": {
-            "telefono": ""
+            "telefono": "3339507495"
         },
-        "direccion_opcional": "",
-        "sexo": "",
+        "direccion_opcional": "Dinar 668 Col. Lagos de Oriente",
+        "sexo": "Macho",
         "foto": ""
     }
 }
