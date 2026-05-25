@@ -4,8 +4,6 @@
         "apellidos": "Jimenez",
         "especie_raza": "Mestiza (coydog)",
         "sexo": "Hembra",
-        "fecha_nacimiento": "12/04/2025",
-        "condiciones_medicas": "",
         "microchip": "",
         "contacto_principal": {
             "nombre": "Mafer Jimenez",
@@ -15,6 +13,7 @@
             "telefono": ""
         },
         "direccion_opcional": "Av. Federalistas #1500 col. La cima Zapopan, Jalisco",
+        "condiciones_medicas": "",
         "foto": "ETR-E92990.jpg"
     },
     "ETR-2": {
