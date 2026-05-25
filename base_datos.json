@@ -19,12 +19,18 @@
     },
     "ETR-2": {
         "nombre": "Luna",
+        "apellidos": "",
+        "especie_raza": "",
+        "microchip": "",
         "contacto_principal": {
             "nombre": "",
             "telefono": ""
         },
         "contacto_emergencia": {
             "telefono": ""
-        }
+        },
+        "direccion_opcional": "",
+        "sexo": "",
+        "foto": ""
     }
 }
