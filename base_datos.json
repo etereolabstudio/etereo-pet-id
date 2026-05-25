@@ -21,6 +21,7 @@
         "nombre": "Pupas",
         "apellidos": "Navarro",
         "especie_raza": "Criollo",
+        "sexo": "Macho",
         "microchip": "",
         "contacto_principal": {
             "nombre": "Mariana Navarro",
@@ -30,7 +31,7 @@
             "telefono": "3339507495"
         },
         "direccion_opcional": "Dinar 668 Col. Lagos de Oriente",
-        "sexo": "Macho",
-        "foto": ""
+        "condiciones_medicas": "",
+        "foto": "ETR-2.jpg"
     }
 }
