@@ -3,39 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Identidad Digital | Etéreo Lab</title>
+    <title>Identidad Digital | Etéreo Lab Studio</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#010a18">
     <meta name="robots" content="noindex, nofollow">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* VARIABLES CSS (La magia del Dark/Light Mode) */
+        /* ── VARIABLES: Estética Minimalista y Alto Contraste ── */
         :root {
-            /* Modo Oscuro (Por defecto) */
             --bg-deep: #010a18;
             --bg-light: #0a162b;
             --accent: #e6dfd1;
             --text-main: #ffffff;
             --text-sub: #8b9bb4;
             --success: #1DB954;
-            --glass-bg: rgba(10, 22, 43, 0.45);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --orb-1: #102a52;
-            --orb-2: #1c3d6e;
+            --glass-bg: rgba(10, 22, 43, 0.5);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --skeleton-base: rgba(255,255,255,0.05);
+            --skeleton-shine: rgba(255,255,255,0.1);
         }
 
-        /* Variables para el Modo Claro */
         body.light-mode {
-            --bg-deep: #f4f1ea; /* Crema suave */
-            --bg-light: #e6dfd1; /* Acento original como fondo secundario */
-            --accent: #011129; /* Azul corporativo original como acento */
-            --text-main: #011129;
-            --text-sub: #4a5568;
-            --glass-bg: rgba(255, 255, 255, 0.6);
-            --glass-border: rgba(1, 17, 41, 0.1);
-            --shadow-color: rgba(1, 17, 41, 0.1);
-            --orb-1: #e2d8c3;
-            --orb-2: #d1c5ab;
+            --bg-deep: #f9f8f6; 
+            --bg-light: #ffffff;
+            --accent: #011129;
+            --text-main: #111827;
+            --text-sub: #6b7280;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(1, 17, 41, 0.08);
+            --shadow-color: rgba(1, 17, 41, 0.06);
+            --skeleton-base: rgba(0,0,0,0.05);
+            --skeleton-shine: rgba(0,0,0,0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -47,282 +50,300 @@
             display: flex; 
             justify-content: center; 
             overflow-x: hidden; 
-            position: relative;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
         
-        /* Animación de Fondo Continua */
-        .background-orbs { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -1; }
-        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 20s infinite ease-in-out alternate; transition: background 0.5s ease; }
-        .orb-1 { width: 300px; height: 300px; background: var(--orb-1); top: -50px; left: -100px; }
-        .orb-2 { width: 250px; height: 250px; background: var(--orb-2); bottom: -50px; right: -50px; animation-delay: -5s; }
-        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, 50px) scale(1.1); } }
+        /* ── FONDOS Y EFECTOS AMBIENTALES ── */
+        .background-orbs { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -1; pointer-events: none;}
+        .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.4; animation: float 25s infinite ease-in-out alternate; }
+        .orb-1 { width: 350px; height: 350px; background: var(--accent); top: -100px; left: -150px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--bg-light); bottom: -100px; right: -100px; animation-delay: -5s; }
+        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 60px) scale(1.1); } }
         
-        .container { width: 100%; max-width: 480px; padding: 30px 20px 50px 20px; display: none; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 460px; padding: 40px 24px 60px 24px; display: flex; flex-direction: column; align-items: center; position: relative;}
         
-        /* Sistema de Animaciones en Cascada (Restaurado y Mejorado) */
-        .fade-up { opacity: 0; transform: translateY(30px); }
-        .visible .fade-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        .delay-1 { animation-delay: 0.1s; } 
-        .delay-2 { animation-delay: 0.2s; } 
-        .delay-3 { animation-delay: 0.3s; } 
-        .delay-4 { animation-delay: 0.4s; }
-        
-        /* Cabecera y Controles */
-        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .brand { font-size: 13px; font-weight: 800; letter-spacing: 4px; color: var(--accent); opacity: 0.8; transition: color 0.3s; }
-        .controls { display: flex; gap: 10px; }
+        /* ── CABECERA ── */
+        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .brand { font-size: 12px; font-weight: 800; letter-spacing: 5px; color: var(--text-main); opacity: 0.9; }
+        .controls { display: flex; gap: 12px; }
         .icon-btn { 
-            background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--accent); 
-            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; 
-            cursor: pointer; backdrop-filter: blur(5px); transition: all 0.3s; 
+            background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-main); 
+            width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; 
+            cursor: pointer; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
         }
-        .icon-btn:active { transform: scale(0.9); }
+        .icon-btn:active { transform: scale(0.92); }
 
-        /* Efecto Radar NFC y Foto */
-        .profile-pic-container { position: relative; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; width: 180px; height: 180px;}
-        .radar-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--accent); opacity: 0; z-index: -2; animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
-        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.4); opacity: 0; } }
-        .profile-pic { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg-deep); background-color: var(--bg-light); z-index: 1; transition: border-color 0.5s; box-shadow: 0 10px 25px var(--shadow-color); }
+        /* ── FOTO DE PERFIL PREMIUM ── */
+        .profile-pic-container { position: relative; margin-bottom: 24px; display: flex; justify-content: center; align-items: center; width: 190px; height: 190px;}
+        .radar-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 1px solid var(--accent); opacity: 0; z-index: -2; animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+        @keyframes pulse-ring { 0% { transform: scale(0.85); opacity: 0.4; } 100% { transform: scale(1.5); opacity: 0; } }
+        .profile-pic { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg-deep); z-index: 1; box-shadow: 0 15px 35px var(--shadow-color); transition: all 0.4s ease; background-color: var(--glass-bg);}
         
-        h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.5px; text-align: center; margin-bottom: 5px; color: var(--text-main); transition: color 0.5s;}
-        .subtitle { font-size: 16px; color: var(--accent); font-weight: 400; margin-bottom: 30px; text-align: center; opacity: 0.9; transition: color 0.5s;}
+        /* ── TIPOGRAFÍA PRINCIPAL ── */
+        h1 { font-size: 36px; font-weight: 800; letter-spacing: -1px; text-align: center; margin-bottom: 6px; color: var(--text-main); }
+        .subtitle { font-size: 16px; color: var(--text-sub); font-weight: 400; margin-bottom: 35px; text-align: center; letter-spacing: 0.5px;}
         
-        /* Botones de Acción Interactivos */
-        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 15px; }
-        .btn { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 16px; border-radius: 16px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; }
-        .btn-primary { background-color: var(--success); color: #000; box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3); animation: pulse-green 2s infinite; }
-        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(29, 185, 84, 0); } 100% { box-shadow: 0 0 0 0 rgba(29, 185, 84, 0); } }
-        .btn-secondary { background-color: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(10px); }
+        /* ── BOTONES DE ACCIÓN ── */
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; margin-bottom: 16px; }
+        .btn { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 18px; border-radius: 20px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: none; cursor: pointer; }
+        .btn-primary { background-color: var(--success); color: #000; box-shadow: 0 8px 25px rgba(29, 185, 84, 0.25); }
+        .btn-secondary { background-color: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .btn-location { background: transparent; color: var(--text-main); border: 1px dashed var(--text-sub); width: 100%; margin-bottom: 35px; }
         
-        .btn-location { background: transparent; color: var(--text-main); border: 2px dashed var(--glass-border); width: 100%; margin-bottom: 30px; transition: all 0.3s; }
-        .btn-location:hover { border-color: var(--accent); background: rgba(230, 223, 209, 0.05); }
         .btn:active { transform: scale(0.96); }
+        .btn-primary:active { box-shadow: 0 4px 15px rgba(29, 185, 84, 0.15); }
         
-        /* Tarjetas con Efecto Hover Float */
-        .card { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 24px; width: 100%; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 30px var(--shadow-color); transition: transform 0.3s ease, background 0.5s ease, border-color 0.5s ease; }
-        .card:hover { transform: translateY(-3px); }
-        .card-alert { background: rgba(255, 75, 75, 0.1); border: 1px solid rgba(255, 75, 75, 0.3); }
-        .card h3 { font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; transition: color 0.5s; }
-        .data-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--glass-border); transition: border-color 0.5s; }
+        /* ── TARJETAS DE INFORMACIÓN (Apple Style) ── */
+        .card { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; width: 100%; padding: 28px; margin-bottom: 20px; box-shadow: 0 10px 40px var(--shadow-color); transition: transform 0.3s ease; }
+        .card-alert { background: rgba(255, 59, 48, 0.08); border: 1px solid rgba(255, 59, 48, 0.2); }
+        .card h3 { font-size: 12px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; font-weight: 600;}
+        .data-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--glass-border); }
         .data-row:last-child { border-bottom: none; padding-bottom: 0; }
-        .label { color: var(--text-sub); font-size: 14px; font-weight: 400; transition: color 0.5s;}
-        .value { color: var(--text-main); font-size: 15px; font-weight: 600; text-align: right; transition: color 0.5s;}
-        .link-maps { color: #4da6ff; text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: bold; }
-        body.light-mode .link-maps { color: #0056b3; } /* Enlace más oscuro para modo claro */
+        .label { color: var(--text-sub); font-size: 15px; font-weight: 400; }
+        .value { color: var(--text-main); font-size: 15px; font-weight: 500; text-align: right; }
         
-        /* Spinner Premium */
-        .loader-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .spinner { width: 40px; height: 40px; border: 3px solid var(--glass-border); border-top-color: var(--accent); border-radius: 50%; animation: spin-loader 1s linear infinite; }
-        @keyframes spin-loader { to { transform: rotate(360deg); } }
+        .link-action { color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+        body.light-mode .link-action { color: #0056b3; }
+        
+        /* ── ANIMACIONES DE ENTRADA ── */
+        .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .visible { opacity: 1; transform: translateY(0); }
+        
+        /* ── SKELETON LOADER (Carga Premium) ── */
+        .skeleton-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; position: absolute; top: 100px;}
+        .skeleton { background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 50%, var(--skeleton-base) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 12px; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .sk-avatar { width: 160px; height: 160px; border-radius: 50%; margin-bottom: 24px; }
+        .sk-title { width: 60%; height: 36px; margin-bottom: 12px; }
+        .sk-sub { width: 40%; height: 16px; margin-bottom: 35px; }
+        .sk-btn-row { display: flex; gap: 16px; width: 100%; margin-bottom: 35px; }
+        .sk-btn { height: 56px; border-radius: 20px; flex: 1; }
+        .sk-card { width: 100%; height: 150px; border-radius: 28px; }
 
-        /* Toast Notificación */
-        #toast { visibility: hidden; min-width: 200px; background-color: var(--success); color: #000; text-align: center; border-radius: 12px; padding: 16px; position: fixed; z-index: 100; left: 50%; bottom: 30px; font-weight: bold; font-size: 14px; transform: translateX(-50%); opacity: 0; transition: opacity 0.5s, bottom 0.5s; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
-        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+        /* ── TOAST NOTIFICACIÓN ── */
+        #toast { visibility: hidden; min-width: 250px; background-color: var(--text-main); color: var(--bg-deep); text-align: center; border-radius: 100px; padding: 16px 24px; position: fixed; z-index: 100; left: 50%; bottom: 40px; font-weight: 600; font-size: 14px; transform: translateX(-50%) translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
+        #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
     <div class="background-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
     
-    <div id="pantalla-carga" class="loader-container">
-        <div class="spinner"></div>
-        <div style="color: var(--text-sub); font-size: 14px; letter-spacing: 1px;">Sincronizando...</div>
+    <div id="skeleton-screen" class="container skeleton-wrapper">
+        <div class="skeleton sk-avatar"></div>
+        <div class="skeleton sk-title"></div>
+        <div class="skeleton sk-sub"></div>
+        <div class="sk-btn-row">
+            <div class="skeleton sk-btn"></div>
+            <div class="skeleton sk-btn"></div>
+        </div>
+        <div class="skeleton sk-card"></div>
     </div>
 
-    <div id="perfil-mascota" class="container">
+    <div id="perfil-mascota" class="container" style="opacity: 0; pointer-events: none;">
         
-        <div class="top-bar fade-up">
+        <div class="top-bar fade-up" style="transition-delay: 0.1s;">
             <div class="brand">ETÉREO LAB</div>
             <div class="controls">
                 <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar Tema">
-                    <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
                 <button class="icon-btn" onclick="compartirPerfil()" aria-label="Compartir Perfil">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                 </button>
             </div>
         </div>
 
-        <div class="profile-pic-container fade-up delay-1">
+        <div class="profile-pic-container fade-up" style="transition-delay: 0.2s;">
             <div class="radar-pulse"></div>
             <img id="foto" class="profile-pic" src="">
         </div>
         
-        <h1 id="nombre" class="fade-up delay-1">...</h1>
-        <div id="raza" class="subtitle fade-up delay-1">...</div>
+        <h1 id="nombre" class="fade-up" style="transition-delay: 0.3s;">...</h1>
+        <div id="raza" class="subtitle fade-up" style="transition-delay: 0.3s;">...</div>
 
-        <div class="action-grid fade-up delay-2">
-            <a id="btn-llamar" href="#" class="btn btn-primary">📞 Llamar Dueño</a>
-            <a id="btn-wa" href="#" class="btn btn-secondary">💬 WhatsApp</a>
+        <div class="action-grid fade-up" style="transition-delay: 0.4s;">
+            <a id="btn-llamar" href="#" class="btn btn-primary">Llamar dueño</a>
+            <a id="btn-wa" href="#" class="btn btn-secondary">WhatsApp</a>
         </div>
         
-        <button id="btn-gps" class="btn btn-location fade-up delay-2" onclick="enviarUbicacion()">📍 Enviar mi ubicación al dueño</button>
+        <button id="btn-gps" class="btn btn-location fade-up" style="transition-delay: 0.4s;" onclick="enviarUbicacion()">Compartir mi ubicación GPS</button>
 
-        <div id="tarjeta-medica" class="card card-alert fade-up delay-3" style="display: none;">
-            <h3 style="color: #ff4b4b;">⚕️ Alertas Médicas</h3>
-            <p id="condiciones" style="color: var(--text-main); font-size: 15px; line-height: 1.6; font-weight: bold;"></p>
+        <div id="tarjeta-medica" class="card card-alert fade-up" style="transition-delay: 0.5s; display: none;">
+            <h3 style="color: #ff3b30;">Alertas Médicas</h3>
+            <p id="condiciones" style="color: var(--text-main); font-size: 15px; line-height: 1.6; font-weight: 500;"></p>
         </div>
 
-        <div class="card fade-up delay-3">
-            <h3>📋 Biometría</h3>
+        <div class="card fade-up" style="transition-delay: 0.6s;">
+            <h3>Biometría</h3>
             <div class="data-row"><span class="label">Sexo</span><span id="sexo" class="value">-</span></div>
             <div class="data-row"><span class="label">Nacimiento</span><span id="nacimiento" class="value">-</span></div>
             <div class="data-row"><span class="label">Microchip</span><span id="microchip" class="value">-</span></div>
         </div>
 
-        <div id="tarjeta-vet" class="card fade-up delay-3" style="display: none;">
-            <h3>🏥 Veterinaria</h3>
-            <div class="data-row"><span class="label">Doctor/Clínica</span><span id="vet-nombre" class="value">-</span></div>
+        <div id="tarjeta-vet" class="card fade-up" style="transition-delay: 0.7s; display: none;">
+            <h3>Veterinaria</h3>
+            <div class="data-row"><span class="label">Clínica</span><span id="vet-nombre" class="value">-</span></div>
             <div class="data-row"><span class="label">Teléfono</span><span id="vet-tel" class="value">-</span></div>
         </div>
 
-        <div class="card fade-up delay-4">
-            <h3>🛡️ Red de Rescate</h3>
+        <div class="card fade-up" style="transition-delay: 0.8s;">
+            <h3>Red de Rescate</h3>
             <div class="data-row"><span class="label">Propietario</span><span id="dueno" class="value">-</span></div>
             <div class="data-row"><span class="label">Tel. Principal</span><span id="tel1" class="value">-</span></div>
             <div class="data-row"><span class="label">Emergencia</span><span id="tel2" class="value">-</span></div>
-            <div class="data-row"><span class="label">Zona</span><span id="direccion" class="value">-</span></div>
+            <div class="data-row"><span class="label">Ubicación</span><span id="direccion" class="value">-</span></div>
         </div>
         
-        <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;" class="fade-up delay-4">
-            <span style="font-size: 11px; color: var(--text-sub); opacity: 0.5;">POWERED BY ETÉREO LAB STUDIO</span>
+        <div class="fade-up" style="transition-delay: 0.9s; text-align: center; margin-top: 10px; margin-bottom: 20px;">
+            <span style="font-size: 10px; color: var(--text-sub); opacity: 0.5; letter-spacing: 2px;">POWERED BY ETÉREO LAB STUDIO</span>
         </div>
     </div>
 
-    <div id="toast">Enlace copiado al portapapeles</div>
+    <div id="toast">Enlace copiado correctamente</div>
 
     <script>
-        // --- SISTEMA DE TEMA CLARO/OSCURO ---
+        // ── GESTIÓN DE TEMAS ──
         function toggleTheme() {
             const body = document.body;
             const isLight = body.classList.toggle('light-mode');
             const icon = document.getElementById('theme-icon');
             
             if (isLight) {
-                // Icono de Luna
                 icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f9f8f6');
                 localStorage.setItem('theme', 'light');
             } else {
-                // Icono de Sol
                 icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#010a18');
                 localStorage.setItem('theme', 'dark');
             }
         }
 
-        // Cargar preferencia guardada del usuario
         if (localStorage.getItem('theme') === 'light') {
             document.body.classList.add('light-mode');
             document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f9f8f6');
         }
 
+        // ── LÓGICA DE DATOS Y ARQUITECTURA FRAGMENTADA ──
         const parametros = new URLSearchParams(window.location.search);
         let idMascota = parametros.get('id');
         
-        // --- NUEVA LÓGICA PARA URLs LIMPIAS ---
-        // Si no hay ?id= en la URL, extraemos el ID directamente de la ruta (ej. /E92990)
+        // Extracción de ID para URLs limpias (ej. p.etereomx.com/A1B2C3)
         if (!idMascota) {
-            const ruta = window.location.pathname.replace(/^\/|\/$/g, ''); // Quita diagonales
+            const ruta = window.location.pathname.replace(/^\/|\/$/g, '');
             if (ruta && ruta !== 'index.html') {
                 idMascota = ruta;
             }
         }
-        
+
         let telefonoDueñoGlobal = '';
         let nombreMascotaGlobal = '';
 
+        function mostrarError(mensaje) {
+            document.getElementById('skeleton-screen').style.display = 'none';
+            const contenedor = document.getElementById('perfil-mascota');
+            contenedor.innerHTML = `<div style="text-align:center; padding-top: 40px;"><h2 style="color:var(--text-main); font-size: 24px; margin-bottom: 10px;">Oops</h2><p style="color:var(--text-sub);">${mensaje}</p></div>`;
+            contenedor.style.opacity = '1';
+            contenedor.style.pointerEvents = 'auto';
+        }
+
         if (!idMascota) {
-            document.getElementById('pantalla-carga').innerHTML = '<div style="text-align:center; color:var(--text-sub);"><h2>⚠️ Placa Inactiva</h2><p>Escanea un código oficial de Etéreo.</p></div>';
+            mostrarError('Por favor escanea un código QR oficial de Etéreo Lab.');
         } else {
-            fetch('base_datos.json?nocache=' + new Date().getTime())
-                .then(r => r.json())
-                .then(datos => {
-                    if (datos[idMascota]) {
-                        const m = datos[idMascota];
-                        nombreMascotaGlobal = m.nombre;
+            // Petición al archivo JSON fragmentado
+            fetch(`datos/${idMascota}.json?nocache=${new Date().getTime()}`)
+                .then(r => {
+                    if (!r.ok) throw new Error('ID_NO_ENCONTRADO');
+                    return r.json();
+                })
+                .then(m => {
+                    nombreMascotaGlobal = m.nombre;
                         
-                        document.title = `${m.nombre} | Etéreo ID`;
-                        document.getElementById('nombre').innerText = m.nombre;
-                        document.getElementById('raza').innerText = m.apellidos ? `${m.apellidos} • ${m.especie_raza || 'Mascota'}` : (m.especie_raza || 'Mascota');
-                        if(m.foto) document.getElementById('foto').src = `fotos/${m.foto}?v=${new Date().getTime()}`;
-
-                        telefonoDueñoGlobal = m.contacto_principal.telefono.replace(/[^0-9+]/g, '');
-                        document.getElementById('btn-llamar').href = `tel:${telefonoDueñoGlobal}`;
-                        document.getElementById('btn-wa').href = `https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=¡Hola!%20Escaneé%20la%20placa%20de%20${m.nombre}%20y%20lo%20tengo%20conmigo.`;
-
-                        if(m.condiciones_medicas) {
-                            document.getElementById('tarjeta-medica').style.display = 'block';
-                            document.getElementById('condiciones').innerText = m.condiciones_medicas;
-                        }
-
-                        if(m.veterinario && (m.veterinario.nombre || m.veterinario.telefono)) {
-                            document.getElementById('tarjeta-vet').style.display = 'block';
-                            document.getElementById('vet-nombre').innerText = m.veterinario.nombre || '-';
-                            if(m.veterinario.telefono) {
-                                document.getElementById('vet-tel').innerHTML = `<a href="tel:${m.veterinario.telefono.replace(/[^0-9+]/g, '')}" class="link-maps">📞 Llamar Clínica</a>`;
-                            }
-                        }
-
-                        document.getElementById('sexo').innerText = m.sexo || '-';
-                        document.getElementById('nacimiento').innerText = m.fecha_nacimiento || '-';
-                        document.getElementById('microchip').innerText = m.microchip || '-';
-                        document.getElementById('dueno').innerText = m.contacto_principal.nombre || '-';
-                        document.getElementById('tel1').innerText = m.contacto_principal.telefono || '-';
-                        document.getElementById('tel2').innerText = m.contacto_emergencia.telefono || '-';
-                        
-                        // EL FIX DEFINITIVO DE GOOGLE MAPS PARA LA DIRECCIÓN
-                        if(m.direccion_opcional) {
-                            const dirCodificada = encodeURIComponent(m.direccion_opcional);
-                            const linkGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${dirCodificada}`;
-                            document.getElementById('direccion').innerHTML = `<a href="${linkGoogleMaps}" target="_blank" class="link-maps">🗺️ Ver Mapa</a>`;
-                        }
-
-                        // Desaparecer carga y disparar animaciones
-                        setTimeout(() => {
-                            document.getElementById('pantalla-carga').style.display = 'none';
-                            const perfil = document.getElementById('perfil-mascota');
-                            perfil.style.display = 'flex';
-                            // El pequeño delay permite que el navegador registre el 'display: flex' antes de agregar la clase que dispara las animaciones CSS
-                            setTimeout(() => perfil.classList.add('visible'), 50);
-                        }, 500);
-                    } else {
-                        document.getElementById('pantalla-carga').innerHTML = '<div style="text-align:center; color:var(--text-sub);"><h2>🔍 ID No Encontrado</h2><p>El perfil no existe.</p></div>';
+                    document.title = `${m.nombre} | Etéreo Lab Studio`;
+                    document.getElementById('nombre').innerText = m.nombre;
+                    document.getElementById('raza').innerText = m.apellidos ? `${m.apellidos} • ${m.especie_raza || 'Mascota'}` : (m.especie_raza || 'Mascota');
+                    
+                    if(m.foto) {
+                        const imgEl = document.getElementById('foto');
+                        imgEl.src = `fotos/${m.foto}?v=${new Date().getTime()}`;
                     }
+
+                    telefonoDueñoGlobal = m.contacto_principal.telefono.replace(/[^0-9+]/g, '');
+                    document.getElementById('btn-llamar').href = `tel:${telefonoDueñoGlobal}`;
+                    document.getElementById('btn-wa').href = `https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=¡Hola!%20Escaneé%20la%20placa%20de%20${m.nombre}%20y%20lo%20tengo%20conmigo.`;
+
+                    if(m.condiciones_medicas) {
+                        document.getElementById('tarjeta-medica').style.display = 'block';
+                        document.getElementById('condiciones').innerText = m.condiciones_medicas;
+                    }
+
+                    if(m.veterinario && (m.veterinario.nombre || m.veterinario.telefono)) {
+                        document.getElementById('tarjeta-vet').style.display = 'block';
+                        document.getElementById('vet-nombre').innerText = m.veterinario.nombre || '-';
+                        if(m.veterinario.telefono) {
+                            document.getElementById('vet-tel').innerHTML = `<a href="tel:${m.veterinario.telefono.replace(/[^0-9+]/g, '')}" class="link-action">Llamar clínica</a>`;
+                        }
+                    }
+
+                    document.getElementById('sexo').innerText = m.sexo || '-';
+                    document.getElementById('nacimiento').innerText = m.fecha_nacimiento || '-';
+                    document.getElementById('microchip').innerText = m.microchip || '-';
+                    document.getElementById('dueno').innerText = m.contacto_principal.nombre || '-';
+                    document.getElementById('tel1').innerText = m.contacto_principal.telefono || '-';
+                    document.getElementById('tel2').innerText = m.contacto_emergencia.telefono || '-';
+                        
+                    if(m.direccion_opcional) {
+                        const dirCodificada = encodeURIComponent(m.direccion_opcional);
+                        const linkGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${dirCodificada}`;
+                        document.getElementById('direccion').innerHTML = `<a href="${linkGoogleMaps}" target="_blank" class="link-action">Abrir mapa</a>`;
+                    }
+
+                    // Transición suave: Ocultar skeleton y mostrar contenido real
+                    setTimeout(() => {
+                        document.getElementById('skeleton-screen').style.display = 'none';
+                        const perfil = document.getElementById('perfil-mascota');
+                        perfil.style.opacity = '1';
+                        perfil.style.pointerEvents = 'auto';
+                        
+                        // Disparar animaciones en cascada
+                        const elementos = perfil.querySelectorAll('.fade-up');
+                        elementos.forEach(el => el.classList.add('visible'));
+                    }, 400); // Pequeño delay para asegurar carga de la imagen
                 })
                 .catch(e => {
-                    document.getElementById('pantalla-carga').innerHTML = '<div style="text-align:center; color:var(--text-sub);"><h2>❌ Error de Red</h2></div>';
+                    mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'El perfil no existe o ha sido desactivado.' : 'Error de conexión. Intenta de nuevo.');
                 });
         }
 
-        // EL FIX DEFINITIVO DE GOOGLE MAPS PARA EL GPS DEL RESCATISTA
+        // ── UTILIDADES DE HARDWARE (GPS y Compartir) ──
         function enviarUbicacion() {
             const btn = document.getElementById('btn-gps');
-            const textoOriginal = btn.innerHTML;
-            btn.innerText = "⏳ Obteniendo GPS...";
+            const textoOriginal = btn.innerText;
+            btn.innerText = "Obteniendo coordenadas...";
             
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (posicion) => {
                         const lat = posicion.coords.latitude;
                         const lon = posicion.coords.longitude;
-                        // API Oficial de Google Maps para coordenadas
                         const linkMaps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
                         const mensaje = `¡URGENTE! Tengo a ${nombreMascotaGlobal}. Estoy exactamente aquí: ${linkMaps}`;
                         
-                        btn.innerHTML = textoOriginal;
+                        btn.innerText = textoOriginal;
                         window.open(`https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=${encodeURIComponent(mensaje)}`, '_blank');
                     },
                     (error) => { 
                         alert("Por favor, permite el acceso a tu ubicación en tu celular para enviar esta alerta."); 
-                        btn.innerHTML = textoOriginal; 
+                        btn.innerText = textoOriginal; 
                     },
                     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
                 );
             } else {
                 alert("Tu navegador no soporta geolocalización.");
-                btn.innerHTML = textoOriginal;
+                btn.innerText = textoOriginal;
             }
         }
 
