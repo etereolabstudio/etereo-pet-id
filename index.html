@@ -219,7 +219,17 @@
         }
 
         const parametros = new URLSearchParams(window.location.search);
-        const idMascota = parametros.get('id');
+        let idMascota = parametros.get('id');
+        
+        // --- NUEVA LÓGICA PARA URLs LIMPIAS ---
+        // Si no hay ?id= en la URL, extraemos el ID directamente de la ruta (ej. /E92990)
+        if (!idMascota) {
+            const ruta = window.location.pathname.replace(/^\/|\/$/g, ''); // Quita diagonales
+            if (ruta && ruta !== 'index.html') {
+                idMascota = ruta;
+            }
+        }
+        
         let telefonoDueñoGlobal = '';
         let nombreMascotaGlobal = '';
 
