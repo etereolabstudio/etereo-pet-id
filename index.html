@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,152 +7,169 @@
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#010a18">
+    <meta name="theme-color" content="#050505">
     <meta name="robots" content="noindex, nofollow">
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        /* ── VARIABLES: Estética Minimalista y Alto Contraste ── */
+        /* =========================================
+           1. MOTOR DE COLOR Y TEXTURA (Sync con Landing)
+           ========================================= */
         :root {
-            --bg-deep: #010a18;
-            --bg-light: #0a162b;
-            --accent: #e6dfd1;
-            --text-main: #ffffff;
-            --text-sub: #8b9bb4;
+            --bg-color: #050505; 
+            --text-color: #A3A3A3; 
+            --title-color: #FFFFFF;
+            --accent-color: rgba(255, 255, 255, 0.08); 
+            --nav-bg: rgba(5, 5, 5, 0.75);
+            --card-border: rgba(255, 255, 255, 0.1); 
+            --card-bg: rgba(0, 0, 0, 0.4);
+            --noise-opacity: 0.15; 
+            --pulse-color: rgba(255, 255, 255, 0.15);
             --success: #1DB954;
-            --glass-bg: rgba(10, 22, 43, 0.5);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --shadow-color: rgba(0, 0, 0, 0.4);
-            --skeleton-base: rgba(255,255,255,0.05);
-            --skeleton-shine: rgba(255,255,255,0.1);
+            --alert-bg: rgba(255, 59, 48, 0.08);
+            --alert-border: rgba(255, 59, 48, 0.2);
+            --alert-text: #ff4b4b;
         }
 
-        body.light-mode {
-            --bg-deep: #f9f8f6; 
-            --bg-light: #ffffff;
-            --accent: #011129;
-            --text-main: #111827;
-            --text-sub: #6b7280;
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(1, 17, 41, 0.08);
-            --shadow-color: rgba(1, 17, 41, 0.06);
-            --skeleton-base: rgba(0,0,0,0.05);
-            --skeleton-shine: rgba(0,0,0,0.1);
+        [data-theme="light"] {
+            --bg-color: #F8F6F0; 
+            --text-color: #4A4A4A; 
+            --title-color: #121212;
+            --accent-color: rgba(0, 0, 0, 0.06); 
+            --nav-bg: rgba(248, 246, 240, 0.75);
+            --card-border: rgba(0, 0, 0, 0.1); 
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --noise-opacity: 0.06; 
+            --pulse-color: rgba(0, 0, 0, 0.1);
+            --success: #148f3f;
+            --alert-bg: rgba(255, 59, 48, 0.05);
+            --alert-border: rgba(255, 59, 48, 0.15);
+            --alert-text: #d93025;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body { 
-            background-color: var(--bg-deep); 
-            color: var(--text-main); 
-            min-height: 100vh; 
-            display: flex; 
-            justify-content: center; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            font-family: 'Lato', sans-serif; 
+            font-weight: 300; 
+            line-height: 1.6; 
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
             overflow-x: hidden; 
-            transition: background-color 0.4s ease, color 0.4s ease;
+            position: relative; 
+            transition: background-color 0.7s ease, color 0.7s ease;
         }
-        
-        /* ── FONDOS Y EFECTOS AMBIENTALES ── */
-        .background-orbs { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: -1; pointer-events: none;}
-        .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.4; animation: float 25s infinite ease-in-out alternate; }
-        .orb-1 { width: 350px; height: 350px; background: var(--accent); top: -100px; left: -150px; }
-        .orb-2 { width: 300px; height: 300px; background: var(--bg-light); bottom: -100px; right: -100px; animation-delay: -5s; }
-        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 60px) scale(1.1); } }
-        
-        .container { width: 100%; max-width: 460px; padding: 40px 24px 60px 24px; display: flex; flex-direction: column; align-items: center; position: relative;}
-        
-        /* ── CABECERA ── */
-        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-        .brand { font-size: 12px; font-weight: 800; letter-spacing: 5px; color: var(--text-main); opacity: 0.9; }
-        .controls { display: flex; gap: 12px; }
-        .icon-btn { 
-            background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-main); 
-            width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; 
-            cursor: pointer; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .icon-btn:active { transform: scale(0.92); }
 
-        /* ── FOTO DE PERFIL PREMIUM ── */
-        .profile-pic-container { position: relative; margin-bottom: 24px; display: flex; justify-content: center; align-items: center; width: 190px; height: 190px;}
-        .radar-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 1px solid var(--accent); opacity: 0; z-index: -2; animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
-        @keyframes pulse-ring { 0% { transform: scale(0.85); opacity: 0.4; } 100% { transform: scale(1.5); opacity: 0; } }
-        .profile-pic { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg-deep); z-index: 1; box-shadow: 0 15px 35px var(--shadow-color); transition: all 0.4s ease; background-color: var(--glass-bg);}
+        /* Textura de Ruido (Apple/Premium Feel) */
+        body::after {
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; opacity: var(--noise-opacity); transition: opacity 0.7s ease;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        .container { width: 100%; max-width: 480px; padding: 30px 24px 80px 24px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;}
+
+        /* =========================================
+           2. PANTALLA CINEMÁTICA Y CABECERA
+           ========================================= */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--bg-color); z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s, visibility 0.8s; }
+        .preloader-text { font-size: 1.2rem; color: var(--title-color); letter-spacing: 3px; font-style: italic; animation: pulse-glow 2s infinite; text-align: center; font-family: 'Playfair Display', serif; }
+        @keyframes pulse-glow { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        .preloader-hidden { opacity: 0 !important; visibility: hidden !important; }
+
+        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .brand { font-size: 11px; font-weight: 700; letter-spacing: 5px; color: var(--title-color); font-family: 'Lato', sans-serif; text-transform: uppercase;}
         
-        /* ── TIPOGRAFÍA PRINCIPAL ── */
-        h1 { font-size: 36px; font-weight: 800; letter-spacing: -1px; text-align: center; margin-bottom: 6px; color: var(--text-main); }
-        .subtitle { font-size: 16px; color: var(--text-sub); font-weight: 400; margin-bottom: 35px; text-align: center; letter-spacing: 0.5px;}
+        .theme-btn { 
+            background: transparent; color: var(--title-color); border: 1px solid var(--card-border); 
+            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; 
+            cursor: pointer; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s; 
+        }
+        .theme-btn:active { transform: scale(0.9); }
+
+        /* =========================================
+           3. IDENTIDAD VISUAL (Foto y Tipografía)
+           ========================================= */
+        .profile-pic-container { position: relative; margin-bottom: 25px; display: flex; justify-content: center; align-items: center; width: 180px; height: 180px;}
+        .radar-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 1px solid var(--title-color); opacity: 0; z-index: -2; animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+        @keyframes pulse-ring { 0% { transform: scale(0.85); opacity: 0.3; } 100% { transform: scale(1.4); opacity: 0; } }
         
-        /* ── BOTONES DE ACCIÓN ── */
-        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; margin-bottom: 16px; }
-        .btn { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 18px; border-radius: 20px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: none; cursor: pointer; }
-        .btn-primary { background-color: var(--success); color: #000; box-shadow: 0 8px 25px rgba(29, 185, 84, 0.25); }
-        .btn-secondary { background-color: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-        .btn-location { background: transparent; color: var(--text-main); border: 1px dashed var(--text-sub); width: 100%; margin-bottom: 35px; }
+        .profile-pic { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1; transition: all 0.7s ease; background-color: var(--bg-color); padding: 4px;}
         
-        .btn:active { transform: scale(0.96); }
-        .btn-primary:active { box-shadow: 0 4px 15px rgba(29, 185, 84, 0.15); }
+        h1 { font-size: 2.8rem; font-family: 'Playfair Display', serif; font-weight: 400; text-align: center; margin-bottom: 4px; color: var(--title-color); }
+        .subtitle { font-size: 1rem; color: var(--text-color); font-weight: 300; margin-bottom: 35px; text-align: center; letter-spacing: 1px; font-style: italic; font-family: 'Playfair Display', serif;}
+
+        /* =========================================
+           4. BOTONERA DE ACCIÓN
+           ========================================= */
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-bottom: 12px; }
+        .btn { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.3s; border: 1px solid transparent; cursor: pointer; font-family: 'Lato', sans-serif;}
         
-        /* ── TARJETAS DE INFORMACIÓN (Apple Style) ── */
-        .card { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 28px; width: 100%; padding: 28px; margin-bottom: 20px; box-shadow: 0 10px 40px var(--shadow-color); transition: transform 0.3s ease; }
-        .card-alert { background: rgba(255, 59, 48, 0.08); border: 1px solid rgba(255, 59, 48, 0.2); }
-        .card h3 { font-size: 12px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; font-weight: 600;}
-        .data-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--glass-border); }
+        .btn-primary { background-color: var(--title-color); color: var(--bg-color); }
+        .btn-secondary { background-color: transparent; color: var(--title-color); border-color: var(--card-border); }
+        .btn-location { background: transparent; color: var(--text-color); border: 1px dashed var(--card-border); width: 100%; margin-bottom: 40px; font-weight: 400;}
+        
+        .btn:active { transform: scale(0.97); }
+
+        /* =========================================
+           5. TARJETAS CON EFECTO LINTERNA (Spotlight)
+           ========================================= */
+        .card { 
+            background: var(--card-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            border: 1px solid var(--card-border); border-radius: 8px; width: 100%; padding: 30px 25px; 
+            margin-bottom: 15px; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.7s; 
+        }
+        
+        /* Efecto Spotlight Hover */
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; pointer-events: none;
+            background: radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--pulse-color), transparent 40%);
+            opacity: 0; transition: opacity 0.5s;
+        }
+        .card:hover::before { opacity: 1; }
+        .card > * { position: relative; z-index: 1; }
+
+        .card-alert { background: var(--alert-bg); border-color: var(--alert-border); }
+        
+        .card h3 { font-size: 0.8rem; color: var(--title-color); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; font-family: 'Lato', sans-serif; font-weight: 700;}
+        .card-alert h3 { color: var(--alert-text); }
+        
+        .data-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--accent-color); }
         .data-row:last-child { border-bottom: none; padding-bottom: 0; }
-        .label { color: var(--text-sub); font-size: 15px; font-weight: 400; }
-        .value { color: var(--text-main); font-size: 15px; font-weight: 500; text-align: right; }
+        .label { color: var(--text-color); font-size: 0.95rem; font-weight: 300; }
+        .value { color: var(--title-color); font-size: 0.95rem; font-weight: 400; text-align: right; }
         
-        .link-action { color: var(--accent); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
-        body.light-mode .link-action { color: #0056b3; }
-        
-        /* ── ANIMACIONES DE ENTRADA ── */
+        .link-action { color: var(--title-color); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--title-color); padding-bottom: 2px;}
+
+        /* Animaciones en Cascada */
         .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .visible { opacity: 1; transform: translateY(0); }
-        
-        /* ── SKELETON LOADER (Carga Premium) ── */
-        .skeleton-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; position: absolute; top: 100px;}
-        .skeleton { background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 50%, var(--skeleton-base) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 12px; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .sk-avatar { width: 160px; height: 160px; border-radius: 50%; margin-bottom: 24px; }
-        .sk-title { width: 60%; height: 36px; margin-bottom: 12px; }
-        .sk-sub { width: 40%; height: 16px; margin-bottom: 35px; }
-        .sk-btn-row { display: flex; gap: 16px; width: 100%; margin-bottom: 35px; }
-        .sk-btn { height: 56px; border-radius: 20px; flex: 1; }
-        .sk-card { width: 100%; height: 150px; border-radius: 28px; }
 
-        /* ── TOAST NOTIFICACIÓN ── */
-        #toast { visibility: hidden; min-width: 250px; background-color: var(--text-main); color: var(--bg-deep); text-align: center; border-radius: 100px; padding: 16px 24px; position: fixed; z-index: 100; left: 50%; bottom: 40px; font-weight: 600; font-size: 14px; transform: translateX(-50%) translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
-        #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+        /* Footer */
+        .footer-brand { text-align: center; margin-top: 30px; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--text-color); font-style: italic; opacity: 0.6; }
     </style>
 </head>
 <body>
-    <div class="background-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
     
-    <div id="skeleton-screen" class="container skeleton-wrapper">
-        <div class="skeleton sk-avatar"></div>
-        <div class="skeleton sk-title"></div>
-        <div class="skeleton sk-sub"></div>
-        <div class="sk-btn-row">
-            <div class="skeleton sk-btn"></div>
-            <div class="skeleton sk-btn"></div>
-        </div>
-        <div class="skeleton sk-card"></div>
+    <div id="preloader">
+        <i data-lucide="scan-line" size="32" color="var(--title-color)" style="margin-bottom: 20px; opacity: 0.8;"></i>
+        <div class="preloader-text">Desencriptando memoria...</div>
     </div>
 
     <div id="perfil-mascota" class="container" style="opacity: 0; pointer-events: none;">
         
         <div class="top-bar fade-up" style="transition-delay: 0.1s;">
-            <div class="brand">ETÉREO LAB</div>
-            <div class="controls">
-                <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar Tema">
-                    <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-                <button class="icon-btn" onclick="compartirPerfil()" aria-label="Compartir Perfil">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                </button>
-            </div>
+            <div class="brand">Etéreo Lab Studio</div>
+            <button class="theme-btn" id="theme-btn" aria-label="Cambiar Tema">
+                <i data-lucide="sun" size="18"></i>
+            </button>
         </div>
 
         <div class="profile-pic-container fade-up" style="transition-delay: 0.2s;">
@@ -164,103 +181,118 @@
         <div id="raza" class="subtitle fade-up" style="transition-delay: 0.3s;">...</div>
 
         <div class="action-grid fade-up" style="transition-delay: 0.4s;">
-            <a id="btn-llamar" href="#" class="btn btn-primary">Llamar dueño</a>
-            <a id="btn-wa" href="#" class="btn btn-secondary">WhatsApp</a>
+            <a id="btn-llamar" href="#" class="btn btn-primary"><i data-lucide="phone" size="16"></i> Llamar</a>
+            <a id="btn-wa" href="#" class="btn btn-secondary"><i data-lucide="message-circle" size="16"></i> WhatsApp</a>
         </div>
         
-        <button id="btn-gps" class="btn btn-location fade-up" style="transition-delay: 0.4s;" onclick="enviarUbicacion()">Compartir mi ubicación GPS</button>
+        <button id="btn-gps" class="btn btn-location fade-up" style="transition-delay: 0.4s;" onclick="enviarUbicacion()">
+            <i data-lucide="map-pin" size="16"></i> Compartir ubicación GPS
+        </button>
 
         <div id="tarjeta-medica" class="card card-alert fade-up" style="transition-delay: 0.5s; display: none;">
-            <h3 style="color: #ff3b30;">Alertas Médicas</h3>
-            <p id="condiciones" style="color: var(--text-main); font-size: 15px; line-height: 1.6; font-weight: 500;"></p>
+            <h3><i data-lucide="alert-triangle" size="16"></i> Alertas Médicas</h3>
+            <p id="condiciones" style="color: var(--title-color); font-size: 0.95rem; line-height: 1.6; font-weight: 400;"></p>
         </div>
 
         <div class="card fade-up" style="transition-delay: 0.6s;">
-            <h3>Biometría</h3>
+            <h3><i data-lucide="fingerprint" size="16"></i> Biometría</h3>
             <div class="data-row"><span class="label">Sexo</span><span id="sexo" class="value">-</span></div>
             <div class="data-row"><span class="label">Nacimiento</span><span id="nacimiento" class="value">-</span></div>
             <div class="data-row"><span class="label">Microchip</span><span id="microchip" class="value">-</span></div>
         </div>
 
         <div id="tarjeta-cartilla" class="card fade-up" style="transition-delay: 0.65s; display: none;">
-            <h3>Vacunación y Salud</h3>
+            <h3><i data-lucide="activity" size="16"></i> Registro Médico</h3>
             <div class="data-row"><span class="label">Rabia</span><span id="vac-rabia" class="value">-</span></div>
             <div class="data-row"><span class="label">Múltiple</span><span id="vac-multiple" class="value">-</span></div>
             <div class="data-row"><span class="label">Desparasitación</span><span id="vac-desp" class="value">-</span></div>
         </div>
 
         <div id="tarjeta-vet" class="card fade-up" style="transition-delay: 0.7s; display: none;">
-            <h3>Veterinaria</h3>
+            <h3><i data-lucide="stethoscope" size="16"></i> Veterinaria</h3>
             <div class="data-row"><span class="label">Clínica</span><span id="vet-nombre" class="value">-</span></div>
-            <div class="data-row"><span class="label">Teléfono</span><span id="vet-tel" class="value">-</span></div>
+            <div class="data-row" style="margin-top: 5px;"><span class="label">Contacto</span><span id="vet-tel" class="value">-</span></div>
         </div>
 
         <div class="card fade-up" style="transition-delay: 0.8s;">
-            <h3>Red de Rescate</h3>
+            <h3><i data-lucide="shield-check" size="16"></i> Red de Rescate</h3>
             <div class="data-row"><span class="label">Propietario</span><span id="dueno" class="value">-</span></div>
-            <div class="data-row"><span class="label">Tel. Principal</span><span id="tel1" class="value">-</span></div>
+            <div class="data-row"><span class="label">Principal</span><span id="tel1" class="value">-</span></div>
             <div class="data-row"><span class="label">Emergencia</span><span id="tel2" class="value">-</span></div>
-            <div class="data-row"><span class="label">Ubicación</span><span id="direccion" class="value">-</span></div>
+            <div class="data-row" style="margin-top: 10px; flex-direction: column; align-items: flex-start; gap: 10px;">
+                <span class="label">Dirección</span>
+                <span id="direccion" class="value" style="text-align: left;">-</span>
+            </div>
         </div>
         
-        <div class="fade-up" style="transition-delay: 0.9s; text-align: center; margin-top: 10px; margin-bottom: 20px;">
-            <span style="font-size: 10px; color: var(--text-sub); opacity: 0.5; letter-spacing: 2px;">POWERED BY ETÉREO LAB STUDIO</span>
+        <div class="footer-brand fade-up" style="transition-delay: 0.9s;">
+            Protegido por Etéreo Lab Studio
         </div>
     </div>
 
-    <div id="toast">Enlace copiado correctamente</div>
-
     <script>
-        // ── GESTIÓN DE TEMAS ──
-        function toggleTheme() {
-            const body = document.body;
-            const isLight = body.classList.toggle('light-mode');
-            const icon = document.getElementById('theme-icon');
-            
-            if (isLight) {
-                icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f9f8f6');
-                localStorage.setItem('theme', 'light');
-            } else {
-                icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#010a18');
-                localStorage.setItem('theme', 'dark');
-            }
+        // ── INICIALIZACIÓN DE ICONOS ──
+        lucide.createIcons();
+
+        // ── EFECTO SPOTLIGHT PARA TARJETAS ──
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            });
+        });
+
+        // ── GESTIÓN DE TEMAS (Sync con Landing) ──
+        const themeBtn = document.getElementById('theme-btn'); 
+        const htmlElement = document.documentElement;
+
+        function updateThemeUI(isDark) {
+            themeBtn.innerHTML = isDark ? '<i data-lucide="sun" size="18"></i>' : '<i data-lucide="moon" size="18"></i>';
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#050505' : '#F8F6F0');
+            lucide.createIcons();
         }
 
-        if (localStorage.getItem('theme') === 'light') {
-            document.body.classList.add('light-mode');
-            document.getElementById('theme-icon').innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f9f8f6');
+        themeBtn.addEventListener('click', () => {
+            if (navigator.vibrate) navigator.vibrate(50);
+            const isCurrentlyDark = htmlElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isCurrentlyDark ? 'light' : 'dark';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeUI(newTheme === 'dark');
+        });
+
+        // Cargar preferencia guardada
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateThemeUI(savedTheme === 'dark');
+        } else {
+            updateThemeUI(true); // Default Dark
         }
 
         // ── LÓGICA DE DATOS Y ARQUITECTURA FRAGMENTADA ──
         const parametros = new URLSearchParams(window.location.search);
         let idMascota = parametros.get('id');
         
-        // Extracción de ID para URLs limpias (ej. p.etereomx.com/A1B2C3)
         if (!idMascota) {
             const ruta = window.location.pathname.replace(/^\/|\/$/g, '');
-            if (ruta && ruta !== 'index.html') {
-                idMascota = ruta;
-            }
+            if (ruta && ruta !== 'index.html') idMascota = ruta;
         }
 
         let telefonoDueñoGlobal = '';
         let nombreMascotaGlobal = '';
 
         function mostrarError(mensaje) {
-            document.getElementById('skeleton-screen').style.display = 'none';
-            const contenedor = document.getElementById('perfil-mascota');
-            contenedor.innerHTML = `<div style="text-align:center; padding-top: 40px;"><h2 style="color:var(--text-main); font-size: 24px; margin-bottom: 10px;">Oops</h2><p style="color:var(--text-sub);">${mensaje}</p></div>`;
-            contenedor.style.opacity = '1';
-            contenedor.style.pointerEvents = 'auto';
+            const preloader = document.getElementById('preloader');
+            preloader.innerHTML = `<i data-lucide="x-circle" size="40" color="var(--alert-text)" style="margin-bottom: 20px;"></i><h2 style="font-family: 'Playfair Display'; color:var(--title-color); margin-bottom: 10px; font-weight: 400;">Expediente Inaccesible</h2><p style="color:var(--text-color); font-size: 0.9rem; text-align: center; max-width: 80%;">${mensaje}</p>`;
+            lucide.createIcons();
         }
 
         if (!idMascota) {
-            mostrarError('Por favor escanea un código QR oficial de Etéreo Lab.');
+            mostrarError('Escanea un código QR oficial de Etéreo Lab Studio para acceder a la identidad de la mascota.');
         } else {
-            // Petición al archivo JSON fragmentado
             fetch(`datos/${idMascota}.json?nocache=${new Date().getTime()}`)
                 .then(r => {
                     if (!r.ok) throw new Error('ID_NO_ENCONTRADO');
@@ -276,9 +308,12 @@
                     if(m.foto) {
                         const imgEl = document.getElementById('foto');
                         imgEl.src = `fotos/${m.foto}?v=${new Date().getTime()}`;
+                    } else {
+                        // Si no hay foto, oculta el contenedor para mantener limpieza visual
+                        document.querySelector('.profile-pic-container').style.display = 'none';
                     }
 
-                    telefonoDueñoGlobal = m.contacto_principal.telefono.replace(/[^0-9+]/g, '');
+                    telefonoDueñoGlobal = (m.contacto_principal?.telefono || '').replace(/[^0-9+]/g, '');
                     document.getElementById('btn-llamar').href = `tel:${telefonoDueñoGlobal}`;
                     document.getElementById('btn-wa').href = `https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=¡Hola!%20Escaneé%20la%20placa%20de%20${m.nombre}%20y%20lo%20tengo%20conmigo.`;
 
@@ -306,24 +341,23 @@
                         document.getElementById('vac-desp').innerText = m.cartilla.desparasitacion || 'Sin registro';
                     }
                     
-                    // --- REEMPLAZA ESTE BLOQUE EN TU INDEX.HTML ---
+                    // Programación Defensiva aplicada (?.)
                     document.getElementById('dueno').innerText = m.contacto_principal?.nombre || '-';
                     document.getElementById('tel1').innerText = m.contacto_principal?.telefono || '-';
-                    
-                    // Usamos el operador ? (Optional Chaining) para evitar errores si no existe
                     document.getElementById('tel2').innerText = m.contacto_emergencia?.telefono || '-';
-                    // ------------------------------------------------
                         
                     if(m.direccion_opcional) {
                         const dirCodificada = encodeURIComponent(m.direccion_opcional);
-                        // FIX DEFINITIVO DE GOOGLE MAPS
                         const linkGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${dirCodificada}`;
-                        document.getElementById('direccion').innerHTML = `<a href="${linkGoogleMaps}" target="_blank" class="link-action">Abrir mapa</a>`;
+                        document.getElementById('direccion').innerHTML = `<a href="${linkGoogleMaps}" target="_blank" class="link-action">Abrir en Google Maps <i data-lucide="arrow-up-right" size="14"></i></a>`;
                     }
 
-                    // Transición suave: Ocultar skeleton y mostrar contenido real
+                    // Refrescar iconos inyectados dinámicamente
+                    lucide.createIcons();
+
+                    // Transición suave: Ocultar preloader y mostrar contenido
                     setTimeout(() => {
-                        document.getElementById('skeleton-screen').style.display = 'none';
+                        document.getElementById('preloader').classList.add('preloader-hidden');
                         const perfil = document.getElementById('perfil-mascota');
                         perfil.style.opacity = '1';
                         perfil.style.pointerEvents = 'auto';
@@ -331,57 +365,43 @@
                         // Disparar animaciones en cascada
                         const elementos = perfil.querySelectorAll('.fade-up');
                         elementos.forEach(el => el.classList.add('visible'));
-                    }, 400); // Pequeño delay para asegurar carga de la imagen
+                    }, 800); // El tiempo perfecto para que se sienta fluido
                 })
                 .catch(e => {
-                    // AQUÍ ESTÁ EL CÓDIGO DE DEBUG EXACTO
-                    mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'El perfil no existe o ha sido desactivado.' : `Fallo técnico: ${e.message}`);
+                    mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'La cápsula de memoria que buscas no existe o ha sido archivada.' : `Fallo técnico al desencriptar: ${e.message}`);
                 });
         }
 
-        // ── UTILIDADES DE HARDWARE (GPS y Compartir) ──
+        // ── UTILIDADES DE HARDWARE ──
         function enviarUbicacion() {
             const btn = document.getElementById('btn-gps');
-            const textoOriginal = btn.innerText;
-            btn.innerText = "Obteniendo coordenadas...";
+            const textoOriginal = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="loader" size="16" class="spin"></i> Calculando...';
+            lucide.createIcons();
             
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (posicion) => {
                         const lat = posicion.coords.latitude;
                         const lon = posicion.coords.longitude;
-                        // FIX DEFINITIVO DE GOOGLE MAPS GPS
                         const linkMaps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
                         const mensaje = `¡URGENTE! Tengo a ${nombreMascotaGlobal}. Estoy exactamente aquí: ${linkMaps}`;
                         
-                        btn.innerText = textoOriginal;
+                        btn.innerHTML = textoOriginal;
+                        lucide.createIcons();
                         window.open(`https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=${encodeURIComponent(mensaje)}`, '_blank');
                     },
                     (error) => { 
-                        alert("Por favor, permite el acceso a tu ubicación en tu celular para enviar esta alerta."); 
-                        btn.innerText = textoOriginal; 
+                        alert("Es necesario permitir el acceso al GPS para enviar la alerta."); 
+                        btn.innerHTML = textoOriginal;
+                        lucide.createIcons();
                     },
                     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
                 );
             } else {
-                alert("Tu navegador no soporta geolocalización.");
-                btn.innerText = textoOriginal;
-            }
-        }
-
-        function compartirPerfil() {
-            if (navigator.share) {
-                navigator.share({
-                    title: `Identidad de ${nombreMascotaGlobal}`,
-                    text: `Mira el expediente digital de ${nombreMascotaGlobal} protegido por Etéreo Lab Studio.`,
-                    url: window.location.href
-                }).catch(console.error);
-            } else {
-                navigator.clipboard.writeText(window.location.href).then(() => {
-                    const toast = document.getElementById("toast");
-                    toast.className = "show";
-                    setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
-                });
+                alert("Tu dispositivo no soporta funciones de geolocalización.");
+                btn.innerHTML = textoOriginal;
+                lucide.createIcons();
             }
         }
     </script>
