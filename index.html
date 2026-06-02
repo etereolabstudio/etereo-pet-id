@@ -188,7 +188,7 @@
             <div class="data-row"><span class="label">Múltiple</span><span id="vac-multiple" class="value">-</span></div>
             <div class="data-row"><span class="label">Desparasitación</span><span id="vac-desp" class="value">-</span></div>
         </div>
-        
+
         <div id="tarjeta-vet" class="card fade-up" style="transition-delay: 0.7s; display: none;">
             <h3>Veterinaria</h3>
             <div class="data-row"><span class="label">Clínica</span><span id="vet-nombre" class="value">-</span></div>
@@ -312,6 +312,7 @@
                         
                     if(m.direccion_opcional) {
                         const dirCodificada = encodeURIComponent(m.direccion_opcional);
+                        // FIX DEFINITIVO DE GOOGLE MAPS
                         const linkGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${dirCodificada}`;
                         document.getElementById('direccion').innerHTML = `<a href="${linkGoogleMaps}" target="_blank" class="link-action">Abrir mapa</a>`;
                     }
@@ -329,7 +330,8 @@
                     }, 400); // Pequeño delay para asegurar carga de la imagen
                 })
                 .catch(e => {
-                    mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'El perfil no existe o ha sido desactivado.' : 'Error de conexión. Intenta de nuevo.');
+                    // AQUÍ ESTÁ EL CÓDIGO DE DEBUG EXACTO
+                    mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'El perfil no existe o ha sido desactivado.' : `Fallo técnico: ${e.message}`);
                 });
         }
 
@@ -344,6 +346,7 @@
                     (posicion) => {
                         const lat = posicion.coords.latitude;
                         const lon = posicion.coords.longitude;
+                        // FIX DEFINITIVO DE GOOGLE MAPS GPS
                         const linkMaps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
                         const mensaje = `¡URGENTE! Tengo a ${nombreMascotaGlobal}. Estoy exactamente aquí: ${linkMaps}`;
                         
