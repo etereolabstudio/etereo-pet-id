@@ -1,0 +1,20 @@
+{
+    "nombre": "Pupas",
+    "apellidos": "",
+    "especie_raza": "",
+    "microchip": "",
+    "fecha_nacimiento": "",
+    "sexo": "Hembra",
+    "cartilla": {
+        "rabia": "",
+        "multiple": "",
+        "desparasitacion": ""
+    },
+    "contacto_principal": {
+        "nombre": "",
+        "telefono": ""
+    },
+    "direccion_opcional": "",
+    "condiciones_medicas": "",
+    "foto": ""
+}
