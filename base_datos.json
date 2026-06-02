@@ -1,5 +1,5 @@
 {
-    "ETR-E92990": {
+    "E92990": {
         "nombre": "Talpita",
         "apellidos": "Jimenez",
         "especie_raza": "Mestiza (coydog)",
@@ -14,9 +14,9 @@
         },
         "direccion_opcional": "Av. Federalistas #1500 col. La cima Zapopan, Jalisco",
         "condiciones_medicas": "",
-        "foto": "ETR-E92990.jpg"
+        "foto": "E92990.jpg"
     },
-    "ETR-2": {
+    "B4C2R1": {
         "nombre": "Pupas",
         "apellidos": "Navarro",
         "especie_raza": "Criollo",
@@ -31,6 +31,6 @@
         },
         "direccion_opcional": "Dinar 668 Col. Lagos de Oriente",
         "condiciones_medicas": "",
-        "foto": "ETR-2.jpg"
+        "foto": "B4C2R1.jpg"
     }
 }
