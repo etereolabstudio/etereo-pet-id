@@ -1,0 +1,16 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(ETR-.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/base_datos.json",
+      "destination": "/404",
+      "permanent": true
+    }
+  ]
+}
