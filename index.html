@@ -306,9 +306,13 @@
                         document.getElementById('vac-desp').innerText = m.cartilla.desparasitacion || 'Sin registro';
                     }
                     
-                    document.getElementById('dueno').innerText = m.contacto_principal.nombre || '-';
-                    document.getElementById('tel1').innerText = m.contacto_principal.telefono || '-';
-                    document.getElementById('tel2').innerText = m.contacto_emergencia.telefono || '-';
+                    // --- REEMPLAZA ESTE BLOQUE EN TU INDEX.HTML ---
+                    document.getElementById('dueno').innerText = m.contacto_principal?.nombre || '-';
+                    document.getElementById('tel1').innerText = m.contacto_principal?.telefono || '-';
+                    
+                    // Usamos el operador ? (Optional Chaining) para evitar errores si no existe
+                    document.getElementById('tel2').innerText = m.contacto_emergencia?.telefono || '-';
+                    // ------------------------------------------------
                         
                     if(m.direccion_opcional) {
                         const dirCodificada = encodeURIComponent(m.direccion_opcional);
