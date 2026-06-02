@@ -1,0 +1,13 @@
+{
+  "headers": [
+    {
+      "source": "/base_datos.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
