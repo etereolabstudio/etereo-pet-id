@@ -182,6 +182,13 @@
             <div class="data-row"><span class="label">Microchip</span><span id="microchip" class="value">-</span></div>
         </div>
 
+        <div id="tarjeta-cartilla" class="card fade-up" style="transition-delay: 0.65s; display: none;">
+            <h3>Vacunación y Salud</h3>
+            <div class="data-row"><span class="label">Rabia</span><span id="vac-rabia" class="value">-</span></div>
+            <div class="data-row"><span class="label">Múltiple</span><span id="vac-multiple" class="value">-</span></div>
+            <div class="data-row"><span class="label">Desparasitación</span><span id="vac-desp" class="value">-</span></div>
+        </div>
+        
         <div id="tarjeta-vet" class="card fade-up" style="transition-delay: 0.7s; display: none;">
             <h3>Veterinaria</h3>
             <div class="data-row"><span class="label">Clínica</span><span id="vet-nombre" class="value">-</span></div>
@@ -291,6 +298,14 @@
                     document.getElementById('sexo').innerText = m.sexo || '-';
                     document.getElementById('nacimiento').innerText = m.fecha_nacimiento || '-';
                     document.getElementById('microchip').innerText = m.microchip || '-';
+
+                    if (m.cartilla && (m.cartilla.rabia || m.cartilla.multiple || m.cartilla.desparasitacion)) {
+                        document.getElementById('tarjeta-cartilla').style.display = 'block';
+                        document.getElementById('vac-rabia').innerText = m.cartilla.rabia || 'Sin registro';
+                        document.getElementById('vac-multiple').innerText = m.cartilla.multiple || 'Sin registro';
+                        document.getElementById('vac-desp').innerText = m.cartilla.desparasitacion || 'Sin registro';
+                    }
+                    
                     document.getElementById('dueno').innerText = m.contacto_principal.nombre || '-';
                     document.getElementById('tel1').innerText = m.contacto_principal.telefono || '-';
                     document.getElementById('tel2').innerText = m.contacto_emergencia.telefono || '-';
