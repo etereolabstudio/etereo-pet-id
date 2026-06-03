@@ -418,11 +418,24 @@
                     mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'La cápsula de memoria que buscas no existe o ha sido archivada.' : `Fallo de red: ${e.message}`);
                 });
         }
-
+        // ── MICRO-INTERACCIONES ──
+        const fotoPerfil = document.getElementById('foto');
+        fotoPerfil.addEventListener('click', function() {
+            // Remueve la clase y fuerza un "reflow" para poder repetir la animación
+            this.classList.remove('spin-coin');
+            void this.offsetWidth; 
+            this.classList.add('spin-coin');
+            
+            // Si el celular lo soporta, hace una micro-vibración háptica
+            if (navigator.vibrate) navigator.vibrate(40);
+        });
         // ── UTILIDADES DE RESCATE ──
         function enviarUbicacion() {
             const btn = document.getElementById('btn-gps');
             const textoOriginal = btn.innerHTML;
+            // Vibra al tocar el botón de emergencia (2 pulsos cortos)
+            if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+
             btn.innerHTML = '<i data-lucide="loader" size="16" class="spin"></i> Obteniendo satélites...';
             lucide.createIcons();
             
