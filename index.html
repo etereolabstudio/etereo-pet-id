@@ -99,7 +99,7 @@
         /* =========================================
            3. UI PRINCIPAL (Cabecera y Perfil)
            ========================================= */
-        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .brand { font-size: 11px; font-weight: 700; letter-spacing: 5px; color: var(--title-color); font-family: 'Lato', sans-serif; text-transform: uppercase;}
         
         .theme-btn { 
@@ -113,7 +113,7 @@
         .radar-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 1px solid var(--title-color); opacity: 0; z-index: -2; animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
         @keyframes pulse-ring { 0% { transform: scale(0.85); opacity: 0.25; } 100% { transform: scale(1.4); opacity: 0; } }
         
-        .profile-pic { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1; transition: transform 0.5s ease; background-color: var(--bg-color); padding: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        .profile-pic { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1; transition: transform 0.5s ease; background-color: var(--bg-color); padding: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer;}
         
         /* Efecto Moneda 3D */
         .spin-coin { 
@@ -206,62 +206,14 @@
             <div style="display: flex; align-items: flex-start; gap: 15px;">
                 <i data-lucide="thermometer-sun" size="28" style="color: var(--alert-text); flex-shrink: 0; margin-top: 2px; animation: pulse-ring 2s infinite;"></i>
                 <div>
-                    <h3 style="margin-bottom: 6px; font-size: 0.85rem;">Peligro de Golpe de Calor (<span id="temp-actual">--</span>°C)</h3>
-                    <p style="color: var(--title-color); font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">
-                        El pavimento podría estar quemando sus patas. Ubica al perro en la sombra de inmediato y ofrécele agua a temperatura ambiente para evitar un colapso.
+                    <h3 style="margin-bottom: 6px; font-size: 0.85rem; letter-spacing: 1px;">Peligro de Golpe de Calor (<span id="temp-actual">--</span>°C)</h3>
+                    <p style="color: var(--title-color); font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400; text-transform: none;">
+                        El pavimento podría estar quemando sus patas. Ubica al animal en la sombra de inmediato y ofrécele agua a temperatura ambiente para evitar un colapso.
                     </p>
                 </div>
             </div>
         </div>
 
-        ```
-
-### 2. Inyectar el Motor de Clima (JavaScript)
-
-Baja hasta la sección `<script>` al final de tu archivo. Puedes pegar esta función justo encima de donde pusiste la función del acordeón `toggleGuia()`.
-
-```javascript
-        // ── MONITOR DE ESTRÉS TÉRMICO (API EN TIEMPO REAL) ──
-        function verificarEstresTermico() {
-            // 1. Geolocalización silenciosa por IP (gratis y sin permisos)
-            fetch('https://get.geojs.io/v1/ip/geo.json')
-                .then(res => res.json())
-                .then(geo => {
-                    const lat = geo.latitude;
-                    const lon = geo.longitude;
-                    
-                    // 2. Consulta meteorológica exacta (Open-Meteo sin API Key)
-                    return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-                })
-                .then(res => res.json())
-                .then(clima => {
-                    const temp = clima.current_weather.temperature;
-                    
-                    // 3. Lógica de activación (29°C o más)
-                    if (temp >= 29) { 
-                        const alertaClima = document.getElementById('alerta-clima');
-                        document.getElementById('temp-actual').innerText = Math.round(temp);
-                        alertaClima.style.display = 'block';
-                        
-                        // Refrescar los iconos para que aparezca el termómetro
-                        lucide.createIcons();
-                        
-                        // Pequeño delay para la animación de entrada
-                        setTimeout(() => {
-                            alertaClima.classList.add('visible');
-                        }, 300);
-                    }
-                })
-                .catch(err => {
-                    // Si falla la red o el usuario usa bloqueadores agresivos, 
-                    // el sistema falla en silencio y no interrumpe el rescate.
-                    console.warn("Monitor térmico inactivo:", err);
-                });
-        }
-
-        // Encendemos el monitor apenas el archivo se lee
-        verificarEstresTermico();
-        
         <div class="profile-pic-container fade-up" style="transition-delay: 0.2s;">
             <div class="radar-pulse"></div>
             <img id="foto" class="profile-pic" src="">
@@ -426,6 +378,33 @@ Baja hasta la sección `<script>` al final de tu archivo. Puedes pegar esta func
             lucide.createIcons();
         }
 
+        // ── MONITOR DE ESTRÉS TÉRMICO (API EN TIEMPO REAL) ──
+        function verificarEstresTermico() {
+            fetch('https://get.geojs.io/v1/ip/geo.json')
+                .then(res => res.json())
+                .then(geo => {
+                    const lat = geo.latitude;
+                    const lon = geo.longitude;
+                    return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                })
+                .then(res => res.json())
+                .then(clima => {
+                    const temp = clima.current_weather.temperature;
+                    if (temp >= 29) { 
+                        const alertaClima = document.getElementById('alerta-clima');
+                        document.getElementById('temp-actual').innerText = Math.round(temp);
+                        alertaClima.style.display = 'block';
+                        lucide.createIcons();
+                        setTimeout(() => alertaClima.classList.add('visible'), 300);
+                    }
+                })
+                .catch(err => console.warn("Monitor térmico inactivo:", err));
+        }
+
+        // Ejecutar monitor climático
+        verificarEstresTermico();
+
+        // Cargar perfil
         if (!idMascota) {
             mostrarError('Escanea un código QR oficial de Etéreo Lab Studio para acceder a la identidad.');
         } else {
@@ -551,7 +530,6 @@ Baja hasta la sección `<script>` al final de tu archivo. Puedes pegar esta func
         }
 
         // ── LÓGICA DE TRIAGE (ACORDEÓN) ──
-        // ¡La función ahora está en el lugar correcto, accesible por el HTML!
         function toggleGuia() {
             const content = document.getElementById('guia-content');
             const icon = document.getElementById('guia-icon');
