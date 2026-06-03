@@ -252,6 +252,30 @@
                 <span id="direccion" class="value" style="text-align: left;">-</span>
             </div>
         </div>
+
+        <div class="card fade-up" style="transition-delay: 0.85s;">
+            <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 5px 0;" onclick="toggleGuia()">
+                <h3 style="margin-bottom: 0; color: var(--title-color); font-size: 0.9rem;"><i data-lucide="life-buoy" size="18"></i> Guía de Resguardo Temporal</h3>
+                <i id="guia-icon" data-lucide="chevron-down" size="20" style="color: var(--text-color); transition: transform 0.3s;"></i>
+            </div>
+            
+            <div id="guia-content" style="display: none; margin-top: 20px; border-top: 1px solid var(--accent-color); padding-top: 20px;">
+                <div style="margin-bottom: 16px;">
+                    <strong style="color: var(--title-color); font-size: 0.9rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="droplets" size="14" color="#3b82f6"></i> Hidratación y Dieta</strong>
+                    <p style="font-size: 0.85rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Ofrécele agua limpia a voluntad. Si está muy jadeante, dale en pocas cantidades para evitar que vomite. Si requiere comer, usa croquetas genéricas secas o pollo hervido (sin sal ni huesos).</p>
+                </div>
+                
+                <div style="margin-bottom: 16px;">
+                    <strong style="color: var(--alert-text); font-size: 0.9rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="skull" size="14"></i> Estrictamente Prohibido</strong>
+                    <p style="font-size: 0.85rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Bajo ninguna circunstancia ofrezcas: <strong>Chocolate, uvas, pasas, aguacate, cebolla, ajo o huesos cocidos.</strong> Son altamente tóxicos.</p>
+                </div>
+                
+                <div>
+                    <strong style="color: var(--title-color); font-size: 0.9rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="home" size="14" color="#10b981"></i> Entorno Seguro</strong>
+                    <p style="font-size: 0.85rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Mantenlo en un espacio cerrado y tranquilo. Evita juntarlo inmediatamente con tus propias mascotas para prevenir peleas por estrés territorial o contagios cruzados.</p>
+                </div>
+            </div>
+        </div>
         
         <div class="footer-brand fade-up" style="transition-delay: 0.9s;">
             Protegido por Etéreo Lab Studio
@@ -463,6 +487,27 @@
                 btn.innerHTML = textoOriginal;
                 lucide.createIcons();
             }
+            // ── LÓGICA DE TRIAGE (ACORDEÓN) ──
+        function toggleGuia() {
+            const content = document.getElementById('guia-content');
+            const icon = document.getElementById('guia-icon');
+            
+            // Si el celular soporta vibración, hace un clic háptico al desplegar
+            if (navigator.vibrate) navigator.vibrate(30);
+
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                
+                // Hace un auto-scroll suave hacia abajo para leer la guía cómodamente
+                setTimeout(() => {
+                    content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            } else {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
         }
     </script>
 </body>
