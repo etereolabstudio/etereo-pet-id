@@ -1,0 +1,27 @@
+{
+    "nombre": "Bailey",
+    "apellidos": "Padilla",
+    "especie_raza": "Criollo",
+    "microchip": "",
+    "fecha_nacimiento": "2022",
+    "sexo": "Hembra",
+    "cartilla": {
+        "rabia": "La tiene",
+        "multiple": "La tiene",
+        "desparasitacion": "La tiene"
+    },
+    "contacto_principal": {
+        "nombre": "Briseida Nuñez Padilla",
+        "telefono": "3311310662"
+    },
+    "contacto_emergencia": {
+        "telefono": "3311310662"
+    },
+    "veterinario": {
+        "nombre": "",
+        "telefono": ""
+    },
+    "direccion_opcional": "Bajio 175",
+    "condiciones_medicas": "",
+    "foto": "2PQIT9.jpg"
+}
