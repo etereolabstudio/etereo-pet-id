@@ -6,9 +6,9 @@
     "fecha_nacimiento": "2022",
     "sexo": "Hembra",
     "cartilla": {
-        "rabia": "La tiene",
-        "multiple": "La tiene",
-        "desparasitacion": "La tiene"
+        "rabia": "vacunado",
+        "multiple": "vacunado",
+        "desparasitacion": "vacunado"
     },
     "contacto_principal": {
         "nombre": "Briseida Nuñez Padilla",
@@ -21,7 +21,7 @@
         "nombre": "",
         "telefono": ""
     },
-    "direccion_opcional": "Bajio 175",
+    "direccion_opcional": "Bajio 175 real 44400",
     "condiciones_medicas": "",
     "foto": "2PQIT9.jpg"
 }
