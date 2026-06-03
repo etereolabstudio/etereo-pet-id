@@ -83,7 +83,7 @@
         .container { width: 100%; max-width: 480px; padding: 30px 24px 80px 24px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;}
 
         /* =========================================
-           2. SKELETON LOADER (Carga Cinemática)
+           2. SKELETON LOADER 
            ========================================= */
         #skeleton-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 100px 24px; display: flex; flex-direction: column; align-items: center; z-index: 10; transition: opacity 0.6s ease; }
         .skeleton { background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 50%, var(--skeleton-base) 75%); background-size: 200% 100%; animation: shimmer 2s infinite linear; border-radius: 8px; }
@@ -97,7 +97,7 @@
         .sk-card { width: 100%; height: 160px; border-radius: 8px; margin-bottom: 15px;}
 
         /* =========================================
-           3. UI PRINCIPAL (Cabecera y Perfil)
+           3. UI PRINCIPAL 
            ========================================= */
         .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .brand { font-size: 11px; font-weight: 700; letter-spacing: 5px; color: var(--title-color); font-family: 'Lato', sans-serif; text-transform: uppercase;}
@@ -140,7 +140,7 @@
         .btn:active { transform: scale(0.97); }
 
         /* =========================================
-           5. TARJETAS DE INFORMACIÓN (Glassmorphism)
+           5. TARJETAS DE INFORMACIÓN 
            ========================================= */
         .card { 
             background: var(--card-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
@@ -175,15 +175,26 @@
         .visible { opacity: 1; transform: translateY(0); }
 
         .footer-brand { text-align: center; margin-top: 30px; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--text-color); font-style: italic; opacity: 0.6; }
+
+        /* CSS Botón BPM */
+        .btn-bpm {
+            width: 80px; height: 80px; border-radius: 50%; 
+            background-color: rgba(239, 68, 68, 0.08); 
+            border: 2px solid #ef4444; color: #ef4444; 
+            cursor: pointer; display: flex; justify-content: center; align-items: center; 
+            margin: 0 auto; transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1); 
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .btn-bpm:active { transform: scale(0.85); background-color: rgba(239, 68, 68, 0.2); }
     </style>
-</head>
-    
-<script>
+
+    <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
-    
 <body>
     
     <div id="particles-js"></div>
@@ -274,6 +285,31 @@
             <div class="data-row" style="margin-top: 10px; flex-direction: column; align-items: flex-start; gap: 10px;">
                 <span class="label">Dirección</span>
                 <span id="direccion" class="value" style="text-align: left;">-</span>
+            </div>
+        </div>
+
+        <div class="card fade-up" style="transition-delay: 0.82s;">
+            <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 5px 0;" onclick="toggleBPM()">
+                <h3 style="margin-bottom: 0; color: var(--title-color); font-size: 0.9rem;"><i data-lucide="heart-pulse" size="18" style="color: #ef4444;"></i> Medidor de Frecuencia Cardíaca</h3>
+                <i id="bpm-icon" data-lucide="chevron-down" size="20" style="color: var(--text-color); transition: transform 0.3s;"></i>
+            </div>
+            
+            <div id="bpm-content" style="display: none; margin-top: 20px; border-top: 1px solid var(--accent-color); padding-top: 20px; text-align: center;">
+                <p style="font-size: 0.85rem; color: var(--text-color); margin-bottom: 15px; line-height: 1.5;">
+                    Coloca tu mano en el pecho del perro, justo detrás de su codo izquierdo. <strong>Toca el botón al ritmo de cada latido</strong>.
+                </p>
+                
+                <div style="font-size: 3.5rem; font-family: 'Playfair Display', serif; color: var(--title-color); height: 65px; display: flex; align-items: center; justify-content: center;" id="bpm-display">
+                    --
+                </div>
+                <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-color); margin-bottom: 15px;">Latidos por Minuto (BPM)</div>
+                
+                <div id="bpm-status" style="font-size: 0.85rem; font-weight: 700; color: var(--text-color); margin-bottom: 25px; min-height: 20px;"></div>
+
+                <div class="btn-bpm" id="btn-tap" ontouchstart="registrarLatido(event)" onmousedown="registrarLatido(event)">
+                    <i data-lucide="heart" size="32"></i>
+                </div>
+                <button onclick="reiniciarBPM()" style="margin-top: 25px; background: transparent; border: none; color: var(--text-color); text-decoration: underline; font-size: 0.8rem; cursor: pointer; font-family: 'Lato', sans-serif;">Reiniciar medición</button>
             </div>
         </div>
 
@@ -384,7 +420,6 @@
             lucide.createIcons();
         }
 
-        // ── MONITOR DE ESTRÉS TÉRMICO (API EN TIEMPO REAL) ──
         function verificarEstresTermico() {
             fetch('https://get.geojs.io/v1/ip/geo.json')
                 .then(res => res.json())
@@ -398,13 +433,11 @@
                     const temp = clima.current_weather.temperature;
                     const tempRedonda = Math.round(temp);
                     
-                    // Inyectar adorno climático superior (Siempre visible)
                     const ornamento = document.getElementById('clima-ornamento');
                     if (ornamento) {
                         ornamento.innerHTML = `• <i data-lucide="thermometer" size="11" style="margin-top: -1px;"></i> ${tempRedonda}°C`;
                     }
                     
-                    // Disparar alarma de crisis (Solo >= 29°C)
                     if (temp >= 29) { 
                         const alertaClima = document.getElementById('alerta-clima');
                         document.getElementById('temp-actual').innerText = tempRedonda;
@@ -540,6 +573,81 @@
                 btn.innerHTML = textoOriginal;
                 lucide.createIcons();
             }
+        }
+
+        // ── ASISTENTE CLÍNICO DE PULSO (BPM) ──
+        let tapsBPM = [];
+        let resetTimeoutBPM;
+
+        function toggleBPM() {
+            const content = document.getElementById('bpm-content');
+            const icon = document.getElementById('bpm-icon');
+            if (navigator.vibrate) navigator.vibrate(30);
+
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                setTimeout(() => {
+                    content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            } else {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+                reiniciarBPM(); 
+            }
+        }
+
+        function registrarLatido(event) {
+            // Prevenir comportamientos por defecto para no disparar el evento 2 veces
+            if (event) event.preventDefault(); 
+            
+            const display = document.getElementById('bpm-display');
+            const status = document.getElementById('bpm-status');
+            
+            if (navigator.vibrate) navigator.vibrate(40);
+            
+            const now = Date.now();
+            tapsBPM.push(now);
+            
+            // Mantener solo los últimos 8 toques para reaccionar rápido a los cambios
+            if (tapsBPM.length > 8) {
+                tapsBPM.shift();
+            }
+            
+            if (tapsBPM.length > 2) {
+                const diffs = [];
+                for (let i = 1; i < tapsBPM.length; i++) {
+                    diffs.push(tapsBPM[i] - tapsBPM[i-1]);
+                }
+                const avgDiff = diffs.reduce((a, b) => a + b) / diffs.length;
+                const bpm = Math.round(60000 / avgDiff);
+                
+                display.innerText = bpm;
+                
+                // Lógica de Triage
+                if (bpm > 160) {
+                    status.innerHTML = '<span style="color: var(--alert-text);">⚠️ Ritmo Acelerado (Taquicardia / Dolor)</span>';
+                } else if (bpm < 50) {
+                    status.innerHTML = '<span style="color: #3b82f6;">⚠️ Ritmo Lento (Bradicardia / Hipotermia)</span>';
+                } else {
+                    status.innerHTML = '<span style="color: var(--success);">✓ Ritmo Normal Estimado</span>';
+                }
+            } else {
+                display.innerText = "...";
+                status.innerText = "Sigue marcando el ritmo...";
+            }
+            
+            // Auto-reinicio después de 3 segundos de inactividad
+            clearTimeout(resetTimeoutBPM);
+            resetTimeoutBPM = setTimeout(() => {
+                reiniciarBPM();
+            }, 3000);
+        }
+
+        function reiniciarBPM() {
+            tapsBPM = [];
+            document.getElementById('bpm-display').innerText = "--";
+            document.getElementById('bpm-status').innerText = "";
         }
 
         // ── LÓGICA DE TRIAGE (ACORDEÓN) ──
