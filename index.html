@@ -202,6 +202,66 @@
             </button>
         </div>
 
+        <div id="alerta-clima" class="card card-alert fade-up" style="display: none; margin-bottom: 25px; border-left: 4px solid var(--alert-text); padding: 20px;">
+            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                <i data-lucide="thermometer-sun" size="28" style="color: var(--alert-text); flex-shrink: 0; margin-top: 2px; animation: pulse-ring 2s infinite;"></i>
+                <div>
+                    <h3 style="margin-bottom: 6px; font-size: 0.85rem;">Peligro de Golpe de Calor (<span id="temp-actual">--</span>°C)</h3>
+                    <p style="color: var(--title-color); font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">
+                        El pavimento podría estar quemando sus patas. Ubica al perro en la sombra de inmediato y ofrécele agua a temperatura ambiente para evitar un colapso.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        ```
+
+### 2. Inyectar el Motor de Clima (JavaScript)
+
+Baja hasta la sección `<script>` al final de tu archivo. Puedes pegar esta función justo encima de donde pusiste la función del acordeón `toggleGuia()`.
+
+```javascript
+        // ── MONITOR DE ESTRÉS TÉRMICO (API EN TIEMPO REAL) ──
+        function verificarEstresTermico() {
+            // 1. Geolocalización silenciosa por IP (gratis y sin permisos)
+            fetch('https://get.geojs.io/v1/ip/geo.json')
+                .then(res => res.json())
+                .then(geo => {
+                    const lat = geo.latitude;
+                    const lon = geo.longitude;
+                    
+                    // 2. Consulta meteorológica exacta (Open-Meteo sin API Key)
+                    return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                })
+                .then(res => res.json())
+                .then(clima => {
+                    const temp = clima.current_weather.temperature;
+                    
+                    // 3. Lógica de activación (29°C o más)
+                    if (temp >= 29) { 
+                        const alertaClima = document.getElementById('alerta-clima');
+                        document.getElementById('temp-actual').innerText = Math.round(temp);
+                        alertaClima.style.display = 'block';
+                        
+                        // Refrescar los iconos para que aparezca el termómetro
+                        lucide.createIcons();
+                        
+                        // Pequeño delay para la animación de entrada
+                        setTimeout(() => {
+                            alertaClima.classList.add('visible');
+                        }, 300);
+                    }
+                })
+                .catch(err => {
+                    // Si falla la red o el usuario usa bloqueadores agresivos, 
+                    // el sistema falla en silencio y no interrumpe el rescate.
+                    console.warn("Monitor térmico inactivo:", err);
+                });
+        }
+
+        // Encendemos el monitor apenas el archivo se lee
+        verificarEstresTermico();
+        
         <div class="profile-pic-container fade-up" style="transition-delay: 0.2s;">
             <div class="radar-pulse"></div>
             <img id="foto" class="profile-pic" src="">
