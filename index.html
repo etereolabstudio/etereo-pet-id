@@ -114,7 +114,8 @@
         @keyframes pulse-ring { 0% { transform: scale(0.85); opacity: 0.25; } 100% { transform: scale(1.4); opacity: 0; } }
         
         .profile-pic { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1; transition: transform 0.5s ease; background-color: var(--bg-color); padding: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
-                /* Efecto Moneda 3D */
+        
+        /* Efecto Moneda 3D */
         .spin-coin { 
             animation: coin-flip 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
         }
@@ -122,6 +123,7 @@
             0% { transform: perspective(600px) rotateY(0deg); } 
             100% { transform: perspective(600px) rotateY(360deg); } 
         }
+        
         h1 { font-size: 2.8rem; font-family: 'Playfair Display', serif; font-weight: 400; text-align: center; margin-bottom: 4px; color: var(--title-color); }
         .subtitle { font-size: 1rem; color: var(--text-color); font-weight: 300; margin-bottom: 35px; text-align: center; letter-spacing: 1px; font-style: italic; font-family: 'Playfair Display', serif;}
 
@@ -442,22 +444,21 @@
                     mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'La cápsula de memoria que buscas no existe o ha sido archivada.' : `Fallo de red: ${e.message}`);
                 });
         }
+
         // ── MICRO-INTERACCIONES ──
         const fotoPerfil = document.getElementById('foto');
         fotoPerfil.addEventListener('click', function() {
-            // Remueve la clase y fuerza un "reflow" para poder repetir la animación
             this.classList.remove('spin-coin');
             void this.offsetWidth; 
             this.classList.add('spin-coin');
             
-            // Si el celular lo soporta, hace una micro-vibración háptica
             if (navigator.vibrate) navigator.vibrate(40);
         });
+
         // ── UTILIDADES DE RESCATE ──
         function enviarUbicacion() {
             const btn = document.getElementById('btn-gps');
             const textoOriginal = btn.innerHTML;
-            // Vibra al tocar el botón de emergencia (2 pulsos cortos)
             if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
 
             btn.innerHTML = '<i data-lucide="loader" size="16" class="spin"></i> Obteniendo satélites...';
@@ -487,19 +488,20 @@
                 btn.innerHTML = textoOriginal;
                 lucide.createIcons();
             }
-            // ── LÓGICA DE TRIAGE (ACORDEÓN) ──
+        }
+
+        // ── LÓGICA DE TRIAGE (ACORDEÓN) ──
+        // ¡La función ahora está en el lugar correcto, accesible por el HTML!
         function toggleGuia() {
             const content = document.getElementById('guia-content');
             const icon = document.getElementById('guia-icon');
             
-            // Si el celular soporta vibración, hace un clic háptico al desplegar
             if (navigator.vibrate) navigator.vibrate(30);
 
             if (content.style.display === 'none') {
                 content.style.display = 'block';
                 icon.style.transform = 'rotate(180deg)';
                 
-                // Hace un auto-scroll suave hacia abajo para leer la guía cómodamente
                 setTimeout(() => {
                     content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
@@ -507,7 +509,6 @@
                 content.style.display = 'none';
                 icon.style.transform = 'rotate(0deg)';
             }
-        }
         }
     </script>
 </body>
