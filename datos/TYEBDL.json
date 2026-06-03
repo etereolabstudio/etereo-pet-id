@@ -14,6 +14,13 @@
         "nombre": "",
         "telefono": ""
     },
+    "contacto_emergencia": {
+        "telefono": ""
+    },
+    "veterinario": {
+        "nombre": "",
+        "telefono": ""
+    },
     "direccion_opcional": "",
     "condiciones_medicas": "",
     "foto": ""
