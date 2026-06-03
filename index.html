@@ -196,7 +196,10 @@
     <div id="perfil-mascota" class="container" style="opacity: 0; pointer-events: none;">
         
         <div class="top-bar fade-up" style="transition-delay: 0.1s;">
-            <div class="brand">Etéreo Lab Studio</div>
+            <div class="brand" style="display: flex; align-items: center; gap: 8px;">
+                Etéreo Lab Studio
+                <span id="clima-ornamento" style="font-family: 'Lato', sans-serif; font-weight: 300; font-size: 11px; opacity: 0.4; letter-spacing: normal; text-transform: none; display: inline-flex; align-items: center; gap: 3px;"></span>
+            </div>
             <button class="theme-btn" id="theme-btn" aria-label="Cambiar Tema">
                 <i data-lucide="sun" size="18"></i>
             </button>
@@ -300,7 +303,6 @@
         // ── INICIALIZACIÓN ÓPTIMA ──
         lucide.createIcons();
 
-        // Partículas en modo "Bajo Consumo" para la placa de emergencia
         if (typeof particlesJS !== 'undefined') {
             particlesJS('particles-js', {
                 "particles": {
@@ -320,7 +322,6 @@
             });
         }
 
-        // ── EFECTO SPOTLIGHT PARA TARJETAS ──
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
@@ -329,7 +330,6 @@
             });
         });
 
-        // ── GESTIÓN DE TEMAS (Sync) ──
         const themeBtn = document.getElementById('theme-btn'); 
         const htmlElement = document.documentElement;
 
@@ -357,7 +357,6 @@
             updateThemeUI(true);
         }
 
-        // ── ARQUITECTURA DE DATOS ──
         const parametros = new URLSearchParams(window.location.search);
         let idMascota = parametros.get('id');
         
@@ -390,21 +389,29 @@
                 .then(res => res.json())
                 .then(clima => {
                     const temp = clima.current_weather.temperature;
+                    const tempRedonda = Math.round(temp);
+                    
+                    // Inyectar adorno climático superior (Siempre visible)
+                    const ornamento = document.getElementById('clima-ornamento');
+                    if (ornamento) {
+                        ornamento.innerHTML = `• <i data-lucide="thermometer" size="11" style="margin-top: -1px;"></i> ${tempRedonda}°C`;
+                    }
+                    
+                    // Disparar alarma de crisis (Solo >= 29°C)
                     if (temp >= 29) { 
                         const alertaClima = document.getElementById('alerta-clima');
-                        document.getElementById('temp-actual').innerText = Math.round(temp);
+                        document.getElementById('temp-actual').innerText = tempRedonda;
                         alertaClima.style.display = 'block';
-                        lucide.createIcons();
                         setTimeout(() => alertaClima.classList.add('visible'), 300);
                     }
+                    
+                    lucide.createIcons();
                 })
                 .catch(err => console.warn("Monitor térmico inactivo:", err));
         }
 
-        // Ejecutar monitor climático
         verificarEstresTermico();
 
-        // Cargar perfil
         if (!idMascota) {
             mostrarError('Escanea un código QR oficial de Etéreo Lab Studio para acceder a la identidad.');
         } else {
@@ -490,7 +497,6 @@
             this.classList.remove('spin-coin');
             void this.offsetWidth; 
             this.classList.add('spin-coin');
-            
             if (navigator.vibrate) navigator.vibrate(40);
         });
 
@@ -533,13 +539,11 @@
         function toggleGuia() {
             const content = document.getElementById('guia-content');
             const icon = document.getElementById('guia-icon');
-            
             if (navigator.vibrate) navigator.vibrate(30);
 
             if (content.style.display === 'none') {
                 content.style.display = 'block';
                 icon.style.transform = 'rotate(180deg)';
-                
                 setTimeout(() => {
                     content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
