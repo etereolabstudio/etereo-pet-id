@@ -1,12 +1,12 @@
 {
-    "nombre": "Petunia (Petus)",
+    "nombre": "Petus",
     "apellidos": "Campos",
-    "especie_raza": "Por definir",
+    "especie_raza": "Cruza Maltés",
     "microchip": "-",
-    "fecha_nacimiento": "Por definir",
+    "fecha_nacimiento": "Marzo 2020",
     "sexo": "Hembra",
     "cartilla": {
-        "rabia": "-",
+        "rabia": "Marzo 2026",
         "multiple": "-",
         "desparasitacion": "-"
     },
@@ -15,13 +15,13 @@
         "telefono": "3326496265"
     },
     "contacto_emergencia": {
-        "telefono": "3326496265"
+        "telefono": "3315030375"
     },
     "veterinario": {
         "nombre": "-",
         "telefono": "-"
     },
     "direccion_opcional": "YOPI. Terapia de Lenguaje y Aprendizaje",
-    "condiciones_medicas": "",
+    "condiciones_medicas": "Color Miel, peso: 1.290 kg",
     "foto": "43ZSGE.jpg"
 }
