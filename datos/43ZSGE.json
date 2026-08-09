@@ -1,0 +1,27 @@
+{
+    "nombre": "Petunia (Petus)",
+    "apellidos": "Campos",
+    "especie_raza": "Por definir",
+    "microchip": "-",
+    "fecha_nacimiento": "Por definir",
+    "sexo": "Hembra",
+    "cartilla": {
+        "rabia": "-",
+        "multiple": "-",
+        "desparasitacion": "-"
+    },
+    "contacto_principal": {
+        "nombre": "Valeria Campos",
+        "telefono": "3326496265"
+    },
+    "contacto_emergencia": {
+        "telefono": "3326496265"
+    },
+    "veterinario": {
+        "nombre": "-",
+        "telefono": "-"
+    },
+    "direccion_opcional": "YOPI. Terapia de Lenguaje y Aprendizaje",
+    "condiciones_medicas": "",
+    "foto": "43ZSGE.jpg"
+}
