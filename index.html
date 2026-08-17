@@ -151,14 +151,33 @@
         .aperture-ring .tick { stroke: var(--accent); opacity: 0.7; }
         @keyframes aperture-turn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        .profile-pic { width: 144px; height: 144px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1; transition: transform 0.4s ease, filter 0.4s ease; background-color: var(--bg-raise); padding: 4px; box-shadow: 0 14px 32px rgba(0,0,0,0.4); cursor: pointer; }
+        /* revelado: la foto entra desenfocada y desaturada, y "revela" al aparecer */
+        .profile-pic {
+            width: 144px; height: 144px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1;
+            background-color: var(--bg-raise); padding: 4px; box-shadow: 0 14px 32px rgba(0,0,0,0.4); cursor: pointer;
+            filter: blur(9px) grayscale(0.5) contrast(0.85) brightness(0.95);
+            transition: filter 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s, transform 0.4s ease;
+        }
+        .profile-pic-container.visible .profile-pic { filter: blur(0) grayscale(0) contrast(1) brightness(1); }
 
-        /* interacción: destello de obturador, no coin-flip */
-        .shutter-flash { animation: shutter 0.5s ease; }
+        /* interacción: destello de obturador, no coin-flip. Sweep de luz + leve brillo, estable en ambos temas */
+        .profile-pic-container { isolation: isolate; }
+        .profile-pic-container::after {
+            content: ''; position: absolute; top: 4px; left: 4px; width: 144px; height: 144px; border-radius: 50%;
+            background: linear-gradient(115deg, transparent 30%, rgba(237,230,214,0.55) 48%, transparent 66%);
+            opacity: 0; pointer-events: none; z-index: 2; mix-blend-mode: overlay;
+        }
+        .shutter-flash { animation: shutter 0.45s ease; }
+        .profile-pic-container.shutter-flash-sweep::after { animation: sweep 0.5s ease; }
         @keyframes shutter {
             0% { filter: brightness(1); }
-            35% { filter: brightness(1.55) saturate(1.1); }
+            30% { filter: brightness(1.3) contrast(1.05); }
             100% { filter: brightness(1); }
+        }
+        @keyframes sweep {
+            0% { opacity: 0; transform: translateX(-40%); }
+            40% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(40%); }
         }
 
         .catalog-id { font-family: 'Space Mono', monospace; font-size: 0.66rem; letter-spacing: 2px; color: var(--text-color); opacity: 0.7; text-align: center; margin-bottom: 4px; text-transform: uppercase; }
@@ -238,6 +257,29 @@
         .accordion-head h3 { margin-bottom: 0; }
         .accordion-icon { color: var(--text-color); transition: transform 0.3s; flex-shrink: 0; }
         .accordion-body { display: none; margin-top: 20px; border-top: 1px solid var(--card-border); padding-top: 20px; }
+
+        /* traza de instrumento — línea base + pulso que responde a cada tap */
+        .ecg-strip { width: 100%; height: 34px; margin: 4px 0 10px; opacity: 0.8; }
+        .ecg-strip .ecg-base { stroke: var(--card-border); stroke-width: 1; }
+        .ecg-strip .ecg-spike { fill: none; stroke: var(--alert-text); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+        .ecg-strip.blip .ecg-spike { animation: ecgBlip 0.45s ease; }
+        @keyframes ecgBlip {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            70% { opacity: 0.9; }
+            100% { opacity: 0; }
+        }
+
+        /* =========================================
+           9. MOVIMIENTO REDUCIDO — la página se vuelve estática, sin perder identidad
+           ========================================= */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.15s !important; scroll-behavior: auto !important; }
+            .aperture-ring svg { animation: none; }
+            #particles-js { opacity: 0; }
+            .profile-pic { filter: none !important; transition: none; }
+            .profile-pic-container::after { display: none; }
+        }
     </style>
 
     <script>
@@ -363,6 +405,11 @@
                     Coloca tu mano en el pecho del perro, justo detrás de su codo izquierdo. <strong style="color: var(--title-color);">Toca el botón al ritmo de cada latido</strong>.
                 </p>
 
+                <svg id="ecg-strip" class="ecg-strip" viewBox="0 0 300 34" preserveAspectRatio="none">
+                    <line class="ecg-base" x1="0" y1="17" x2="300" y2="17"/>
+                    <polyline class="ecg-spike" points="0,17 120,17 132,4 144,30 156,10 168,17 300,17"/>
+                </svg>
+
                 <div class="mono" style="font-size: 3rem; color: var(--title-color); height: 60px; display: flex; align-items: center; justify-content: center;" id="bpm-display">
                     --
                 </div>
@@ -484,7 +531,16 @@
             const skeleton = document.getElementById('skeleton-screen');
             if (skeleton) skeleton.style.display = 'none';
             const contenedor = document.getElementById('perfil-mascota');
-            contenedor.innerHTML = `<div style="text-align:center; padding-top: 80px;"><i data-lucide="x-circle" size="44" style="color: var(--alert-text); margin-bottom: 20px;"></i><h2 style="font-family: 'Clash Display'; text-transform: uppercase; letter-spacing: 2px; color:var(--title-color); margin-bottom: 12px; font-weight: 600; font-size: 1.6rem;">Expediente Oculto</h2><p style="color:var(--text-color); font-size: 0.9rem; text-align: center; max-width: 300px;">${mensaje}</p></div>`;
+            contenedor.innerHTML = `
+                <div style="width:100%; display:flex; flex-direction:column; align-items:center; padding-top: 70px;">
+                    <div class="mono" style="font-size:0.66rem; letter-spacing:3px; text-transform:uppercase; color: var(--alert-text); margin-bottom: 22px; opacity: 0.9;">Registro no disponible</div>
+                    <div class="card card-alert" style="text-align:center; padding: 32px 24px;">
+                        <i data-lucide="x-circle" size="34" style="color: var(--alert-text); margin-bottom: 18px;"></i>
+                        <h2 style="font-family: 'Clash Display'; text-transform: uppercase; letter-spacing: 2px; color:var(--title-color); margin-bottom: 12px; font-weight: 600; font-size: 1.4rem;">Expediente Oculto</h2>
+                        <p style="color:var(--text-color); font-size: 0.9rem; line-height: 1.6; text-align: center; font-weight: 300;">${mensaje}</p>
+                    </div>
+                    <div class="mono" style="font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color: var(--text-color); opacity: 0.4; margin-top: 26px;">Etéreo · Archivo de recuerdos físicos</div>
+                </div>`;
             contenedor.style.opacity = '1';
             contenedor.style.pointerEvents = 'auto';
             safeIcons();
@@ -614,10 +670,16 @@
         // ── MICRO-INTERACCIONES ──
         // Destello de obturador al tocar la foto (revelado fotográfico), no un giro de moneda.
         const fotoPerfil = document.getElementById('foto');
+        const fotoContenedor = document.querySelector('.profile-pic-container');
         fotoPerfil.addEventListener('click', function() {
             this.classList.remove('shutter-flash');
             void this.offsetWidth;
             this.classList.add('shutter-flash');
+            if (fotoContenedor) {
+                fotoContenedor.classList.remove('shutter-flash-sweep');
+                void fotoContenedor.offsetWidth;
+                fotoContenedor.classList.add('shutter-flash-sweep');
+            }
             if (navigator.vibrate) navigator.vibrate(40);
         });
 
@@ -638,9 +700,15 @@
                         const linkMaps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
                         const mensaje = `¡URGENTE! Tengo a ${nombreMascotaGlobal}. Estoy exactamente aquí: ${linkMaps}`;
 
-                        btn.innerHTML = textoOriginal;
+                        const latAbs = Math.abs(lat).toFixed(2);
+                        const lonAbs = Math.abs(lon).toFixed(2);
+                        const latDir = lat >= 0 ? 'N' : 'S';
+                        const lonDir = lon >= 0 ? 'E' : 'O';
+                        btn.innerHTML = `<i data-lucide="check" size="15"></i> ${latAbs}°${latDir} · ${lonAbs}°${lonDir} · ENVIADO`;
                         safeIcons();
                         window.open(`https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=${encodeURIComponent(mensaje)}`, '_blank');
+
+                        setTimeout(() => { btn.innerHTML = textoOriginal; safeIcons(); }, 3200);
                     },
                     () => {
                         alert("Es necesario permitir el acceso al GPS de tu navegador para enviar la alerta.");
@@ -681,6 +749,13 @@
 
             const display = document.getElementById('bpm-display');
             const status = document.getElementById('bpm-status');
+
+            const ecg = document.getElementById('ecg-strip');
+            if (ecg) {
+                ecg.classList.remove('blip');
+                void ecg.offsetWidth;
+                ecg.classList.add('blip');
+            }
 
             if (navigator.vibrate) navigator.vibrate(40);
 
