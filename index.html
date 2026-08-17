@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Placa Inteligente | Etéreo</title>
+    <title>Ficha de Campo | Etéreo</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -22,7 +22,7 @@
 
     <style>
         /* =========================================
-           1. MISMA IDENTIDAD DE ETÉREO — Revelado Analógico 90s
+           1. IDENTIDAD ETÉREO — Revelado Analógico 90s
            ========================================= */
         :root {
             --bg-color: #121016;
@@ -86,7 +86,7 @@
 
         .mono { font-family: 'Space Mono', monospace; }
 
-        #particles-js { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; opacity: 0.25; transition: opacity 0.7s ease; }
+        #particles-js { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; opacity: 0.18; transition: opacity 0.7s ease; }
 
         body::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;
@@ -99,10 +99,18 @@
             background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
         }
 
-        .container { width: 100%; max-width: 460px; padding: 28px 22px 80px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
+        .container { width: 100%; max-width: 460px; padding: 30px 22px 80px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
 
         /* =========================================
-           2. SKELETON LOADER
+           2. MARCAS DE FOTOGRAMA — firma visual de esta ficha
+           Referencia: contador de cuadro de un rollo de 35mm.
+           ========================================= */
+        .frame-mark { position: fixed; top: 14px; z-index: 5; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 2px; color: var(--text-color); opacity: 0.35; text-transform: uppercase; pointer-events: none; user-select: none; }
+        .frame-mark.left { left: 16px; }
+        .frame-mark.right { right: 16px; text-align: right; }
+
+        /* =========================================
+           3. SKELETON LOADER
            ========================================= */
         #skeleton-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 100px 22px; display: flex; flex-direction: column; align-items: center; z-index: 10; transition: opacity 0.6s ease; }
         .skeleton { background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 50%, var(--skeleton-base) 75%); background-size: 200% 100%; animation: shimmer 1.7s infinite linear; border-radius: 2px; }
@@ -116,9 +124,9 @@
         .sk-card { width: 100%; height: 150px; margin-bottom: 14px; }
 
         /* =========================================
-           3. TOP BAR — mismo wordmark del sitio principal
+           4. TOP BAR
            ========================================= */
-        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 34px; }
+        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .brand {
             font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 3px;
             color: var(--title-color); text-transform: uppercase; display: flex; align-items: center; gap: 8px;
@@ -133,23 +141,33 @@
         .theme-btn:active { transform: scale(0.9); border-color: var(--accent); }
 
         /* =========================================
-           4. FOTO — carrete/medallón, no vidrio
+           5. FOTO — encuadre de campo, apertura óptica
            ========================================= */
-        .profile-pic-container { position: relative; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; width: 172px; height: 172px; }
-        .radar-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 1px solid var(--accent); opacity: 0; z-index: -2; animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
-        @keyframes pulse-ring { 0% { transform: scale(0.85); opacity: 0.3; } 100% { transform: scale(1.4); opacity: 0; } }
+        .profile-pic-container { position: relative; margin-bottom: 18px; display: flex; justify-content: center; align-items: center; width: 176px; height: 176px; }
 
-        .profile-pic { width: 144px; height: 144px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1; transition: transform 0.5s ease; background-color: var(--bg-raise); padding: 4px; box-shadow: 0 14px 32px rgba(0,0,0,0.4); cursor: pointer; }
+        .aperture-ring { position: absolute; width: 100%; height: 100%; border-radius: 50%; z-index: 0; opacity: 0.55; }
+        .aperture-ring svg { width: 100%; height: 100%; animation: aperture-turn 60s linear infinite; }
+        .aperture-ring circle { fill: none; stroke: var(--card-border); stroke-width: 1; }
+        .aperture-ring .tick { stroke: var(--accent); opacity: 0.7; }
+        @keyframes aperture-turn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        .spin-coin { animation: coin-flip 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        @keyframes coin-flip { 0% { transform: perspective(600px) rotateY(0deg); } 100% { transform: perspective(600px) rotateY(360deg); } }
+        .profile-pic { width: 144px; height: 144px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1; transition: transform 0.4s ease, filter 0.4s ease; background-color: var(--bg-raise); padding: 4px; box-shadow: 0 14px 32px rgba(0,0,0,0.4); cursor: pointer; }
 
+        /* interacción: destello de obturador, no coin-flip */
+        .shutter-flash { animation: shutter 0.5s ease; }
+        @keyframes shutter {
+            0% { filter: brightness(1); }
+            35% { filter: brightness(1.55) saturate(1.1); }
+            100% { filter: brightness(1); }
+        }
+
+        .catalog-id { font-family: 'Space Mono', monospace; font-size: 0.66rem; letter-spacing: 2px; color: var(--text-color); opacity: 0.7; text-align: center; margin-bottom: 4px; text-transform: uppercase; }
         .eyebrow-tag { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; text-align: center; }
         h1 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: clamp(1.9rem, 8vw, 2.6rem); letter-spacing: 2px; text-transform: uppercase; text-align: center; margin-bottom: 6px; color: var(--title-color); }
-        .subtitle { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); margin-bottom: 32px; text-align: center; opacity: 0.8; }
+        .subtitle { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); margin-bottom: 30px; text-align: center; opacity: 0.8; }
 
         /* =========================================
-           5. BOTONERA — mismo lenguaje del sitio principal
+           6. BOTONERA
            ========================================= */
         .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-bottom: 10px; }
         .btn {
@@ -160,12 +178,12 @@
         }
         .btn-primary { background-color: var(--accent); color: #14121A; }
         .btn-secondary { background-color: var(--bg-raise); color: var(--title-color); border-color: var(--card-border); }
-        .btn-location { background: transparent; color: var(--text-color); border: 1px dashed var(--card-border); width: 100%; margin-bottom: 36px; font-weight: 400; }
+        .btn-location { background: transparent; color: var(--text-color); border: 1px dashed var(--card-border); width: 100%; margin-bottom: 34px; font-weight: 400; }
         .btn:active { transform: scale(0.97); }
         .btn:hover { border-color: var(--accent); }
 
         /* =========================================
-           6. TARJETAS — planas, tipo ficha de expediente
+           7. TARJETAS — fichas de archivo
            ========================================= */
         .card {
             background: var(--bg-raise); border: 1px solid var(--card-border); border-radius: 2px;
@@ -187,6 +205,8 @@
         .card-alert h3 { color: var(--alert-text); }
         .card-alert h3 i, .card-alert h3 svg { color: var(--alert-text); }
 
+        .card-index { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--text-color); opacity: 0.45; letter-spacing: 1px; margin-left: auto; text-transform: none; }
+
         .data-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--card-border); }
         .data-row:last-child { border-bottom: none; padding-bottom: 0; }
         .label { color: var(--text-color); font-size: 0.85rem; font-weight: 300; }
@@ -198,10 +218,11 @@
         .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .visible { opacity: 1; transform: translateY(0); }
 
-        .footer-brand { text-align: center; margin-top: 28px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); opacity: 0.55; }
+        .footer-brand { text-align: center; margin-top: 26px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); opacity: 0.5; display: flex; flex-direction: column; gap: 4px; }
+        .footer-brand span.sub { opacity: 0.6; font-size: 0.6rem; letter-spacing: 1.5px; }
 
         /* =========================================
-           7. MEDIDOR DE PULSO — mismo acento de alerta
+           8. INSTRUMENTO DE CAMPO — lectura de pulso
            ========================================= */
         .btn-bpm {
             width: 76px; height: 76px; border-radius: 50%;
@@ -227,6 +248,9 @@
 <body>
 
     <div id="particles-js"></div>
+
+    <div class="frame-mark left">ETÉREO<br>FIELD REC.</div>
+    <div class="frame-mark right" id="frame-mark-right">35MM<br>Nº —</div>
 
     <div id="skeleton-screen">
         <div class="skeleton sk-avatar"></div>
@@ -265,11 +289,20 @@
         </div>
 
         <div class="profile-pic-container fade-up" style="transition-delay: 0.2s;">
-            <div class="radar-pulse"></div>
+            <div class="aperture-ring" aria-hidden="true">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="47"/>
+                    <line class="tick" x1="50" y1="2" x2="50" y2="8"/>
+                    <line class="tick" x1="50" y1="92" x2="50" y2="98"/>
+                    <line class="tick" x1="2" y1="50" x2="8" y2="50"/>
+                    <line class="tick" x1="92" y1="50" x2="98" y2="50"/>
+                </svg>
+            </div>
             <img id="foto" class="profile-pic" src="">
         </div>
 
-        <div class="eyebrow-tag fade-up" style="transition-delay: 0.25s;">Placa Inteligente</div>
+        <div class="catalog-id" id="catalog-id">FICHA Nº ···</div>
+        <div class="eyebrow-tag fade-up" style="transition-delay: 0.25s;">Pet Record — Ficha de Campo</div>
         <h1 id="nombre" class="fade-up" style="transition-delay: 0.3s;">···</h1>
         <div id="raza" class="subtitle fade-up" style="transition-delay: 0.3s;">···</div>
 
@@ -279,7 +312,7 @@
         </div>
 
         <button id="btn-gps" class="btn btn-location fade-up" style="transition-delay: 0.4s;" onclick="enviarUbicacion()">
-            <i data-lucide="map-pin" size="15"></i> Compartir ubicación GPS
+            <i data-lucide="map-pin" size="15"></i> Enviar coordenadas GPS
         </button>
 
         <div id="tarjeta-medica" class="card card-alert fade-up" style="transition-delay: 0.5s; display: none;">
@@ -288,27 +321,27 @@
         </div>
 
         <div class="card fade-up" style="transition-delay: 0.6s;">
-            <h3><i data-lucide="fingerprint" size="15"></i> Biometría</h3>
+            <h3><i data-lucide="fingerprint" size="15"></i> Biometría <span class="card-index">01</span></h3>
             <div class="data-row"><span class="label">Sexo</span><span id="sexo" class="value">—</span></div>
             <div class="data-row"><span class="label">Nacimiento</span><span id="nacimiento" class="value">—</span></div>
             <div class="data-row"><span class="label">Microchip</span><span id="microchip" class="value">—</span></div>
         </div>
 
         <div id="tarjeta-cartilla" class="card fade-up" style="transition-delay: 0.65s; display: none;">
-            <h3><i data-lucide="activity" size="15"></i> Registro médico</h3>
+            <h3><i data-lucide="activity" size="15"></i> Cartilla sanitaria <span class="card-index">02</span></h3>
             <div class="data-row"><span class="label">Rabia</span><span id="vac-rabia" class="value">—</span></div>
             <div class="data-row"><span class="label">Múltiple</span><span id="vac-multiple" class="value">—</span></div>
             <div class="data-row"><span class="label">Desparasitación</span><span id="vac-desp" class="value">—</span></div>
         </div>
 
         <div id="tarjeta-vet" class="card fade-up" style="transition-delay: 0.7s; display: none;">
-            <h3><i data-lucide="stethoscope" size="15"></i> Veterinaria</h3>
+            <h3><i data-lucide="stethoscope" size="15"></i> Veterinaria <span class="card-index">03</span></h3>
             <div class="data-row"><span class="label">Clínica</span><span id="vet-nombre" class="value">—</span></div>
             <div class="data-row" style="margin-top: 5px;"><span class="label">Contacto</span><span id="vet-tel" class="value">—</span></div>
         </div>
 
         <div class="card fade-up" style="transition-delay: 0.8s;">
-            <h3><i data-lucide="shield-check" size="15"></i> Red de rescate</h3>
+            <h3><i data-lucide="shield-check" size="15"></i> Red de rescate <span class="card-index">04</span></h3>
             <div class="data-row"><span class="label">Propietario</span><span id="dueno" class="value">—</span></div>
             <div class="data-row"><span class="label">Principal</span><span id="tel1" class="value">—</span></div>
             <div class="data-row"><span class="label">Emergencia</span><span id="tel2" class="value">—</span></div>
@@ -320,12 +353,13 @@
 
         <div class="card fade-up" style="transition-delay: 0.82s;">
             <div class="accordion-head" onclick="toggleBPM()">
-                <h3><i data-lucide="heart-pulse" size="15" style="color: var(--alert-text);"></i> Medidor de frecuencia cardíaca</h3>
+                <h3><i data-lucide="heart-pulse" size="15" style="color: var(--alert-text);"></i> Frecuencia cardíaca</h3>
                 <i id="bpm-icon" data-lucide="chevron-down" size="18" class="accordion-icon"></i>
             </div>
 
             <div id="bpm-content" class="accordion-body" style="text-align: center;">
-                <p style="font-size: 0.82rem; color: var(--text-color); margin-bottom: 15px; line-height: 1.5;">
+                <p style="font-size: 0.82rem; color: var(--text-color); margin-bottom: 4px; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Space Mono', monospace; font-size: 0.62rem; opacity: 0.7;">Instrumento de campo</p>
+                <p style="font-size: 0.82rem; color: var(--text-color); margin-bottom: 15px; margin-top: 10px; line-height: 1.5;">
                     Coloca tu mano en el pecho del perro, justo detrás de su codo izquierdo. <strong style="color: var(--title-color);">Toca el botón al ritmo de cada latido</strong>.
                 </p>
 
@@ -345,7 +379,7 @@
 
         <div class="card fade-up" style="transition-delay: 0.85s;">
             <div class="accordion-head" onclick="toggleGuia()">
-                <h3><i data-lucide="life-buoy" size="15"></i> Guía de resguardo temporal</h3>
+                <h3><i data-lucide="life-buoy" size="15"></i> Guía de campo</h3>
                 <i id="guia-icon" data-lucide="chevron-down" size="18" class="accordion-icon"></i>
             </div>
 
@@ -368,7 +402,8 @@
         </div>
 
         <div class="footer-brand fade-up" style="transition-delay: 0.9s;">
-            Protegido por Etéreo
+            <span>Conservado por Etéreo</span>
+            <span class="sub">Archivo de recuerdos físicos</span>
         </div>
     </div>
 
@@ -502,6 +537,13 @@
                     document.getElementById('nombre').innerText = m.nombre;
                     document.getElementById('raza').innerText = m.apellidos ? `${m.apellidos} · ${m.especie_raza || 'Mascota'}` : (m.especie_raza || 'Mascota');
 
+                    // ficha de campo: número de catálogo derivado del ID de la placa
+                    const catalogo = String(idMascota).toUpperCase().slice(0, 8);
+                    const catEl = document.getElementById('catalog-id');
+                    if (catEl) catEl.innerText = `FICHA Nº ${catalogo}`;
+                    const frameRight = document.getElementById('frame-mark-right');
+                    if (frameRight) frameRight.innerHTML = `35MM<br>Nº ${catalogo}`;
+
                     if (m.foto) {
                         const imgEl = document.getElementById('foto');
                         imgEl.src = `fotos/${m.foto}?v=${new Date().getTime()}`;
@@ -570,11 +612,12 @@
         }
 
         // ── MICRO-INTERACCIONES ──
+        // Destello de obturador al tocar la foto (revelado fotográfico), no un giro de moneda.
         const fotoPerfil = document.getElementById('foto');
         fotoPerfil.addEventListener('click', function() {
-            this.classList.remove('spin-coin');
+            this.classList.remove('shutter-flash');
             void this.offsetWidth;
-            this.classList.add('spin-coin');
+            this.classList.add('shutter-flash');
             if (navigator.vibrate) navigator.vibrate(40);
         });
 
@@ -584,7 +627,7 @@
             const textoOriginal = btn.innerHTML;
             if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
 
-            btn.innerHTML = '<i data-lucide="loader" size="15"></i> Obteniendo satélites...';
+            btn.innerHTML = '<i data-lucide="loader" size="15"></i> Localizando coordenadas...';
             safeIcons();
 
             if (navigator.geolocation) {
@@ -690,9 +733,6 @@
                 icon.style.transform = 'rotate(0deg)';
             }
         }
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
