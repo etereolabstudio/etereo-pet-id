@@ -3,191 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Identidad Digital | Etéreo Lab Studio</title>
-    
+    <title>Placa Inteligente | Etéreo</title>
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#050505">
+    <meta name="theme-color" content="#121016">
     <meta name="robots" content="noindex, nofollow">
-    
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23121016'/%3E%3Ccircle cx='50' cy='50' r='34' fill='none' stroke='%23DD8E5C' stroke-width='6'/%3E%3Ccircle cx='50' cy='50' r='9' fill='%23DD8E5C'/%3E%3C/svg%3E">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     <style>
         /* =========================================
-           1. MOTOR DE COLOR Y TEXTURA (Premium)
+           1. MISMA IDENTIDAD DE ETÉREO — Revelado Analógico 90s
            ========================================= */
         :root {
-            --bg-color: #050505; 
-            --text-color: #A3A3A3; 
-            --title-color: #FFFFFF;
-            --accent-color: rgba(255, 255, 255, 0.08); 
-            --card-border: rgba(255, 255, 255, 0.1); 
-            --card-bg: rgba(10, 10, 10, 0.45);
-            --noise-opacity: 0.15; 
-            --pulse-color: rgba(255, 255, 255, 0.1);
-            --success: #1DB954;
-            --alert-bg: rgba(255, 59, 48, 0.08);
-            --alert-border: rgba(255, 59, 48, 0.2);
-            --alert-text: #ff4b4b;
-            --skeleton-base: rgba(255,255,255,0.03);
-            --skeleton-shine: rgba(255,255,255,0.08);
+            --bg-color: #121016;
+            --bg-raise: #18161D;
+            --text-color: #9B9488;
+            --title-color: #EDE6D6;
+            --accent: #DD8E5C;
+            --accent-soft: #8B84A3;
+            --card-border: rgba(237, 230, 214, 0.10);
+            --pulse-color: rgba(221, 142, 92, 0.12);
+            --light-leak-1: rgba(221, 142, 92, 0.10);
+            --light-leak-2: rgba(139, 132, 163, 0.08);
+
+            --success: #7FA582;
+            --alert-bg: rgba(196, 90, 60, 0.10);
+            --alert-border: rgba(196, 90, 60, 0.28);
+            --alert-text: #D9805D;
+
+            --skeleton-base: rgba(237,230,214,0.04);
+            --skeleton-shine: rgba(221,142,92,0.12);
+            --noise-opacity: 0.13;
         }
 
         [data-theme="light"] {
-            --bg-color: #F8F6F0; 
-            --text-color: #4A4A4A; 
-            --title-color: #121212;
-            --accent-color: rgba(0, 0, 0, 0.06); 
-            --card-border: rgba(0, 0, 0, 0.08); 
-            --card-bg: rgba(255, 255, 255, 0.65);
-            --noise-opacity: 0.06; 
-            --pulse-color: rgba(0, 0, 0, 0.05);
-            --success: #148f3f;
-            --alert-bg: rgba(255, 59, 48, 0.05);
-            --alert-border: rgba(255, 59, 48, 0.15);
-            --alert-text: #d93025;
-            --skeleton-base: rgba(0,0,0,0.03);
-            --skeleton-shine: rgba(0,0,0,0.08);
+            --bg-color: #EAE3D3;
+            --bg-raise: #F2ECDF;
+            --text-color: #6B6459;
+            --title-color: #1B1912;
+            --accent: #C97440;
+            --accent-soft: #6E6688;
+            --card-border: rgba(27, 25, 18, 0.12);
+            --pulse-color: rgba(201, 116, 64, 0.10);
+            --light-leak-1: rgba(201, 116, 64, 0.10);
+            --light-leak-2: rgba(110, 102, 136, 0.08);
+
+            --success: #4F7A52;
+            --alert-bg: rgba(184, 75, 42, 0.08);
+            --alert-border: rgba(184, 75, 42, 0.20);
+            --alert-text: #B84B2A;
+
+            --skeleton-base: rgba(27,25,18,0.04);
+            --skeleton-shine: rgba(201,116,64,0.12);
+            --noise-opacity: 0.16;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background-color: var(--bg-color); 
-            color: var(--text-color); 
-            font-family: 'Lato', sans-serif; 
-            font-weight: 300; 
-            line-height: 1.6; 
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            overflow-x: hidden; 
-            position: relative; 
+            overflow-x: hidden;
+            position: relative;
             transition: background-color 0.7s ease, color 0.7s ease;
         }
 
-        /* ── FONDOS: Partículas y Ruido ── */
-        #particles-js { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; transition: filter 0.7s ease, opacity 0.7s ease; }
-        [data-theme="light"] #particles-js { filter: invert(1); opacity: 0.25; }
+        .mono { font-family: 'Space Mono', monospace; }
 
+        #particles-js { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; opacity: 0.25; transition: opacity 0.7s ease; }
+
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;
+            background:
+                radial-gradient(ellipse 45% 35% at 80% 12%, var(--light-leak-1) 0%, transparent 65%),
+                radial-gradient(ellipse at -10% 115%, var(--light-leak-2) 0%, transparent 60%);
+        }
         body::after {
-            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; opacity: var(--noise-opacity); transition: opacity 0.7s ease;
-            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; opacity: var(--noise-opacity); mix-blend-mode: overlay; transition: opacity 0.7s ease;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
         }
 
-        .container { width: 100%; max-width: 480px; padding: 30px 24px 80px 24px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1;}
+        .container { width: 100%; max-width: 460px; padding: 28px 22px 80px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
 
         /* =========================================
-           2. SKELETON LOADER 
+           2. SKELETON LOADER
            ========================================= */
-        #skeleton-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 100px 24px; display: flex; flex-direction: column; align-items: center; z-index: 10; transition: opacity 0.6s ease; }
-        .skeleton { background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 50%, var(--skeleton-base) 75%); background-size: 200% 100%; animation: shimmer 2s infinite linear; border-radius: 8px; }
+        #skeleton-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 100px 22px; display: flex; flex-direction: column; align-items: center; z-index: 10; transition: opacity 0.6s ease; }
+        .skeleton { background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 50%, var(--skeleton-base) 75%); background-size: 200% 100%; animation: shimmer 1.7s infinite linear; border-radius: 2px; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        
-        .sk-avatar { width: 150px; height: 150px; border-radius: 50%; margin-bottom: 25px; }
-        .sk-title { width: 70%; height: 40px; margin-bottom: 12px; border-radius: 4px;}
-        .sk-sub { width: 40%; height: 16px; margin-bottom: 35px; border-radius: 4px;}
-        .sk-btn-row { display: flex; gap: 12px; width: 100%; margin-bottom: 40px; }
-        .sk-btn { height: 50px; border-radius: 8px; flex: 1; }
-        .sk-card { width: 100%; height: 160px; border-radius: 8px; margin-bottom: 15px;}
+
+        .sk-avatar { width: 140px; height: 140px; border-radius: 50%; margin-bottom: 24px; }
+        .sk-title { width: 65%; height: 34px; margin-bottom: 10px; }
+        .sk-sub { width: 40%; height: 14px; margin-bottom: 34px; }
+        .sk-btn-row { display: flex; gap: 12px; width: 100%; margin-bottom: 36px; }
+        .sk-btn { height: 48px; flex: 1; }
+        .sk-card { width: 100%; height: 150px; margin-bottom: 14px; }
 
         /* =========================================
-           3. UI PRINCIPAL 
+           3. TOP BAR — mismo wordmark del sitio principal
            ========================================= */
-        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .brand { font-size: 11px; font-weight: 700; letter-spacing: 5px; color: var(--title-color); font-family: 'Lato', sans-serif; text-transform: uppercase;}
-        
-        .theme-btn { 
-            background: transparent; color: var(--title-color); border: 1px solid var(--card-border); 
-            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; 
-            cursor: pointer; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 34px; }
+        .brand {
+            font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 3px;
+            color: var(--title-color); text-transform: uppercase; display: flex; align-items: center; gap: 8px;
         }
-        .theme-btn:active { transform: scale(0.9); }
+        .brand .clima { font-family: 'Space Mono', monospace; font-weight: 400; font-size: 10px; opacity: 0.5; letter-spacing: 0.5px; text-transform: none; display: inline-flex; align-items: center; gap: 3px; }
 
-        .profile-pic-container { position: relative; margin-bottom: 25px; display: flex; justify-content: center; align-items: center; width: 180px; height: 180px;}
-        .radar-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 1px solid var(--title-color); opacity: 0; z-index: -2; animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
-        @keyframes pulse-ring { 0% { transform: scale(0.85); opacity: 0.25; } 100% { transform: scale(1.4); opacity: 0; } }
-        
-        .profile-pic { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1; transition: transform 0.5s ease; background-color: var(--bg-color); padding: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer;}
-        
-        /* Efecto Moneda 3D */
-        .spin-coin { 
-            animation: coin-flip 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+        .theme-btn {
+            background: transparent; color: var(--title-color); border: 1px solid var(--card-border);
+            width: 38px; height: 38px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        @keyframes coin-flip { 
-            0% { transform: perspective(600px) rotateY(0deg); } 
-            100% { transform: perspective(600px) rotateY(360deg); } 
-        }
-        
-        h1 { font-size: 2.8rem; font-family: 'Playfair Display', serif; font-weight: 400; text-align: center; margin-bottom: 4px; color: var(--title-color); }
-        .subtitle { font-size: 1rem; color: var(--text-color); font-weight: 300; margin-bottom: 35px; text-align: center; letter-spacing: 1px; font-style: italic; font-family: 'Playfair Display', serif;}
+        .theme-btn:active { transform: scale(0.9); border-color: var(--accent); }
 
         /* =========================================
-           4. BOTONERA DE ACCIÓN
+           4. FOTO — carrete/medallón, no vidrio
            ========================================= */
-        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-bottom: 12px; }
-        .btn { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; cursor: pointer; font-family: 'Lato', sans-serif;}
-        
-        .btn-primary { background-color: var(--title-color); color: var(--bg-color); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .btn-secondary { background-color: var(--card-bg); color: var(--title-color); border-color: var(--card-border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-        .btn-location { background: transparent; color: var(--text-color); border: 1px dashed var(--card-border); width: 100%; margin-bottom: 40px; font-weight: 400;}
-        
+        .profile-pic-container { position: relative; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; width: 172px; height: 172px; }
+        .radar-pulse { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 1px solid var(--accent); opacity: 0; z-index: -2; animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+        @keyframes pulse-ring { 0% { transform: scale(0.85); opacity: 0.3; } 100% { transform: scale(1.4); opacity: 0; } }
+
+        .profile-pic { width: 144px; height: 144px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1; transition: transform 0.5s ease; background-color: var(--bg-raise); padding: 4px; box-shadow: 0 14px 32px rgba(0,0,0,0.4); cursor: pointer; }
+
+        .spin-coin { animation: coin-flip 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes coin-flip { 0% { transform: perspective(600px) rotateY(0deg); } 100% { transform: perspective(600px) rotateY(360deg); } }
+
+        .eyebrow-tag { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; text-align: center; }
+        h1 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: clamp(1.9rem, 8vw, 2.6rem); letter-spacing: 2px; text-transform: uppercase; text-align: center; margin-bottom: 6px; color: var(--title-color); }
+        .subtitle { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); margin-bottom: 32px; text-align: center; opacity: 0.8; }
+
+        /* =========================================
+           5. BOTONERA — mismo lenguaje del sitio principal
+           ========================================= */
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-bottom: 10px; }
+        .btn {
+            display: flex; justify-content: center; align-items: center; gap: 8px; padding: 15px;
+            border-radius: 2px; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700;
+            text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; cursor: pointer;
+        }
+        .btn-primary { background-color: var(--accent); color: #14121A; }
+        .btn-secondary { background-color: var(--bg-raise); color: var(--title-color); border-color: var(--card-border); }
+        .btn-location { background: transparent; color: var(--text-color); border: 1px dashed var(--card-border); width: 100%; margin-bottom: 36px; font-weight: 400; }
         .btn:active { transform: scale(0.97); }
+        .btn:hover { border-color: var(--accent); }
 
         /* =========================================
-           5. TARJETAS DE INFORMACIÓN 
+           6. TARJETAS — planas, tipo ficha de expediente
            ========================================= */
-        .card { 
-            background: var(--card-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
-            border: 1px solid var(--card-border); border-radius: 8px; width: 100%; padding: 30px 25px; 
-            margin-bottom: 15px; position: relative; overflow: hidden; transition: transform 0.4s ease, border-color 0.7s ease; 
+        .card {
+            background: var(--bg-raise); border: 1px solid var(--card-border); border-radius: 2px;
+            width: 100%; padding: 26px 22px; margin-bottom: 12px; position: relative; overflow: hidden;
+            transition: border-color 0.7s ease;
         }
-        
-        /* Efecto Spotlight Hover Sync Landing */
         .card::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; pointer-events: none;
-            background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--pulse-color), transparent 40%);
+            background: radial-gradient(320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--pulse-color), transparent 40%);
             opacity: 0; transition: opacity 0.5s;
         }
         .card:hover::before { opacity: 1; }
         .card > * { position: relative; z-index: 1; }
 
         .card-alert { background: var(--alert-bg); border-color: var(--alert-border); }
-        
-        .card h3 { font-size: 0.8rem; color: var(--title-color); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; font-family: 'Lato', sans-serif; font-weight: 700;}
+
+        .card h3 { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--title-color); text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 22px; display: flex; align-items: center; gap: 9px; font-weight: 700; }
+        .card h3 i, .card h3 svg { color: var(--accent); }
         .card-alert h3 { color: var(--alert-text); }
-        
-        .data-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--accent-color); }
+        .card-alert h3 i, .card-alert h3 svg { color: var(--alert-text); }
+
+        .data-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--card-border); }
         .data-row:last-child { border-bottom: none; padding-bottom: 0; }
-        .label { color: var(--text-color); font-size: 0.95rem; font-weight: 300; }
-        .value { color: var(--title-color); font-size: 0.95rem; font-weight: 400; text-align: right; }
-        
-        .link-action { color: var(--title-color); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--title-color); padding-bottom: 2px; transition: opacity 0.3s;}
+        .label { color: var(--text-color); font-size: 0.85rem; font-weight: 300; }
+        .value { color: var(--title-color); font-family: 'Space Mono', monospace; font-size: 0.82rem; text-align: right; }
+
+        .link-action { color: var(--accent); text-decoration: none; font-family: 'Space Mono', monospace; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: opacity 0.3s; }
         .link-action:active { opacity: 0.6; }
 
-        /* Animaciones Cinemáticas */
         .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .visible { opacity: 1; transform: translateY(0); }
 
-        .footer-brand { text-align: center; margin-top: 30px; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--text-color); font-style: italic; opacity: 0.6; }
+        .footer-brand { text-align: center; margin-top: 28px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); opacity: 0.55; }
 
-        /* CSS Botón BPM */
+        /* =========================================
+           7. MEDIDOR DE PULSO — mismo acento de alerta
+           ========================================= */
         .btn-bpm {
-            width: 80px; height: 80px; border-radius: 50%; 
-            background-color: rgba(239, 68, 68, 0.08); 
-            border: 2px solid #ef4444; color: #ef4444; 
-            cursor: pointer; display: flex; justify-content: center; align-items: center; 
-            margin: 0 auto; transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1); 
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
-            -webkit-tap-highlight-color: transparent;
+            width: 76px; height: 76px; border-radius: 50%;
+            background-color: var(--alert-bg); border: 2px solid var(--alert-text); color: var(--alert-text);
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            margin: 0 auto; transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(196, 90, 60, 0.15);
             user-select: none;
         }
-        .btn-bpm:active { transform: scale(0.85); background-color: rgba(239, 68, 68, 0.2); }
+        .btn-bpm:active { transform: scale(0.85); background-color: var(--alert-border); }
+
+        .accordion-head { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 4px 0; }
+        .accordion-head h3 { margin-bottom: 0; }
+        .accordion-icon { color: var(--text-color); transition: transform 0.3s; flex-shrink: 0; }
+        .accordion-body { display: none; margin-top: 20px; border-top: 1px solid var(--card-border); padding-top: 20px; }
     </style>
 
     <script>
@@ -196,7 +225,7 @@
     <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-    
+
     <div id="particles-js"></div>
 
     <div id="skeleton-screen">
@@ -212,24 +241,24 @@
     </div>
 
     <div id="perfil-mascota" class="container" style="opacity: 0; pointer-events: none;">
-        
+
         <div class="top-bar fade-up" style="transition-delay: 0.1s;">
-            <div class="brand" style="display: flex; align-items: center; gap: 8px;">
-                Etéreo Lab Studio
-                <span id="clima-ornamento" style="font-family: 'Lato', sans-serif; font-weight: 300; font-size: 11px; opacity: 0.4; letter-spacing: normal; text-transform: none; display: inline-flex; align-items: center; gap: 3px;"></span>
+            <div class="brand">
+                ETÉREO
+                <span id="clima-ornamento" class="clima"></span>
             </div>
             <button class="theme-btn" id="theme-btn" aria-label="Cambiar Tema">
-                <i data-lucide="sun" size="18"></i>
+                <i data-lucide="sun" size="16"></i>
             </button>
         </div>
 
-        <div id="alerta-clima" class="card card-alert fade-up" style="display: none; margin-bottom: 25px; border-left: 4px solid var(--alert-text); padding: 20px;">
+        <div id="alerta-clima" class="card card-alert fade-up" style="display: none; margin-bottom: 22px; border-left: 3px solid var(--alert-text); padding: 20px;">
             <div style="display: flex; align-items: flex-start; gap: 15px;">
-                <i data-lucide="thermometer-sun" size="28" style="color: var(--alert-text); flex-shrink: 0; margin-top: 2px; animation: pulse-ring 2s infinite;"></i>
+                <i data-lucide="thermometer-sun" size="26" style="color: var(--alert-text); flex-shrink: 0; margin-top: 2px;"></i>
                 <div>
-                    <h3 style="margin-bottom: 6px; font-size: 0.85rem; letter-spacing: 1px;">Peligro de Golpe de Calor (<span id="temp-actual">--</span>°C)</h3>
-                    <p style="color: var(--title-color); font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400; text-transform: none;">
-                        El pavimento podría estar quemando sus patas. Ubica al animal en la sombra de inmediato y ofrécele agua a temperatura ambiente para evitar un colapso.
+                    <h3 style="margin-bottom: 6px; font-size: 0.72rem; letter-spacing: 1.5px;">Peligro de golpe de calor (<span id="temp-actual">--</span>°C)</h3>
+                    <p style="color: var(--title-color); font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">
+                        El pavimento podría estar quemando sus patas. Ubica al animal en la sombra de inmediato y ofrécele agua a temperatura ambiente.
                     </p>
                 </div>
             </div>
@@ -239,131 +268,135 @@
             <div class="radar-pulse"></div>
             <img id="foto" class="profile-pic" src="">
         </div>
-        
-        <h1 id="nombre" class="fade-up" style="transition-delay: 0.3s;">...</h1>
-        <div id="raza" class="subtitle fade-up" style="transition-delay: 0.3s;">...</div>
+
+        <div class="eyebrow-tag fade-up" style="transition-delay: 0.25s;">Placa Inteligente</div>
+        <h1 id="nombre" class="fade-up" style="transition-delay: 0.3s;">···</h1>
+        <div id="raza" class="subtitle fade-up" style="transition-delay: 0.3s;">···</div>
 
         <div class="action-grid fade-up" style="transition-delay: 0.4s;">
-            <a id="btn-llamar" href="#" class="btn btn-primary"><i data-lucide="phone" size="16"></i> Llamar</a>
-            <a id="btn-wa" href="#" class="btn btn-secondary"><i data-lucide="message-circle" size="16"></i> WhatsApp</a>
+            <a id="btn-llamar" href="#" class="btn btn-primary"><i data-lucide="phone" size="15"></i> Llamar</a>
+            <a id="btn-wa" href="#" class="btn btn-secondary"><i data-lucide="message-circle" size="15"></i> WhatsApp</a>
         </div>
-        
+
         <button id="btn-gps" class="btn btn-location fade-up" style="transition-delay: 0.4s;" onclick="enviarUbicacion()">
-            <i data-lucide="map-pin" size="16"></i> Compartir ubicación GPS
+            <i data-lucide="map-pin" size="15"></i> Compartir ubicación GPS
         </button>
 
         <div id="tarjeta-medica" class="card card-alert fade-up" style="transition-delay: 0.5s; display: none;">
-            <h3><i data-lucide="alert-triangle" size="16"></i> Alertas Médicas</h3>
-            <p id="condiciones" style="color: var(--title-color); font-size: 0.95rem; line-height: 1.6; font-weight: 400;"></p>
+            <h3><i data-lucide="alert-triangle" size="15"></i> Alertas médicas</h3>
+            <p id="condiciones" style="color: var(--title-color); font-size: 0.9rem; line-height: 1.6; font-weight: 400;"></p>
         </div>
 
         <div class="card fade-up" style="transition-delay: 0.6s;">
-            <h3><i data-lucide="fingerprint" size="16"></i> Biometría</h3>
-            <div class="data-row"><span class="label">Sexo</span><span id="sexo" class="value">-</span></div>
-            <div class="data-row"><span class="label">Nacimiento</span><span id="nacimiento" class="value">-</span></div>
-            <div class="data-row"><span class="label">Microchip</span><span id="microchip" class="value">-</span></div>
+            <h3><i data-lucide="fingerprint" size="15"></i> Biometría</h3>
+            <div class="data-row"><span class="label">Sexo</span><span id="sexo" class="value">—</span></div>
+            <div class="data-row"><span class="label">Nacimiento</span><span id="nacimiento" class="value">—</span></div>
+            <div class="data-row"><span class="label">Microchip</span><span id="microchip" class="value">—</span></div>
         </div>
 
         <div id="tarjeta-cartilla" class="card fade-up" style="transition-delay: 0.65s; display: none;">
-            <h3><i data-lucide="activity" size="16"></i> Registro Médico</h3>
-            <div class="data-row"><span class="label">Rabia</span><span id="vac-rabia" class="value">-</span></div>
-            <div class="data-row"><span class="label">Múltiple</span><span id="vac-multiple" class="value">-</span></div>
-            <div class="data-row"><span class="label">Desparasitación</span><span id="vac-desp" class="value">-</span></div>
+            <h3><i data-lucide="activity" size="15"></i> Registro médico</h3>
+            <div class="data-row"><span class="label">Rabia</span><span id="vac-rabia" class="value">—</span></div>
+            <div class="data-row"><span class="label">Múltiple</span><span id="vac-multiple" class="value">—</span></div>
+            <div class="data-row"><span class="label">Desparasitación</span><span id="vac-desp" class="value">—</span></div>
         </div>
 
         <div id="tarjeta-vet" class="card fade-up" style="transition-delay: 0.7s; display: none;">
-            <h3><i data-lucide="stethoscope" size="16"></i> Veterinaria</h3>
-            <div class="data-row"><span class="label">Clínica</span><span id="vet-nombre" class="value">-</span></div>
-            <div class="data-row" style="margin-top: 5px;"><span class="label">Contacto</span><span id="vet-tel" class="value">-</span></div>
+            <h3><i data-lucide="stethoscope" size="15"></i> Veterinaria</h3>
+            <div class="data-row"><span class="label">Clínica</span><span id="vet-nombre" class="value">—</span></div>
+            <div class="data-row" style="margin-top: 5px;"><span class="label">Contacto</span><span id="vet-tel" class="value">—</span></div>
         </div>
 
         <div class="card fade-up" style="transition-delay: 0.8s;">
-            <h3><i data-lucide="shield-check" size="16"></i> Red de Rescate</h3>
-            <div class="data-row"><span class="label">Propietario</span><span id="dueno" class="value">-</span></div>
-            <div class="data-row"><span class="label">Principal</span><span id="tel1" class="value">-</span></div>
-            <div class="data-row"><span class="label">Emergencia</span><span id="tel2" class="value">-</span></div>
-            <div class="data-row" style="margin-top: 10px; flex-direction: column; align-items: flex-start; gap: 10px;">
+            <h3><i data-lucide="shield-check" size="15"></i> Red de rescate</h3>
+            <div class="data-row"><span class="label">Propietario</span><span id="dueno" class="value">—</span></div>
+            <div class="data-row"><span class="label">Principal</span><span id="tel1" class="value">—</span></div>
+            <div class="data-row"><span class="label">Emergencia</span><span id="tel2" class="value">—</span></div>
+            <div class="data-row" style="margin-top: 8px; flex-direction: column; align-items: flex-start; gap: 10px;">
                 <span class="label">Dirección</span>
-                <span id="direccion" class="value" style="text-align: left;">-</span>
+                <span id="direccion" class="value" style="text-align: left;">—</span>
             </div>
         </div>
 
         <div class="card fade-up" style="transition-delay: 0.82s;">
-            <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 5px 0;" onclick="toggleBPM()">
-                <h3 style="margin-bottom: 0; color: var(--title-color); font-size: 0.9rem;"><i data-lucide="heart-pulse" size="18" style="color: #ef4444;"></i> Medidor de Frecuencia Cardíaca</h3>
-                <i id="bpm-icon" data-lucide="chevron-down" size="20" style="color: var(--text-color); transition: transform 0.3s;"></i>
+            <div class="accordion-head" onclick="toggleBPM()">
+                <h3><i data-lucide="heart-pulse" size="15" style="color: var(--alert-text);"></i> Medidor de frecuencia cardíaca</h3>
+                <i id="bpm-icon" data-lucide="chevron-down" size="18" class="accordion-icon"></i>
             </div>
-            
-            <div id="bpm-content" style="display: none; margin-top: 20px; border-top: 1px solid var(--accent-color); padding-top: 20px; text-align: center;">
-                <p style="font-size: 0.85rem; color: var(--text-color); margin-bottom: 15px; line-height: 1.5;">
-                    Coloca tu mano en el pecho del perro, justo detrás de su codo izquierdo. <strong>Toca el botón al ritmo de cada latido</strong>.
+
+            <div id="bpm-content" class="accordion-body" style="text-align: center;">
+                <p style="font-size: 0.82rem; color: var(--text-color); margin-bottom: 15px; line-height: 1.5;">
+                    Coloca tu mano en el pecho del perro, justo detrás de su codo izquierdo. <strong style="color: var(--title-color);">Toca el botón al ritmo de cada latido</strong>.
                 </p>
-                
-                <div style="font-size: 3.5rem; font-family: 'Playfair Display', serif; color: var(--title-color); height: 65px; display: flex; align-items: center; justify-content: center;" id="bpm-display">
+
+                <div class="mono" style="font-size: 3rem; color: var(--title-color); height: 60px; display: flex; align-items: center; justify-content: center;" id="bpm-display">
                     --
                 </div>
-                <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-color); margin-bottom: 15px;">Latidos por Minuto (BPM)</div>
-                
-                <div id="bpm-status" style="font-size: 0.85rem; font-weight: 700; color: var(--text-color); margin-bottom: 25px; min-height: 20px;"></div>
+                <div class="mono" style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-color); margin-bottom: 15px;">Latidos por minuto (BPM)</div>
+
+                <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-color); margin-bottom: 24px; min-height: 20px;" id="bpm-status"></div>
 
                 <div class="btn-bpm" id="btn-tap" ontouchstart="registrarLatido(event)" onmousedown="registrarLatido(event)">
-                    <i data-lucide="heart" size="32"></i>
+                    <i data-lucide="heart" size="30"></i>
                 </div>
-                <button onclick="reiniciarBPM()" style="margin-top: 25px; background: transparent; border: none; color: var(--text-color); text-decoration: underline; font-size: 0.8rem; cursor: pointer; font-family: 'Lato', sans-serif;">Reiniciar medición</button>
+                <button onclick="reiniciarBPM()" class="mono" style="margin-top: 24px; background: transparent; border: none; color: var(--text-color); text-decoration: underline; font-size: 0.75rem; cursor: pointer;">Reiniciar medición</button>
             </div>
         </div>
 
         <div class="card fade-up" style="transition-delay: 0.85s;">
-            <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 5px 0;" onclick="toggleGuia()">
-                <h3 style="margin-bottom: 0; color: var(--title-color); font-size: 0.9rem;"><i data-lucide="life-buoy" size="18"></i> Guía de Resguardo Temporal</h3>
-                <i id="guia-icon" data-lucide="chevron-down" size="20" style="color: var(--text-color); transition: transform 0.3s;"></i>
+            <div class="accordion-head" onclick="toggleGuia()">
+                <h3><i data-lucide="life-buoy" size="15"></i> Guía de resguardo temporal</h3>
+                <i id="guia-icon" data-lucide="chevron-down" size="18" class="accordion-icon"></i>
             </div>
-            
-            <div id="guia-content" style="display: none; margin-top: 20px; border-top: 1px solid var(--accent-color); padding-top: 20px;">
+
+            <div id="guia-content" class="accordion-body">
                 <div style="margin-bottom: 16px;">
-                    <strong style="color: var(--title-color); font-size: 0.9rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="droplets" size="14" color="#3b82f6"></i> Hidratación y Dieta</strong>
-                    <p style="font-size: 0.85rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Ofrécele agua limpia a voluntad. Si está muy jadeante, dale en pocas cantidades para evitar que vomite. Si requiere comer, usa croquetas genéricas secas o pollo hervido (sin sal ni huesos).</p>
+                    <strong style="color: var(--title-color); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="droplets" size="13" style="color: var(--accent-soft);"></i> Hidratación y dieta</strong>
+                    <p style="font-size: 0.82rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Ofrécele agua limpia a voluntad. Si está muy jadeante, dale en pocas cantidades. Si requiere comer, usa croquetas genéricas secas o pollo hervido (sin sal ni huesos).</p>
                 </div>
-                
+
                 <div style="margin-bottom: 16px;">
-                    <strong style="color: var(--alert-text); font-size: 0.9rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="skull" size="14"></i> Estrictamente Prohibido</strong>
-                    <p style="font-size: 0.85rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Bajo ninguna circunstancia ofrezcas: <strong>Chocolate, uvas, pasas, aguacate, cebolla, ajo o huesos cocidos.</strong> Son altamente tóxicos.</p>
+                    <strong style="color: var(--alert-text); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="skull" size="13"></i> Estrictamente prohibido</strong>
+                    <p style="font-size: 0.82rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Bajo ninguna circunstancia ofrezcas: <strong style="color: var(--title-color);">chocolate, uvas, pasas, aguacate, cebolla, ajo o huesos cocidos.</strong> Son altamente tóxicos.</p>
                 </div>
-                
+
                 <div>
-                    <strong style="color: var(--title-color); font-size: 0.9rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="home" size="14" color="#10b981"></i> Entorno Seguro</strong>
-                    <p style="font-size: 0.85rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Mantenlo en un espacio cerrado y tranquilo. Evita juntarlo inmediatamente con tus propias mascotas para prevenir peleas por estrés territorial o contagios cruzados.</p>
+                    <strong style="color: var(--title-color); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="home" size="13" style="color: var(--success);"></i> Entorno seguro</strong>
+                    <p style="font-size: 0.82rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Mantenlo en un espacio cerrado y tranquilo. Evita juntarlo con tus propias mascotas para prevenir peleas territoriales o contagios cruzados.</p>
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-brand fade-up" style="transition-delay: 0.9s;">
-            Protegido por Etéreo Lab Studio
+            Protegido por Etéreo
         </div>
     </div>
 
     <script>
-        // ── INICIALIZACIÓN ÓPTIMA ──
-        lucide.createIcons();
+        // ── INICIALIZACIÓN BLINDADA ──
+        // Nada de lo que sigue depende de que estas dos librerías carguen con éxito;
+        // si fallan, el resto del script (y sobre todo la carga de datos reales) continúa igual.
+        try { lucide.createIcons(); } catch(e) { console.warn('Lucide no cargó:', e); }
 
-        if (typeof particlesJS !== 'undefined') {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": { "value": 35, "density": { "enable": true, "value_area": 800 } },
-                    "color": { "value": "#ffffff" },
-                    "shape": { "type": "circle" },
-                    "opacity": { "value": 0.3, "random": true },
-                    "size": { "value": 2, "random": true },
-                    "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.15, "width": 1 },
-                    "move": { "enable": true, "speed": 0.4, "direction": "none", "random": true, "out_mode": "out" }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true }
-                },
-                "retina_detect": true
-            });
-        }
+        try {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": { "value": 26, "density": { "enable": true, "value_area": 800 } },
+                        "color": { "value": "#EDE6D6" },
+                        "shape": { "type": "circle" },
+                        "opacity": { "value": 0.25, "random": true },
+                        "size": { "value": 2, "random": true },
+                        "line_linked": { "enable": false },
+                        "move": { "enable": true, "speed": 0.3, "direction": "top", "random": true, "out_mode": "out" }
+                    },
+                    "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                    "retina_detect": true
+                });
+            }
+        } catch(e) { console.warn('Particles no cargó:', e); }
+
+        function safeIcons() { try { lucide.createIcons(); } catch(e) {} }
 
         document.querySelectorAll('.card').forEach(card => {
             card.addEventListener('mousemove', e => {
@@ -373,26 +406,27 @@
             });
         });
 
-        const themeBtn = document.getElementById('theme-btn'); 
+        const themeBtn = document.getElementById('theme-btn');
         const htmlElement = document.documentElement;
 
         function updateThemeUI(isDark) {
-            themeBtn.innerHTML = isDark ? '<i data-lucide="sun" size="18"></i>' : '<i data-lucide="moon" size="18"></i>';
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', isDark ? '#050505' : '#F8F6F0');
-            lucide.createIcons();
+            themeBtn.innerHTML = isDark ? '<i data-lucide="sun" size="16"></i>' : '<i data-lucide="moon" size="16"></i>';
+            const metaTheme = document.querySelector('meta[name="theme-color"]');
+            if (metaTheme) metaTheme.setAttribute('content', isDark ? '#121016' : '#EAE3D3');
+            safeIcons();
         }
 
         themeBtn.addEventListener('click', () => {
             if (navigator.vibrate) navigator.vibrate(50);
             const isCurrentlyDark = htmlElement.getAttribute('data-theme') === 'dark';
             const newTheme = isCurrentlyDark ? 'light' : 'dark';
-            
             htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            try { localStorage.setItem('theme', newTheme); } catch(e) {}
             updateThemeUI(newTheme === 'dark');
         });
 
-        const savedTheme = localStorage.getItem('theme');
+        let savedTheme = null;
+        try { savedTheme = localStorage.getItem('theme'); } catch(e) {}
         if (savedTheme) {
             htmlElement.setAttribute('data-theme', savedTheme);
             updateThemeUI(savedTheme === 'dark');
@@ -402,7 +436,7 @@
 
         const parametros = new URLSearchParams(window.location.search);
         let idMascota = parametros.get('id');
-        
+
         if (!idMascota) {
             const ruta = window.location.pathname.replace(/^\/|\/$/g, '');
             if (ruta && ruta !== 'index.html') idMascota = ruta;
@@ -412,12 +446,13 @@
         let nombreMascotaGlobal = '';
 
         function mostrarError(mensaje) {
-            document.getElementById('skeleton-screen').style.display = 'none';
+            const skeleton = document.getElementById('skeleton-screen');
+            if (skeleton) skeleton.style.display = 'none';
             const contenedor = document.getElementById('perfil-mascota');
-            contenedor.innerHTML = `<div style="text-align:center; padding-top: 80px;"><i data-lucide="x-circle" size="48" color="var(--alert-text)" style="margin-bottom: 20px;"></i><h2 style="font-family: 'Playfair Display'; color:var(--title-color); margin-bottom: 10px; font-weight: 400; font-size: 2rem;">Expediente Oculto</h2><p style="color:var(--text-color); font-size: 0.95rem; text-align: center;">${mensaje}</p></div>`;
+            contenedor.innerHTML = `<div style="text-align:center; padding-top: 80px;"><i data-lucide="x-circle" size="44" style="color: var(--alert-text); margin-bottom: 20px;"></i><h2 style="font-family: 'Clash Display'; text-transform: uppercase; letter-spacing: 2px; color:var(--title-color); margin-bottom: 12px; font-weight: 600; font-size: 1.6rem;">Expediente Oculto</h2><p style="color:var(--text-color); font-size: 0.9rem; text-align: center; max-width: 300px;">${mensaje}</p></div>`;
             contenedor.style.opacity = '1';
             contenedor.style.pointerEvents = 'auto';
-            lucide.createIcons();
+            safeIcons();
         }
 
         function verificarEstresTermico() {
@@ -432,20 +467,20 @@
                 .then(clima => {
                     const temp = clima.current_weather.temperature;
                     const tempRedonda = Math.round(temp);
-                    
+
                     const ornamento = document.getElementById('clima-ornamento');
                     if (ornamento) {
-                        ornamento.innerHTML = `• <i data-lucide="thermometer" size="11" style="margin-top: -1px;"></i> ${tempRedonda}°C`;
+                        ornamento.innerHTML = `· <i data-lucide="thermometer" size="10" style="margin-top: -1px;"></i> ${tempRedonda}°C`;
                     }
-                    
-                    if (temp >= 29) { 
+
+                    if (temp >= 29) {
                         const alertaClima = document.getElementById('alerta-clima');
                         document.getElementById('temp-actual').innerText = tempRedonda;
                         alertaClima.style.display = 'block';
                         setTimeout(() => alertaClima.classList.add('visible'), 300);
                     }
-                    
-                    lucide.createIcons();
+
+                    safeIcons();
                 })
                 .catch(err => console.warn("Monitor térmico inactivo:", err));
         }
@@ -453,7 +488,7 @@
         verificarEstresTermico();
 
         if (!idMascota) {
-            mostrarError('Escanea un código QR oficial de Etéreo Lab Studio para acceder a la identidad.');
+            mostrarError('Escanea la placa NFC oficial de Etéreo para acceder a la identidad.');
         } else {
             fetch(`datos/${idMascota}.json?nocache=${new Date().getTime()}`)
                 .then(r => {
@@ -462,12 +497,12 @@
                 })
                 .then(m => {
                     nombreMascotaGlobal = m.nombre;
-                        
-                    document.title = `${m.nombre} | Etéreo Lab Studio`;
+
+                    document.title = `${m.nombre} | Etéreo`;
                     document.getElementById('nombre').innerText = m.nombre;
-                    document.getElementById('raza').innerText = m.apellidos ? `${m.apellidos} • ${m.especie_raza || 'Mascota'}` : (m.especie_raza || 'Mascota');
-                    
-                    if(m.foto) {
+                    document.getElementById('raza').innerText = m.apellidos ? `${m.apellidos} · ${m.especie_raza || 'Mascota'}` : (m.especie_raza || 'Mascota');
+
+                    if (m.foto) {
                         const imgEl = document.getElementById('foto');
                         imgEl.src = `fotos/${m.foto}?v=${new Date().getTime()}`;
                     } else {
@@ -478,22 +513,22 @@
                     document.getElementById('btn-llamar').href = `tel:${telefonoDueñoGlobal}`;
                     document.getElementById('btn-wa').href = `https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=¡Hola!%20Escaneé%20la%20placa%20de%20${m.nombre}%20y%20lo%20tengo%20conmigo.`;
 
-                    if(m.condiciones_medicas) {
+                    if (m.condiciones_medicas) {
                         document.getElementById('tarjeta-medica').style.display = 'block';
                         document.getElementById('condiciones').innerText = m.condiciones_medicas;
                     }
 
-                    if(m.veterinario && (m.veterinario.nombre || m.veterinario.telefono)) {
+                    if (m.veterinario && (m.veterinario.nombre || m.veterinario.telefono)) {
                         document.getElementById('tarjeta-vet').style.display = 'block';
-                        document.getElementById('vet-nombre').innerText = m.veterinario.nombre || '-';
-                        if(m.veterinario.telefono) {
-                            document.getElementById('vet-tel').innerHTML = `<a href="tel:${m.veterinario.telefono.replace(/[^0-9+]/g, '')}" class="link-action">Llamar clínica <i data-lucide="arrow-up-right" size="14"></i></a>`;
+                        document.getElementById('vet-nombre').innerText = m.veterinario.nombre || '—';
+                        if (m.veterinario.telefono) {
+                            document.getElementById('vet-tel').innerHTML = `<a href="tel:${m.veterinario.telefono.replace(/[^0-9+]/g, '')}" class="link-action">Llamar clínica <i data-lucide="arrow-up-right" size="13"></i></a>`;
                         }
                     }
 
-                    document.getElementById('sexo').innerText = m.sexo || '-';
-                    document.getElementById('nacimiento').innerText = m.fecha_nacimiento || '-';
-                    document.getElementById('microchip').innerText = m.microchip || '-';
+                    document.getElementById('sexo').innerText = m.sexo || '—';
+                    document.getElementById('nacimiento').innerText = m.fecha_nacimiento || '—';
+                    document.getElementById('microchip').innerText = m.microchip || '—';
 
                     if (m.cartilla && (m.cartilla.rabia || m.cartilla.multiple || m.cartilla.desparasitacion)) {
                         document.getElementById('tarjeta-cartilla').style.display = 'block';
@@ -501,33 +536,36 @@
                         document.getElementById('vac-multiple').innerText = m.cartilla.multiple || 'Sin registro';
                         document.getElementById('vac-desp').innerText = m.cartilla.desparasitacion || 'Sin registro';
                     }
-                    
-                    document.getElementById('dueno').innerText = m.contacto_principal?.nombre || '-';
-                    document.getElementById('tel1').innerText = m.contacto_principal?.telefono || '-';
-                    document.getElementById('tel2').innerText = m.contacto_emergencia?.telefono || '-';
-                        
-                    if(m.direccion_opcional) {
+
+                    document.getElementById('dueno').innerText = m.contacto_principal?.nombre || '—';
+                    document.getElementById('tel1').innerText = m.contacto_principal?.telefono || '—';
+                    document.getElementById('tel2').innerText = m.contacto_emergencia?.telefono || '—';
+
+                    if (m.direccion_opcional) {
                         const dirCodificada = encodeURIComponent(m.direccion_opcional);
                         const linkGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${dirCodificada}`;
-                        document.getElementById('direccion').innerHTML = `<a href="${linkGoogleMaps}" target="_blank" class="link-action">Abrir mapa <i data-lucide="arrow-up-right" size="14"></i></a>`;
+                        document.getElementById('direccion').innerHTML = `<a href="${linkGoogleMaps}" target="_blank" rel="noopener noreferrer" class="link-action">Abrir mapa <i data-lucide="arrow-up-right" size="13"></i></a>`;
                     }
 
-                    lucide.createIcons();
+                    safeIcons();
 
                     setTimeout(() => {
-                        document.getElementById('skeleton-screen').style.opacity = '0';
-                        setTimeout(() => document.getElementById('skeleton-screen').style.display = 'none', 600);
-                        
+                        const skeleton = document.getElementById('skeleton-screen');
+                        if (skeleton) {
+                            skeleton.style.opacity = '0';
+                            setTimeout(() => skeleton.style.display = 'none', 600);
+                        }
+
                         const perfil = document.getElementById('perfil-mascota');
                         perfil.style.opacity = '1';
                         perfil.style.pointerEvents = 'auto';
-                        
+
                         const elementos = perfil.querySelectorAll('.fade-up');
                         elementos.forEach(el => el.classList.add('visible'));
-                    }, 600); 
+                    }, 600);
                 })
                 .catch(e => {
-                    mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'La cápsula de memoria que buscas no existe o ha sido archivada.' : `Fallo de red: ${e.message}`);
+                    mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'La placa que buscas no existe o ha sido archivada.' : `Fallo de red: ${e.message}`);
                 });
         }
 
@@ -535,7 +573,7 @@
         const fotoPerfil = document.getElementById('foto');
         fotoPerfil.addEventListener('click', function() {
             this.classList.remove('spin-coin');
-            void this.offsetWidth; 
+            void this.offsetWidth;
             this.classList.add('spin-coin');
             if (navigator.vibrate) navigator.vibrate(40);
         });
@@ -546,9 +584,9 @@
             const textoOriginal = btn.innerHTML;
             if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
 
-            btn.innerHTML = '<i data-lucide="loader" size="16" class="spin"></i> Obteniendo satélites...';
-            lucide.createIcons();
-            
+            btn.innerHTML = '<i data-lucide="loader" size="15"></i> Obteniendo satélites...';
+            safeIcons();
+
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     (posicion) => {
@@ -556,22 +594,22 @@
                         const lon = posicion.coords.longitude;
                         const linkMaps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
                         const mensaje = `¡URGENTE! Tengo a ${nombreMascotaGlobal}. Estoy exactamente aquí: ${linkMaps}`;
-                        
+
                         btn.innerHTML = textoOriginal;
-                        lucide.createIcons();
+                        safeIcons();
                         window.open(`https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=${encodeURIComponent(mensaje)}`, '_blank');
                     },
-                    (error) => { 
-                        alert("Es necesario permitir el acceso al GPS de tu navegador para enviar la alerta."); 
+                    () => {
+                        alert("Es necesario permitir el acceso al GPS de tu navegador para enviar la alerta.");
                         btn.innerHTML = textoOriginal;
-                        lucide.createIcons();
+                        safeIcons();
                     },
                     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
                 );
             } else {
                 alert("Tu dispositivo no soporta funciones de geolocalización.");
                 btn.innerHTML = textoOriginal;
-                lucide.createIcons();
+                safeIcons();
             }
         }
 
@@ -584,64 +622,51 @@
             const icon = document.getElementById('bpm-icon');
             if (navigator.vibrate) navigator.vibrate(30);
 
-            if (content.style.display === 'none') {
+            if (content.style.display === 'none' || !content.style.display) {
                 content.style.display = 'block';
                 icon.style.transform = 'rotate(180deg)';
-                setTimeout(() => {
-                    content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
+                setTimeout(() => content.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
             } else {
                 content.style.display = 'none';
                 icon.style.transform = 'rotate(0deg)';
-                reiniciarBPM(); 
+                reiniciarBPM();
             }
         }
 
         function registrarLatido(event) {
-            // Prevenir comportamientos por defecto para no disparar el evento 2 veces
-            if (event) event.preventDefault(); 
-            
+            if (event) event.preventDefault();
+
             const display = document.getElementById('bpm-display');
             const status = document.getElementById('bpm-status');
-            
+
             if (navigator.vibrate) navigator.vibrate(40);
-            
+
             const now = Date.now();
             tapsBPM.push(now);
-            
-            // Mantener solo los últimos 8 toques para reaccionar rápido a los cambios
-            if (tapsBPM.length > 8) {
-                tapsBPM.shift();
-            }
-            
+            if (tapsBPM.length > 8) tapsBPM.shift();
+
             if (tapsBPM.length > 2) {
                 const diffs = [];
-                for (let i = 1; i < tapsBPM.length; i++) {
-                    diffs.push(tapsBPM[i] - tapsBPM[i-1]);
-                }
+                for (let i = 1; i < tapsBPM.length; i++) diffs.push(tapsBPM[i] - tapsBPM[i-1]);
                 const avgDiff = diffs.reduce((a, b) => a + b) / diffs.length;
                 const bpm = Math.round(60000 / avgDiff);
-                
+
                 display.innerText = bpm;
-                
-                // Lógica de Triage
+
                 if (bpm > 160) {
-                    status.innerHTML = '<span style="color: var(--alert-text);">⚠️ Ritmo Acelerado (Taquicardia / Dolor)</span>';
+                    status.innerHTML = '<span style="color: var(--alert-text);">⚠ Ritmo acelerado (taquicardia / dolor)</span>';
                 } else if (bpm < 50) {
-                    status.innerHTML = '<span style="color: #3b82f6;">⚠️ Ritmo Lento (Bradicardia / Hipotermia)</span>';
+                    status.innerHTML = '<span style="color: var(--accent-soft);">⚠ Ritmo lento (bradicardia / hipotermia)</span>';
                 } else {
-                    status.innerHTML = '<span style="color: var(--success);">✓ Ritmo Normal Estimado</span>';
+                    status.innerHTML = '<span style="color: var(--success);">✓ Ritmo normal estimado</span>';
                 }
             } else {
-                display.innerText = "...";
+                display.innerText = "···";
                 status.innerText = "Sigue marcando el ritmo...";
             }
-            
-            // Auto-reinicio después de 3 segundos de inactividad
+
             clearTimeout(resetTimeoutBPM);
-            resetTimeoutBPM = setTimeout(() => {
-                reiniciarBPM();
-            }, 3000);
+            resetTimeoutBPM = setTimeout(() => reiniciarBPM(), 3000);
         }
 
         function reiniciarBPM() {
@@ -650,23 +675,24 @@
             document.getElementById('bpm-status').innerText = "";
         }
 
-        // ── LÓGICA DE TRIAGE (ACORDEÓN) ──
+        // ── ACORDEÓN DE GUÍA ──
         function toggleGuia() {
             const content = document.getElementById('guia-content');
             const icon = document.getElementById('guia-icon');
             if (navigator.vibrate) navigator.vibrate(30);
 
-            if (content.style.display === 'none') {
+            if (content.style.display === 'none' || !content.style.display) {
                 content.style.display = 'block';
                 icon.style.transform = 'rotate(180deg)';
-                setTimeout(() => {
-                    content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
+                setTimeout(() => content.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
             } else {
                 content.style.display = 'none';
                 icon.style.transform = 'rotate(0deg)';
             }
         }
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
