@@ -753,7 +753,7 @@
             const ecg = document.getElementById('ecg-strip');
             if (ecg) {
                 ecg.classList.remove('blip');
-                void ecg.offsetWidth;
+                void ecg.getBoundingClientRect();
                 ecg.classList.add('blip');
             }
 
@@ -808,6 +808,9 @@
                 icon.style.transform = 'rotate(0deg)';
             }
         }
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
