@@ -1,18 +1,18 @@
 {
     "nombre": "Pupas",
-    "apellidos": "",
-    "especie_raza": "",
+    "apellidos": "Navarro",
+    "especie_raza": "Criollo",
     "microchip": "",
-    "fecha_nacimiento": "",
-    "sexo": "Hembra",
+    "fecha_nacimiento": "18/03/2020",
+    "sexo": "Macho",
     "cartilla": {
-        "rabia": "",
+        "rabia": "16-09-2025",
         "multiple": "",
-        "desparasitacion": ""
+        "desparasitacion": "16-09-2025"
     },
     "contacto_principal": {
         "nombre": "Mariana Navarro",
-        "telefono": ""
+        "telefono": "3322486655"
     },
     "contacto_emergencia": {
         "telefono": ""
@@ -21,7 +21,7 @@
         "nombre": "",
         "telefono": ""
     },
-    "direccion_opcional": "",
+    "direccion_opcional": "Ahorro 4122 Col. Benito Juarez",
     "condiciones_medicas": "",
-    "foto": ""
+    "foto": "TYEBDL.jpg"
 }
