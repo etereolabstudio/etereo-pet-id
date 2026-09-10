@@ -3,29 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Etéreo | Pet ID Inteligente</title>
+    <title>Ficha de Campo | Etéreo</title>
 
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
-    
-    <!-- SISTEMA TIPOGRÁFICO ETÉREO -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#121016">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23121016'/%3E%3Ccircle cx='50' cy='50' r='34' fill='none' stroke='%23DD8E5C' stroke-width='6'/%3E%3Ccircle cx='50' cy='50' r='9' fill='%23DD8E5C'/%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     <style>
         /* =========================================
-           1. VARIABLES DE ARTE (ALBA / OCASO)
+           1. IDENTIDAD ETÉREO — Revelado Analógico 90s
            ========================================= */
         :root {
             --bg-color: #121016;
             --bg-raise: #18161D;
             --text-color: #9B9488;
             --title-color: #EDE6D6;
-            --nav-bg: rgba(18, 16, 22, 0.82);
-            --card-border: rgba(237, 230, 214, 0.10);
             --accent: #DD8E5C;
-            --btn-bg: #EDE6D6;
-            --btn-text: #121016;
+            --accent-soft: #8B84A3;
+            --card-border: rgba(237, 230, 214, 0.10);
+            --pulse-color: rgba(221, 142, 92, 0.12);
+            --light-leak-1: rgba(221, 142, 92, 0.10);
+            --light-leak-2: rgba(139, 132, 163, 0.08);
+
+            --success: #7FA582;
+            --alert-bg: rgba(196, 90, 60, 0.10);
+            --alert-border: rgba(196, 90, 60, 0.28);
+            --alert-text: #D9805D;
+
+            --skeleton-base: rgba(237,230,214,0.04);
+            --skeleton-shine: rgba(221,142,92,0.12);
+            --noise-opacity: 0.13;
         }
 
         [data-theme="light"] {
@@ -33,14 +51,24 @@
             --bg-raise: #F2ECDF;
             --text-color: #6B6459;
             --title-color: #1B1912;
-            --nav-bg: rgba(234, 227, 211, 0.82);
-            --card-border: rgba(27, 25, 18, 0.12);
             --accent: #C97440;
-            --btn-bg: #1B1912;
-            --btn-text: #EAE3D3;
+            --accent-soft: #6E6688;
+            --card-border: rgba(27, 25, 18, 0.12);
+            --pulse-color: rgba(201, 116, 64, 0.10);
+            --light-leak-1: rgba(201, 116, 64, 0.10);
+            --light-leak-2: rgba(110, 102, 136, 0.08);
+
+            --success: #4F7A52;
+            --alert-bg: rgba(184, 75, 42, 0.08);
+            --alert-border: rgba(184, 75, 42, 0.20);
+            --alert-text: #B84B2A;
+
+            --skeleton-base: rgba(27,25,18,0.04);
+            --skeleton-shine: rgba(201,116,64,0.12);
+            --noise-opacity: 0.16;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: var(--bg-color);
@@ -48,229 +76,782 @@
             font-family: 'Outfit', sans-serif;
             font-weight: 300;
             line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
             overflow-x: hidden;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            position: relative;
+            transition: background-color 0.7s ease, color 0.7s ease;
         }
 
-        h1, h2, h3, .nav-brand { font-family: 'Clash Display', sans-serif; font-weight: 600; color: var(--title-color); letter-spacing: 1px; text-transform: uppercase; }
-        .mono, .timestamp, .eyebrow { font-family: 'Space Mono', monospace; letter-spacing: 1px; }
-        .eyebrow { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); }
+        .mono { font-family: 'Space Mono', monospace; }
+
+        #particles-js { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; opacity: 0.18; transition: opacity 0.7s ease; }
+
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1;
+            background:
+                radial-gradient(ellipse 45% 35% at 80% 12%, var(--light-leak-1) 0%, transparent 65%),
+                radial-gradient(ellipse at -10% 115%, var(--light-leak-2) 0%, transparent 60%);
+        }
+        body::after {
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9998; opacity: var(--noise-opacity); mix-blend-mode: overlay; transition: opacity 0.7s ease;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        .container { width: 100%; max-width: 460px; padding: 30px 22px 80px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
 
         /* =========================================
-           2. NAVEGACIÓN UNIVERSAL
+           2. MARCAS DE FOTOGRAMA — firma visual de esta ficha
+           Referencia: contador de cuadro de un rollo de 35mm.
            ========================================= */
-        .navbar { position: fixed; top: 0; width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; background: var(--nav-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--card-border); z-index: 9999; }
-        .nav-brand { font-size: clamp(1rem, 2vw, 1.3rem); letter-spacing: 4px; }
-        .theme-btn { background: transparent; color: var(--title-color); border: 1px solid var(--card-border); padding: 6px 14px; font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 6px; border-radius: 2px; }
+        .frame-mark { position: fixed; top: 14px; z-index: 5; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 2px; color: var(--text-color); opacity: 0.35; text-transform: uppercase; pointer-events: none; user-select: none; }
+        .frame-mark.left { left: 16px; }
+        .frame-mark.right { right: 16px; text-align: right; }
 
         /* =========================================
-           3. ESTILOS DE LANDING PAGE (VENTAS)
+           3. SKELETON LOADER
            ========================================= */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; position: relative; }
-        .hero h1 { font-size: clamp(3rem, 15vw, 8rem); line-height: 1; margin-bottom: 10px; }
-        .subtitle-hero { font-family: 'Space Mono', monospace; letter-spacing: 0.5em; text-transform: uppercase; font-size: clamp(0.6rem, 1.5vw, 0.9rem); color: var(--accent); }
-        
-        .price-badge { background: var(--btn-bg); color: var(--btn-text); padding: 13px 26px; font-size: 0.75rem; font-weight: 500; border-radius: 2px; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border: 1px solid var(--btn-bg); text-decoration: none; display: inline-block; margin-top: 20px; }
-        .price-badge:hover { background: transparent; color: var(--title-color); border-color: var(--title-color); }
+        #skeleton-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 100px 22px; display: flex; flex-direction: column; align-items: center; z-index: 10; transition: opacity 0.6s ease; }
+        .skeleton { background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-shine) 50%, var(--skeleton-base) 75%); background-size: 200% 100%; animation: shimmer 1.7s infinite linear; border-radius: 2px; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        .feature-section { padding: 80px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
+        .sk-avatar { width: 140px; height: 140px; border-radius: 50%; margin-bottom: 24px; }
+        .sk-title { width: 65%; height: 34px; margin-bottom: 10px; }
+        .sk-sub { width: 40%; height: 14px; margin-bottom: 34px; }
+        .sk-btn-row { display: flex; gap: 12px; width: 100%; margin-bottom: 36px; }
+        .sk-btn { height: 48px; flex: 1; }
+        .sk-card { width: 100%; height: 150px; margin-bottom: 14px; }
 
         /* =========================================
-           4. ESTILOS DEL PERFIL MÉDICO (EMERGENCIA)
+           4. TOP BAR
            ========================================= */
-        .profile-container { padding: 100px 20px 40px; max-width: 500px; margin: 0 auto; text-align: center; }
-        .pet-photo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); margin: 0 auto 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: none; }
-        .pet-name { font-size: 2.5rem; margin-bottom: 5px; }
-        .pet-breed { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
-        
-        .info-grid { display: grid; gap: 12px; text-align: left; margin-bottom: 30px; }
-        .info-card { background: var(--bg-raise); padding: 16px; border: 1px solid var(--card-border); border-radius: 2px; }
-        .info-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--text-color); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: block; }
-        .info-value { font-size: 1.05rem; color: var(--title-color); }
-        
-        .cta-btn-full { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; background: var(--title-color); color: var(--bg-color); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; border-radius: 2px; font-weight: bold; }
+        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .brand {
+            font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 3px;
+            color: var(--title-color); text-transform: uppercase; display: flex; align-items: center; gap: 8px;
+        }
+        .brand .clima { font-family: 'Space Mono', monospace; font-weight: 400; font-size: 10px; opacity: 0.5; letter-spacing: 0.5px; text-transform: none; display: inline-flex; align-items: center; gap: 3px; }
 
-        /* Móvil */
-        @media (max-width: 768px) {
-            .navbar { padding: 15px 20px; }
-            .nav-brand { font-size: 1rem; }
+        .theme-btn {
+            background: transparent; color: var(--title-color); border: 1px solid var(--card-border);
+            width: 38px; height: 38px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .theme-btn:active { transform: scale(0.9); border-color: var(--accent); }
+
+        /* =========================================
+           5. FOTO — encuadre de campo, apertura óptica
+           ========================================= */
+        .profile-pic-container { position: relative; margin-bottom: 18px; display: flex; justify-content: center; align-items: center; width: 176px; height: 176px; }
+
+        .aperture-ring { position: absolute; width: 100%; height: 100%; border-radius: 50%; z-index: 0; opacity: 0.55; }
+        .aperture-ring svg { width: 100%; height: 100%; animation: aperture-turn 60s linear infinite; }
+        .aperture-ring circle { fill: none; stroke: var(--card-border); stroke-width: 1; }
+        .aperture-ring .tick { stroke: var(--accent); opacity: 0.7; }
+        @keyframes aperture-turn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* revelado: la foto entra desenfocada y desaturada, y "revela" al aparecer */
+        .profile-pic {
+            width: 144px; height: 144px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); z-index: 1;
+            background-color: var(--bg-raise); padding: 4px; box-shadow: 0 14px 32px rgba(0,0,0,0.4); cursor: pointer;
+            filter: blur(9px) grayscale(0.5) contrast(0.85) brightness(0.95);
+            transition: filter 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s, transform 0.4s ease;
+        }
+        .profile-pic-container.visible .profile-pic { filter: blur(0) grayscale(0) contrast(1) brightness(1); }
+
+        /* interacción: destello de obturador, no coin-flip. Sweep de luz + leve brillo, estable en ambos temas */
+        .profile-pic-container { isolation: isolate; }
+        .profile-pic-container::after {
+            content: ''; position: absolute; top: 4px; left: 4px; width: 144px; height: 144px; border-radius: 50%;
+            background: linear-gradient(115deg, transparent 30%, rgba(237,230,214,0.55) 48%, transparent 66%);
+            opacity: 0; pointer-events: none; z-index: 2; mix-blend-mode: overlay;
+        }
+        .shutter-flash { animation: shutter 0.45s ease; }
+        .profile-pic-container.shutter-flash-sweep::after { animation: sweep 0.5s ease; }
+        @keyframes shutter {
+            0% { filter: brightness(1); }
+            30% { filter: brightness(1.3) contrast(1.05); }
+            100% { filter: brightness(1); }
+        }
+        @keyframes sweep {
+            0% { opacity: 0; transform: translateX(-40%); }
+            40% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(40%); }
+        }
+
+        .catalog-id { font-family: 'Space Mono', monospace; font-size: 0.66rem; letter-spacing: 2px; color: var(--text-color); opacity: 0.7; text-align: center; margin-bottom: 4px; text-transform: uppercase; }
+        .eyebrow-tag { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; text-align: center; }
+        h1 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: clamp(1.9rem, 8vw, 2.6rem); letter-spacing: 2px; text-transform: uppercase; text-align: center; margin-bottom: 6px; color: var(--title-color); }
+        .subtitle { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); margin-bottom: 30px; text-align: center; opacity: 0.8; }
+
+        /* =========================================
+           6. BOTONERA
+           ========================================= */
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-bottom: 10px; }
+        .btn {
+            display: flex; justify-content: center; align-items: center; gap: 8px; padding: 15px;
+            border-radius: 2px; font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700;
+            text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; cursor: pointer;
+        }
+        .btn-primary { background-color: var(--accent); color: #14121A; }
+        .btn-secondary { background-color: var(--bg-raise); color: var(--title-color); border-color: var(--card-border); }
+        .btn-location { background: transparent; color: var(--text-color); border: 1px dashed var(--card-border); width: 100%; margin-bottom: 34px; font-weight: 400; }
+        .btn:active { transform: scale(0.97); }
+        .btn:hover { border-color: var(--accent); }
+
+        /* =========================================
+           7. TARJETAS — fichas de archivo
+           ========================================= */
+        .card {
+            background: var(--bg-raise); border: 1px solid var(--card-border); border-radius: 2px;
+            width: 100%; padding: 26px 22px; margin-bottom: 12px; position: relative; overflow: hidden;
+            transition: border-color 0.7s ease;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; pointer-events: none;
+            background: radial-gradient(320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--pulse-color), transparent 40%);
+            opacity: 0; transition: opacity 0.5s;
+        }
+        .card:hover::before { opacity: 1; }
+        .card > * { position: relative; z-index: 1; }
+
+        .card-alert { background: var(--alert-bg); border-color: var(--alert-border); }
+
+        .card h3 { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--title-color); text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 22px; display: flex; align-items: center; gap: 9px; font-weight: 700; }
+        .card h3 i, .card h3 svg { color: var(--accent); }
+        .card-alert h3 { color: var(--alert-text); }
+        .card-alert h3 i, .card-alert h3 svg { color: var(--alert-text); }
+
+        .card-index { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--text-color); opacity: 0.45; letter-spacing: 1px; margin-left: auto; text-transform: none; }
+
+        .data-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--card-border); }
+        .data-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .label { color: var(--text-color); font-size: 0.85rem; font-weight: 300; }
+        .value { color: var(--title-color); font-family: 'Space Mono', monospace; font-size: 0.82rem; text-align: right; }
+
+        .link-action { color: var(--accent); text-decoration: none; font-family: 'Space Mono', monospace; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: opacity 0.3s; }
+        .link-action:active { opacity: 0.6; }
+
+        .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .visible { opacity: 1; transform: translateY(0); }
+
+        .footer-brand { text-align: center; margin-top: 26px; margin-bottom: 16px; font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-color); opacity: 0.5; display: flex; flex-direction: column; gap: 4px; }
+        .footer-brand span.sub { opacity: 0.6; font-size: 0.6rem; letter-spacing: 1.5px; }
+
+        /* =========================================
+           8. INSTRUMENTO DE CAMPO — lectura de pulso
+           ========================================= */
+        .btn-bpm {
+            width: 76px; height: 76px; border-radius: 50%;
+            background-color: var(--alert-bg); border: 2px solid var(--alert-text); color: var(--alert-text);
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            margin: 0 auto; transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px rgba(196, 90, 60, 0.15);
+            user-select: none;
+        }
+        .btn-bpm:active { transform: scale(0.85); background-color: var(--alert-border); }
+
+        .accordion-head { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 4px 0; }
+        .accordion-head h3 { margin-bottom: 0; }
+        .accordion-icon { color: var(--text-color); transition: transform 0.3s; flex-shrink: 0; }
+        .accordion-body { display: none; margin-top: 20px; border-top: 1px solid var(--card-border); padding-top: 20px; }
+
+        /* traza de instrumento — línea base + pulso que responde a cada tap */
+        .ecg-strip { width: 100%; height: 34px; margin: 4px 0 10px; opacity: 0.8; }
+        .ecg-strip .ecg-base { stroke: var(--card-border); stroke-width: 1; }
+        .ecg-strip .ecg-spike { fill: none; stroke: var(--alert-text); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+        .ecg-strip.blip .ecg-spike { animation: ecgBlip 0.45s ease; }
+        @keyframes ecgBlip {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            70% { opacity: 0.9; }
+            100% { opacity: 0; }
+        }
+
+        /* =========================================
+           9. MOVIMIENTO REDUCIDO
+           ========================================= */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.15s !important; scroll-behavior: auto !important; }
+            .aperture-ring svg { animation: none; }
+            #particles-js { opacity: 0; }
+            .profile-pic { filter: none !important; transition: none; }
+            .profile-pic-container::after { display: none; }
         }
     </style>
+
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
-    <!-- NAVBAR FIJO (Se comparte en ambas vistas) -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-brand">ETÉREO</div>
-        <button type="button" class="theme-btn" id="theme-btn">
-            <i data-lucide="sun" size="12" id="theme-icon"></i> <span id="theme-text">Alba</span>
-        </button>
-    </nav>
-
-    <!-- =======================================================
-         CONTENEDOR A: PÁGINA DE VENTAS (Carga si la URL está vacía)
-         ======================================================= -->
-    <div id="landing-view" style="display: none;">
-        <header class="hero">
-            <h1>PET ID</h1>
-            <div class="subtitle-hero">La seguridad de tu mejor amigo</div>
-            
-            <div style="margin-top: 40px;">
-                <p style="max-width: 500px; margin: 0 auto; opacity: 0.85; margin-bottom: 20px;">
-                    Placas de aluminio anodizado con tecnología pasiva incorporada. Escanea y accede al perfil médico vital al instante, sin aplicaciones de terceros.
-                </p>
-                <a href="https://wa.me/523332227033?text=Hola%20Etéreo.%20Quiero%20una%20Pet%20ID." class="price-badge">
-                    <i data-lucide="message-circle" size="14" style="display: inline-block; vertical-align: middle; margin-right: 5px;"></i> Adquirir Edición
-                </a>
-            </div>
-        </header>
-
-        <section class="feature-section">
-            <span class="eyebrow">Arquitectura Técnica</span>
-            <h2 style="margin: 10px 0 30px;">Lectura Inmediata</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: left;">
-                <div class="info-card">
-                    <span class="info-label">01 — Origen Clásica</span>
-                    <span class="info-value" style="font-family: 'Space Mono'; font-size: 0.9rem;">$79 MXN</span>
-                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">Grabado a dos caras.</p>
-                </div>
-                <div class="info-card">
-                    <span class="info-label">02 — Conexión Digital</span>
-                    <span class="info-value" style="font-family: 'Space Mono'; font-size: 0.9rem;">$149 MXN</span>
-                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">Placa física + Perfil web.</p>
-                </div>
-                <div class="info-card" style="border-color: var(--accent);">
-                    <span class="info-label" style="color: var(--accent);">03 — Legado Protegida</span>
-                    <span class="info-value" style="font-family: 'Space Mono'; font-size: 0.9rem;">$179 MXN</span>
-                    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">Digital + Resina UV ambas caras.</p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- =======================================================
-         CONTENEDOR B: PERFIL DE EMERGENCIA (Carga si escanean placa)
-         ======================================================= -->
-    <div id="profile-view" style="display: none;">
-        <div class="profile-container">
-            <!-- La foto se carga dinámicamente de tu carpeta /fotos/ -->
-            <img id="pet-img" class="pet-photo" src="" alt="Mascota">
-            
-            <h1 id="pet-name" class="pet-name">Cargando...</h1>
-            <div id="pet-breed" class="pet-breed">Leyendo datos</div>
-            
-            <div class="info-grid" id="pet-data-container">
-                <!-- El JavaScript inyecta los datos del JSON aquí -->
-            </div>
-            
-            <!-- Botón de contacto directo -->
-            <a id="btn-contactar" href="#" class="cta-btn-full" style="display: none;">
-                <i data-lucide="phone-call" size="18"></i> Llamar al Dueño
-            </a>
+    <!-- ========================================================
+         VISTA 1: LA PÁGINA DE VENTAS (LANDING PAGE)
+         Se mostrará solo si la URL está limpia (p.etereomx.com)
+         ======================================================== -->
+    <div id="landing-view" style="display: none; width: 100%; position: relative; z-index: 100;">
+        
+        <!-- Top bar exclusivo de la landing -->
+        <div style="position: absolute; top: 0; width: 100%; padding: 30px 22px; display: flex; justify-content: space-between; align-items: center; max-width: 800px; left: 50%; transform: translateX(-50%);">
+            <div style="font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 3px; color: var(--title-color); text-transform: uppercase;">ETÉREO</div>
+            <!-- Botón que activa tu script original de Cambio de Tema -->
+            <button id="landing-theme-btn" class="theme-btn" onclick="document.getElementById('theme-btn').click()" aria-label="Cambiar Tema">
+                <i data-lucide="sun" size="16"></i>
+            </button>
         </div>
+
+        <header style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
+            <h1 style="font-family: 'Clash Display', sans-serif; font-size: clamp(3.5rem, 15vw, 6.5rem); color: var(--title-color); letter-spacing: 4px; line-height: 1; margin-bottom: 10px;">PET ID</h1>
+            <div style="font-family: 'Space Mono', monospace; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; font-size: clamp(0.6rem, 2vw, 0.8rem);">La seguridad de tu mejor amigo</div>
+            
+            <p style="margin-top: 30px; font-size: 0.95rem; max-width: 420px; color: var(--text-color); opacity: 0.9; line-height: 1.6;">
+                Placas de aluminio anodizado con tecnología pasiva incorporada. Escanea y accede al perfil médico vital al instante.
+            </p>
+            
+            <a href="https://wa.me/523332227033?text=Hola%20Etéreo.%20Quiero%20una%20Pet%20ID." style="margin-top: 40px; background: var(--title-color); color: var(--bg-color); padding: 14px 32px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; font-weight: 700; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                Adquirir Edición
+            </a>
+        </header>
     </div>
 
-    <!-- SCRIPT MULTIPLEXOR (El cerebro de la página) -->
+    <!-- ========================================================
+         VISTA 2: EL PERFIL MÉDICO (TU CÓDIGO ORIGINAL INTACTO)
+         Se mostrará si la URL tiene ID (ej. p.etereomx.com/M6YJ9W)
+         ======================================================== -->
+    <div id="profile-view" style="width: 100%; display: flex; justify-content: center; position: relative;">
+        <!-- TUS ELEMENTOS GLOBALES DE FONDO -->
+        <div id="particles-js"></div>
+        <div class="frame-mark left">ETÉREO<br>FIELD REC.</div>
+        <div class="frame-mark right" id="frame-mark-right">35MM<br>Nº —</div>
+
+        <div id="skeleton-screen">
+            <div class="skeleton sk-avatar"></div>
+            <div class="skeleton sk-title"></div>
+            <div class="skeleton sk-sub"></div>
+            <div class="sk-btn-row">
+                <div class="skeleton sk-btn"></div>
+                <div class="skeleton sk-btn"></div>
+            </div>
+            <div class="skeleton sk-card"></div>
+            <div class="skeleton sk-card" style="height: 120px;"></div>
+        </div>
+
+        <div id="perfil-mascota" class="container" style="opacity: 0; pointer-events: none;">
+
+            <div class="top-bar fade-up" style="transition-delay: 0.1s;">
+                <div class="brand">
+                    ETÉREO
+                    <span id="clima-ornamento" class="clima"></span>
+                </div>
+                <button class="theme-btn" id="theme-btn" aria-label="Cambiar Tema">
+                    <i data-lucide="sun" size="16"></i>
+                </button>
+            </div>
+
+            <div id="alerta-clima" class="card card-alert fade-up" style="display: none; margin-bottom: 22px; border-left: 3px solid var(--alert-text); padding: 20px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <i data-lucide="thermometer-sun" size="26" style="color: var(--alert-text); flex-shrink: 0; margin-top: 2px;"></i>
+                    <div>
+                        <h3 style="margin-bottom: 6px; font-size: 0.72rem; letter-spacing: 1.5px;">Peligro de golpe de calor (<span id="temp-actual">--</span>°C)</h3>
+                        <p style="color: var(--title-color); font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">
+                            El pavimento podría estar quemando sus patas. Ubica al animal en la sombra de inmediato y ofrécele agua a temperatura ambiente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-pic-container fade-up" style="transition-delay: 0.2s;">
+                <div class="aperture-ring" aria-hidden="true">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="47"/>
+                        <line class="tick" x1="50" y1="2" x2="50" y2="8"/>
+                        <line class="tick" x1="50" y1="92" x2="50" y2="98"/>
+                        <line class="tick" x1="2" y1="50" x2="8" y2="50"/>
+                        <line class="tick" x1="92" y1="50" x2="98" y2="50"/>
+                    </svg>
+                </div>
+                <img id="foto" class="profile-pic" src="">
+            </div>
+
+            <div class="catalog-id" id="catalog-id">FICHA Nº ···</div>
+            <div class="eyebrow-tag fade-up" style="transition-delay: 0.25s;">Pet Record — Ficha de Campo</div>
+            <h1 id="nombre" class="fade-up" style="transition-delay: 0.3s;">···</h1>
+            <div id="raza" class="subtitle fade-up" style="transition-delay: 0.3s;">···</div>
+
+            <div class="action-grid fade-up" style="transition-delay: 0.4s;">
+                <a id="btn-llamar" href="#" class="btn btn-primary"><i data-lucide="phone" size="15"></i> Llamar</a>
+                <a id="btn-wa" href="#" class="btn btn-secondary"><i data-lucide="message-circle" size="15"></i> WhatsApp</a>
+            </div>
+
+            <button id="btn-gps" class="btn btn-location fade-up" style="transition-delay: 0.4s;" onclick="enviarUbicacion()">
+                <i data-lucide="map-pin" size="15"></i> Enviar coordenadas GPS
+            </button>
+
+            <div id="tarjeta-medica" class="card card-alert fade-up" style="transition-delay: 0.5s; display: none;">
+                <h3><i data-lucide="alert-triangle" size="15"></i> Alertas médicas</h3>
+                <p id="condiciones" style="color: var(--title-color); font-size: 0.9rem; line-height: 1.6; font-weight: 400;"></p>
+            </div>
+
+            <div class="card fade-up" style="transition-delay: 0.6s;">
+                <h3><i data-lucide="fingerprint" size="15"></i> Biometría <span class="card-index">01</span></h3>
+                <div class="data-row"><span class="label">Sexo</span><span id="sexo" class="value">—</span></div>
+                <div class="data-row"><span class="label">Nacimiento</span><span id="nacimiento" class="value">—</span></div>
+                <div class="data-row"><span class="label">Microchip</span><span id="microchip" class="value">—</span></div>
+            </div>
+
+            <div id="tarjeta-cartilla" class="card fade-up" style="transition-delay: 0.65s; display: none;">
+                <h3><i data-lucide="activity" size="15"></i> Cartilla sanitaria <span class="card-index">02</span></h3>
+                <div class="data-row"><span class="label">Rabia</span><span id="vac-rabia" class="value">—</span></div>
+                <div class="data-row"><span class="label">Múltiple</span><span id="vac-multiple" class="value">—</span></div>
+                <div class="data-row"><span class="label">Desparasitación</span><span id="vac-desp" class="value">—</span></div>
+            </div>
+
+            <div id="tarjeta-vet" class="card fade-up" style="transition-delay: 0.7s; display: none;">
+                <h3><i data-lucide="stethoscope" size="15"></i> Veterinaria <span class="card-index">03</span></h3>
+                <div class="data-row"><span class="label">Clínica</span><span id="vet-nombre" class="value">—</span></div>
+                <div class="data-row" style="margin-top: 5px;"><span class="label">Contacto</span><span id="vet-tel" class="value">—</span></div>
+            </div>
+
+            <div class="card fade-up" style="transition-delay: 0.8s;">
+                <h3><i data-lucide="shield-check" size="15"></i> Red de rescate <span class="card-index">04</span></h3>
+                <div class="data-row"><span class="label">Propietario</span><span id="dueno" class="value">—</span></div>
+                <div class="data-row"><span class="label">Principal</span><span id="tel1" class="value">—</span></div>
+                <div class="data-row"><span class="label">Emergencia</span><span id="tel2" class="value">—</span></div>
+                <div class="data-row" style="margin-top: 8px; flex-direction: column; align-items: flex-start; gap: 10px;">
+                    <span class="label">Dirección</span>
+                    <span id="direccion" class="value" style="text-align: left;">—</span>
+                </div>
+            </div>
+
+            <div class="card fade-up" style="transition-delay: 0.82s;">
+                <div class="accordion-head" onclick="toggleBPM()">
+                    <h3><i data-lucide="heart-pulse" size="15" style="color: var(--alert-text);"></i> Frecuencia cardíaca</h3>
+                    <i id="bpm-icon" data-lucide="chevron-down" size="18" class="accordion-icon"></i>
+                </div>
+
+                <div id="bpm-content" class="accordion-body" style="text-align: center;">
+                    <p style="font-size: 0.82rem; color: var(--text-color); margin-bottom: 4px; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Space Mono', monospace; font-size: 0.62rem; opacity: 0.7;">Instrumento de campo</p>
+                    <p style="font-size: 0.82rem; color: var(--text-color); margin-bottom: 15px; margin-top: 10px; line-height: 1.5;">
+                        Coloca tu mano en el pecho del perro, justo detrás de su codo izquierdo. <strong style="color: var(--title-color);">Toca el botón al ritmo de cada latido</strong>.
+                    </p>
+
+                    <svg id="ecg-strip" class="ecg-strip" viewBox="0 0 300 34" preserveAspectRatio="none">
+                        <line class="ecg-base" x1="0" y1="17" x2="300" y2="17"/>
+                        <polyline class="ecg-spike" points="0,17 120,17 132,4 144,30 156,10 168,17 300,17"/>
+                    </svg>
+
+                    <div class="mono" style="font-size: 3rem; color: var(--title-color); height: 60px; display: flex; align-items: center; justify-content: center;" id="bpm-display">
+                        --
+                    </div>
+                    <div class="mono" style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-color); margin-bottom: 15px;">Latidos por minuto (BPM)</div>
+
+                    <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-color); margin-bottom: 24px; min-height: 20px;" id="bpm-status"></div>
+
+                    <div class="btn-bpm" id="btn-tap" ontouchstart="registrarLatido(event)" onmousedown="registrarLatido(event)">
+                        <i data-lucide="heart" size="30"></i>
+                    </div>
+                    <button onclick="reiniciarBPM()" class="mono" style="margin-top: 24px; background: transparent; border: none; color: var(--text-color); text-decoration: underline; font-size: 0.75rem; cursor: pointer;">Reiniciar medición</button>
+                </div>
+            </div>
+
+            <div class="card fade-up" style="transition-delay: 0.85s;">
+                <div class="accordion-head" onclick="toggleGuia()">
+                    <h3><i data-lucide="life-buoy" size="15"></i> Guía de campo</h3>
+                    <i id="guia-icon" data-lucide="chevron-down" size="18" class="accordion-icon"></i>
+                </div>
+
+                <div id="guia-content" class="accordion-body">
+                    <div style="margin-bottom: 16px;">
+                        <strong style="color: var(--title-color); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="droplets" size="13" style="color: var(--accent-soft);"></i> Hidratación y dieta</strong>
+                        <p style="font-size: 0.82rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Ofrécele agua limpia a voluntad. Si está muy jadeante, dale en pocas cantidades. Si requiere comer, usa croquetas genéricas secas o pollo hervido (sin sal ni huesos).</p>
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
+                        <strong style="color: var(--alert-text); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="skull" size="13"></i> Estrictamente prohibido</strong>
+                        <p style="font-size: 0.82rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Bajo ninguna circunstancia ofrezcas: <strong style="color: var(--title-color);">chocolate, uvas, pasas, aguacate, cebolla, ajo o huesos cocidos.</strong> Son altamente tóxicos.</p>
+                    </div>
+
+                    <div>
+                        <strong style="color: var(--title-color); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;"><i data-lucide="home" size="13" style="color: var(--success);"></i> Entorno seguro</strong>
+                        <p style="font-size: 0.82rem; margin-top: 6px; color: var(--text-color); line-height: 1.5;">Mantenlo en un espacio cerrado y tranquilo. Evita juntarlo con tus propias mascotas para prevenir peleas territoriales o contagios cruzados.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-brand fade-up" style="transition-delay: 0.9s;">
+                <span>Conservado por Etéreo</span>
+                <span class="sub">Archivo de recuerdos físicos</span>
+            </div>
+        </div>
+    </div> <!-- FIN PERFIL VIEW -->
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar iconos
-            lucide.createIcons();
+        // ── INICIALIZACIÓN BLINDADA ──
+        try { lucide.createIcons(); } catch(e) { console.warn('Lucide no cargó:', e); }
 
-            // 1. EL ENRUTADOR (Switch Lógico)
-            const path = window.location.pathname.replace(/^\/|\/$/g, '');
-            const landingView = document.getElementById('landing-view');
-            const profileView = document.getElementById('profile-view');
-
-            if (path === '') {
-                // Si la ruta está vacía (p.etereomx.com), encendemos la Landing Page
-                landingView.style.display = 'block';
-            } else {
-                // Si la ruta tiene un ID (p.etereomx.com/M6YJ9W), encendemos el Perfil
-                profileView.style.display = 'block';
-                cargarPerfilMascota(path); // Lanzamos la lectura del JSON
+        try {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": { "value": 26, "density": { "enable": true, "value_area": 800 } },
+                        "color": { "value": "#EDE6D6" },
+                        "shape": { "type": "circle" },
+                        "opacity": { "value": 0.25, "random": true },
+                        "size": { "value": 2, "random": true },
+                        "line_linked": { "enable": false },
+                        "move": { "enable": true, "speed": 0.3, "direction": "top", "random": true, "out_mode": "out" }
+                    },
+                    "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": false }, "onclick": { "enable": false }, "resize": true } },
+                    "retina_detect": true
+                });
             }
+        } catch(e) { console.warn('Particles no cargó:', e); }
 
-            // 2. TOGGLE ALBA/OCASO
-            const themeBtn = document.getElementById('theme-btn');
-            const htmlElement = document.documentElement;
-            const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
+        function safeIcons() { try { lucide.createIcons(); } catch(e) {} }
 
-            themeBtn.addEventListener('click', () => {
-                const isLight = htmlElement.getAttribute('data-theme') === 'light';
-                htmlElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
-                
-                if(isLight) {
-                    themeIcon.setAttribute('data-lucide', 'sun');
-                    themeText.textContent = 'Alba';
-                } else {
-                    themeIcon.setAttribute('data-lucide', 'moon');
-                    themeText.textContent = 'Ocaso';
-                }
-                lucide.createIcons();
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
             });
         });
 
-        // 3. FUNCIÓN DE LECTURA DE JSON (Tu lógica original adaptada al nuevo diseño)
-        async function cargarPerfilMascota(id) {
-            try {
-                // Va a tu carpeta de datos en el repositorio
-                const response = await fetch(`/datos/${id}.json`);
-                if (!response.ok) throw new Error('Perfil no encontrado');
-                
-                const data = await response.json();
+        const themeBtn = document.getElementById('theme-btn');
+        const htmlElement = document.documentElement;
 
-                // Pintamos la foto
-                const imgEl = document.getElementById('pet-img');
-                imgEl.src = `/fotos/${id}.jpg`;
-                imgEl.style.display = 'block';
+        function updateThemeUI(isDark) {
+            themeBtn.innerHTML = isDark ? '<i data-lucide="sun" size="16"></i>' : '<i data-lucide="moon" size="16"></i>';
+            // También actualizamos el botón de la landing
+            const landingThemeBtn = document.getElementById('landing-theme-btn');
+            if(landingThemeBtn) landingThemeBtn.innerHTML = isDark ? '<i data-lucide="sun" size="16"></i>' : '<i data-lucide="moon" size="16"></i>';
+            
+            const metaTheme = document.querySelector('meta[name="theme-color"]');
+            if (metaTheme) metaTheme.setAttribute('content', isDark ? '#121016' : '#EAE3D3');
+            safeIcons();
+        }
 
-                // Pintamos Títulos
-                document.getElementById('pet-name').textContent = data.nombre || 'Sin Nombre';
-                document.getElementById('pet-breed').textContent = data.raza || '';
-                document.title = `Pet ID | ${data.nombre}`;
+        themeBtn.addEventListener('click', () => {
+            if (navigator.vibrate) navigator.vibrate(50);
+            const isCurrentlyDark = htmlElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isCurrentlyDark ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+            try { localStorage.setItem('theme', newTheme); } catch(e) {}
+            updateThemeUI(newTheme === 'dark');
+        });
 
-                // Construimos las tarjetas de información dinámicamente
-                const container = document.getElementById('pet-data-container');
-                let htmlInfo = '';
-                
-                // Si hay datos médicos, los ponemos primero
-                if (data.condicionMedica || data.alergias) {
-                    const infoMedica = data.condicionMedica || data.alergias;
-                    htmlInfo += `
-                    <div class="info-card" style="border-color: #ff4757; background: rgba(255, 71, 87, 0.05);">
-                        <span class="info-label" style="color: #ff4757;"><i data-lucide="alert-triangle" size="12"></i> Alerta Médica</span>
-                        <span class="info-value">${infoMedica}</span>
-                    </div>`;
+        let savedTheme = null;
+        try { savedTheme = localStorage.getItem('theme'); } catch(e) {}
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateThemeUI(savedTheme === 'dark');
+        } else {
+            updateThemeUI(true);
+        }
+
+        const parametros = new URLSearchParams(window.location.search);
+        let idMascota = parametros.get('id');
+
+        if (!idMascota) {
+            const ruta = window.location.pathname.replace(/^\/|\/$/g, '');
+            if (ruta && ruta !== 'index.html') idMascota = ruta;
+        }
+
+        let telefonoDueñoGlobal = '';
+        let nombreMascotaGlobal = '';
+
+        function mostrarError(mensaje) {
+            const skeleton = document.getElementById('skeleton-screen');
+            if (skeleton) skeleton.style.display = 'none';
+            const contenedor = document.getElementById('perfil-mascota');
+            contenedor.innerHTML = `
+                <div style="width:100%; display:flex; flex-direction:column; align-items:center; padding-top: 70px;">
+                    <div class="mono" style="font-size:0.66rem; letter-spacing:3px; text-transform:uppercase; color: var(--alert-text); margin-bottom: 22px; opacity: 0.9;">Registro no disponible</div>
+                    <div class="card card-alert" style="text-align:center; padding: 32px 24px;">
+                        <i data-lucide="x-circle" size="34" style="color: var(--alert-text); margin-bottom: 18px;"></i>
+                        <h2 style="font-family: 'Clash Display'; text-transform: uppercase; letter-spacing: 2px; color:var(--title-color); margin-bottom: 12px; font-weight: 600; font-size: 1.4rem;">Expediente Oculto</h2>
+                        <p style="color:var(--text-color); font-size: 0.9rem; line-height: 1.6; text-align: center; font-weight: 300;">${mensaje}</p>
+                    </div>
+                    <div class="mono" style="font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color: var(--text-color); opacity: 0.4; margin-top: 26px;">Etéreo · Archivo de recuerdos físicos</div>
+                </div>`;
+            contenedor.style.opacity = '1';
+            contenedor.style.pointerEvents = 'auto';
+            safeIcons();
+        }
+
+        function verificarEstresTermico() {
+            fetch('https://get.geojs.io/v1/ip/geo.json')
+                .then(res => res.json())
+                .then(geo => {
+                    const lat = geo.latitude;
+                    const lon = geo.longitude;
+                    return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                })
+                .then(res => res.json())
+                .then(clima => {
+                    const temp = clima.current_weather.temperature;
+                    const tempRedonda = Math.round(temp);
+
+                    const ornamento = document.getElementById('clima-ornamento');
+                    if (ornamento) {
+                        ornamento.innerHTML = `· <i data-lucide="thermometer" size="10" style="margin-top: -1px;"></i> ${tempRedonda}°C`;
+                    }
+
+                    if (temp >= 29) {
+                        const alertaClima = document.getElementById('alerta-clima');
+                        document.getElementById('temp-actual').innerText = tempRedonda;
+                        alertaClima.style.display = 'block';
+                        setTimeout(() => alertaClima.classList.add('visible'), 300);
+                    }
+
+                    safeIcons();
+                })
+                .catch(err => console.warn("Monitor térmico inactivo:", err));
+        }
+
+        verificarEstresTermico();
+
+        // ========================================================
+        // EL MULTIPLEXOR: Decide qué contenedor mostrar
+        // ========================================================
+        if (!idMascota) {
+            // Si no hay ID, apagamos tu código y encendemos ventas
+            document.getElementById('profile-view').style.display = 'none';
+            document.getElementById('landing-view').style.display = 'block';
+            document.title = 'Pet ID | Etéreo';
+        } else {
+            // Si hay ID (M6YJ9W), apagamos ventas y dejamos fluir tu código intacto
+            document.getElementById('landing-view').style.display = 'none';
+            document.getElementById('profile-view').style.display = 'flex';
+
+            fetch(`datos/${idMascota}.json?nocache=${new Date().getTime()}`)
+                .then(r => {
+                    if (!r.ok) throw new Error('ID_NO_ENCONTRADO');
+                    return r.json();
+                })
+                .then(m => {
+                    nombreMascotaGlobal = m.nombre;
+
+                    document.title = `${m.nombre} | Etéreo`;
+                    document.getElementById('nombre').innerText = m.nombre;
+                    document.getElementById('raza').innerText = m.apellidos ? `${m.apellidos} · ${m.especie_raza || 'Mascota'}` : (m.especie_raza || 'Mascota');
+
+                    // ficha de campo: número de catálogo derivado del ID de la placa
+                    const catalogo = String(idMascota).toUpperCase().slice(0, 8);
+                    const catEl = document.getElementById('catalog-id');
+                    if (catEl) catEl.innerText = `FICHA Nº ${catalogo}`;
+                    const frameRight = document.getElementById('frame-mark-right');
+                    if (frameRight) frameRight.innerHTML = `35MM<br>Nº ${catalogo}`;
+
+                    if (m.foto) {
+                        const imgEl = document.getElementById('foto');
+                        imgEl.src = `fotos/${m.foto}?v=${new Date().getTime()}`;
+                    } else {
+                        document.querySelector('.profile-pic-container').style.display = 'none';
+                    }
+
+                    telefonoDueñoGlobal = (m.contacto_principal?.telefono || '').replace(/[^0-9+]/g, '');
+                    document.getElementById('btn-llamar').href = `tel:${telefonoDueñoGlobal}`;
+                    document.getElementById('btn-wa').href = `https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=¡Hola!%20Escaneé%20la%20placa%20de%20${m.nombre}%20y%20lo%20tengo%20conmigo.`;
+
+                    if (m.condiciones_medicas) {
+                        document.getElementById('tarjeta-medica').style.display = 'block';
+                        document.getElementById('condiciones').innerText = m.condiciones_medicas;
+                    }
+
+                    if (m.veterinario && (m.veterinario.nombre || m.veterinario.telefono)) {
+                        document.getElementById('tarjeta-vet').style.display = 'block';
+                        document.getElementById('vet-nombre').innerText = m.veterinario.nombre || '—';
+                        if (m.veterinario.telefono) {
+                            document.getElementById('vet-tel').innerHTML = `<a href="tel:${m.veterinario.telefono.replace(/[^0-9+]/g, '')}" class="link-action">Llamar clínica <i data-lucide="arrow-up-right" size="13"></i></a>`;
+                        }
+                    }
+
+                    document.getElementById('sexo').innerText = m.sexo || '—';
+                    document.getElementById('nacimiento').innerText = m.fecha_nacimiento || '—';
+                    document.getElementById('microchip').innerText = m.microchip || '—';
+
+                    if (m.cartilla && (m.cartilla.rabia || m.cartilla.multiple || m.cartilla.desparasitacion)) {
+                        document.getElementById('tarjeta-cartilla').style.display = 'block';
+                        document.getElementById('vac-rabia').innerText = m.cartilla.rabia || 'Sin registro';
+                        document.getElementById('vac-multiple').innerText = m.cartilla.multiple || 'Sin registro';
+                        document.getElementById('vac-desp').innerText = m.cartilla.desparasitacion || 'Sin registro';
+                    }
+
+                    document.getElementById('dueno').innerText = m.contacto_principal?.nombre || '—';
+                    document.getElementById('tel1').innerText = m.contacto_principal?.telefono || '—';
+                    document.getElementById('tel2').innerText = m.contacto_emergencia?.telefono || '—';
+
+                    if (m.direccion_opcional) {
+                        const dirCodificada = encodeURIComponent(m.direccion_opcional);
+                        const linkGoogleMaps = `https://www.google.com/maps/search/?api=1&query=${dirCodificada}`;
+                        document.getElementById('direccion').innerHTML = `<a href="${linkGoogleMaps}" target="_blank" rel="noopener noreferrer" class="link-action">Abrir mapa <i data-lucide="arrow-up-right" size="13"></i></a>`;
+                    }
+
+                    safeIcons();
+
+                    setTimeout(() => {
+                        const skeleton = document.getElementById('skeleton-screen');
+                        if (skeleton) {
+                            skeleton.style.opacity = '0';
+                            setTimeout(() => skeleton.style.display = 'none', 600);
+                        }
+
+                        const perfil = document.getElementById('perfil-mascota');
+                        perfil.style.opacity = '1';
+                        perfil.style.pointerEvents = 'auto';
+
+                        const elementos = perfil.querySelectorAll('.fade-up');
+                        elementos.forEach(el => el.classList.add('visible'));
+                    }, 600);
+                })
+                .catch(e => {
+                    mostrarError(e.message === 'ID_NO_ENCONTRADO' ? 'La placa que buscas no existe o ha sido archivada.' : `Fallo de red: ${e.message}`);
+                });
+        }
+
+        // ── MICRO-INTERACCIONES ──
+        const fotoPerfil = document.getElementById('foto');
+        const fotoContenedor = document.querySelector('.profile-pic-container');
+        fotoPerfil.addEventListener('click', function() {
+            this.classList.remove('shutter-flash');
+            void this.offsetWidth;
+            this.classList.add('shutter-flash');
+            if (fotoContenedor) {
+                fotoContenedor.classList.remove('shutter-flash-sweep');
+                void fotoContenedor.offsetWidth;
+                fotoContenedor.classList.add('shutter-flash-sweep');
+            }
+            if (navigator.vibrate) navigator.vibrate(40);
+        });
+
+        // ── UTILIDADES DE RESCATE ──
+        function enviarUbicacion() {
+            const btn = document.getElementById('btn-gps');
+            const textoOriginal = btn.innerHTML;
+            if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+
+            btn.innerHTML = '<i data-lucide="loader" size="15"></i> Localizando coordenadas...';
+            safeIcons();
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (posicion) => {
+                        const lat = posicion.coords.latitude;
+                        const lon = posicion.coords.longitude;
+                        const linkMaps = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+                        const mensaje = `¡URGENTE! Tengo a ${nombreMascotaGlobal}. Estoy exactamente aquí: ${linkMaps}`;
+
+                        const latAbs = Math.abs(lat).toFixed(2);
+                        const lonAbs = Math.abs(lon).toFixed(2);
+                        const latDir = lat >= 0 ? 'N' : 'S';
+                        const lonDir = lon >= 0 ? 'E' : 'O';
+                        btn.innerHTML = `<i data-lucide="check" size="15"></i> ${latAbs}°${latDir} · ${lonAbs}°${lonDir} · ENVIADO`;
+                        safeIcons();
+                        window.open(`https://wa.me/${telefonoDueñoGlobal.replace('+','')}?text=${encodeURIComponent(mensaje)}`, '_blank');
+
+                        setTimeout(() => { btn.innerHTML = textoOriginal; safeIcons(); }, 3200);
+                    },
+                    () => {
+                        alert("Es necesario permitir el acceso al GPS de tu navegador para enviar la alerta.");
+                        btn.innerHTML = textoOriginal;
+                        safeIcons();
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                alert("Tu dispositivo no soporta funciones de geolocalización.");
+                btn.innerHTML = textoOriginal;
+                safeIcons();
+            }
+        }
+
+        // ── ASISTENTE CLÍNICO DE PULSO (BPM) ──
+        let tapsBPM = [];
+        let resetTimeoutBPM;
+
+        function toggleBPM() {
+            const content = document.getElementById('bpm-content');
+            const icon = document.getElementById('bpm-icon');
+            if (navigator.vibrate) navigator.vibrate(30);
+
+            if (content.style.display === 'none' || !content.style.display) {
+                content.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                setTimeout(() => content.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+            } else {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+                reiniciarBPM();
+            }
+        }
+
+        function registrarLatido(event) {
+            if (event) event.preventDefault();
+
+            const display = document.getElementById('bpm-display');
+            const status = document.getElementById('bpm-status');
+
+            const ecg = document.getElementById('ecg-strip');
+            if (ecg) {
+                ecg.classList.remove('blip');
+                void ecg.getBoundingClientRect();
+                ecg.classList.add('blip');
+            }
+
+            if (navigator.vibrate) navigator.vibrate(40);
+
+            const now = Date.now();
+            tapsBPM.push(now);
+            if (tapsBPM.length > 8) tapsBPM.shift();
+
+            if (tapsBPM.length > 2) {
+                const diffs = [];
+                for (let i = 1; i < tapsBPM.length; i++) diffs.push(tapsBPM[i] - tapsBPM[i-1]);
+                const avgDiff = diffs.reduce((a, b) => a + b) / diffs.length;
+                const bpm = Math.round(60000 / avgDiff);
+
+                display.innerText = bpm;
+
+                if (bpm > 160) {
+                    status.innerHTML = '<span style="color: var(--alert-text);">⚠ Ritmo acelerado (taquicardia / dolor)</span>';
+                } else if (bpm < 50) {
+                    status.innerHTML = '<span style="color: var(--accent-soft);">⚠ Ritmo lento (bradicardia / hipotermia)</span>';
+                } else {
+                    status.innerHTML = '<span style="color: var(--success);">✓ Ritmo normal estimado</span>';
                 }
+            } else {
+                display.innerText = "···";
+                status.innerText = "Sigue marcando el ritmo...";
+            }
 
-                // Otros datos (ejemplo: edad, tipo de sangre, etc. Ajusta según los campos de tu JSON)
-                if (data.edad) {
-                    htmlInfo += `
-                    <div class="info-card">
-                        <span class="info-label">Edad / Sexo</span>
-                        <span class="info-value">${data.edad}</span>
-                    </div>`;
-                }
+            clearTimeout(resetTimeoutBPM);
+            resetTimeoutBPM = setTimeout(() => reiniciarBPM(), 3000);
+        }
 
-                container.innerHTML = htmlInfo;
+        function reiniciarBPM() {
+            tapsBPM = [];
+            document.getElementById('bpm-display').innerText = "--";
+            document.getElementById('bpm-status').innerText = "";
+        }
 
-                // Activamos el botón de llamada si hay un contacto
-                if (data.contacto) {
-                    const btnContacto = document.getElementById('btn-contactar');
-                    btnContacto.href = `tel:${data.contacto}`;
-                    btnContacto.style.display = 'flex';
-                }
+        // ── ACORDEÓN DE GUÍA ──
+        function toggleGuia() {
+            const content = document.getElementById('guia-content');
+            const icon = document.getElementById('guia-icon');
+            if (navigator.vibrate) navigator.vibrate(30);
 
-                // Recargar iconos insertados por el JSON
-                lucide.createIcons(); 
-
-            } catch (error) {
-                // Failsafe por si escanean un código que no existe
-                document.getElementById('pet-name').textContent = "Placa no registrada";
-                document.getElementById('pet-name').style.fontSize = "1.8rem";
-                document.getElementById('pet-breed').textContent = "ID: " + id;
-                console.error("Error:", error);
+            if (content.style.display === 'none' || !content.style.display) {
+                content.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                setTimeout(() => content.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+            } else {
+                content.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
             }
         }
     </script>
