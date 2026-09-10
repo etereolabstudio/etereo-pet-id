@@ -289,33 +289,115 @@
 </head>
 <body>
 
-    <!-- ========================================================
-         VISTA 1: LA PÁGINA DE VENTAS (LANDING PAGE)
-         Se mostrará solo si la URL está limpia (p.etereomx.com)
+   <!-- ========================================================
+         VISTA 1: LA PÁGINA DE VENTAS (LANDING PAGE EXPANDIDA)
          ======================================================== -->
-    <div id="landing-view" style="display: none; width: 100%; position: relative; z-index: 100;">
+    <div id="landing-view" style="display: none; width: 100%; position: relative; z-index: 100; padding-bottom: 80px;">
         
-        <!-- Top bar exclusivo de la landing -->
+        <!-- TOP BAR -->
         <div style="position: absolute; top: 0; width: 100%; padding: 30px 22px; display: flex; justify-content: space-between; align-items: center; max-width: 800px; left: 50%; transform: translateX(-50%);">
             <div style="font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 3px; color: var(--title-color); text-transform: uppercase;">ETÉREO</div>
-            <!-- Botón que activa tu script original de Cambio de Tema -->
             <button id="landing-theme-btn" class="theme-btn" onclick="document.getElementById('theme-btn').click()" aria-label="Cambiar Tema">
                 <i data-lucide="sun" size="16"></i>
             </button>
         </div>
 
-        <header style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
-            <h1 style="font-family: 'Clash Display', sans-serif; font-size: clamp(3.5rem, 15vw, 6.5rem); color: var(--title-color); letter-spacing: 4px; line-height: 1; margin-bottom: 10px;">PET ID</h1>
-            <div style="font-family: 'Space Mono', monospace; letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; font-size: clamp(0.6rem, 2vw, 0.8rem);">La seguridad de tu mejor amigo</div>
+        <!-- HERO SECTION -->
+        <header style="min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
+            <div class="mono" style="font-size: 0.65rem; letter-spacing: 3px; color: var(--text-color); opacity: 0.7; margin-bottom: 15px; text-transform: uppercase;">Smart Tag · Etéreo Lab</div>
+            <h1 style="font-family: 'Clash Display', sans-serif; font-size: clamp(3rem, 12vw, 5.5rem); color: var(--title-color); letter-spacing: 2px; line-height: 1; margin-bottom: 10px;">PET ID</h1>
+            <div style="font-family: 'Space Mono', monospace; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; font-size: clamp(0.7rem, 2vw, 0.9rem);">El expediente que salva vidas</div>
             
-            <p style="margin-top: 30px; font-size: 0.95rem; max-width: 420px; color: var(--text-color); opacity: 0.9; line-height: 1.6;">
-                Placas de aluminio anodizado con tecnología pasiva incorporada. Escanea y accede al perfil médico vital al instante.
+            <p style="margin-top: 25px; font-size: 1rem; max-width: 480px; color: var(--text-color); opacity: 0.9; line-height: 1.6;">
+                Placas de aluminio anodizado con tecnología pasiva. Escanea y accede al instante al perfil médico, cartilla y contactos de emergencia de tu mascota.
             </p>
             
-            <a href="https://wa.me/523332227033?text=Hola%20Etéreo.%20Quiero%20una%20Pet%20ID." style="margin-top: 40px; background: var(--title-color); color: var(--bg-color); padding: 14px 32px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; font-weight: 700; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                Adquirir Edición
-            </a>
+            <div style="display: flex; gap: 15px; margin-top: 35px; flex-wrap: wrap; justify-content: center;">
+                <a href="#niveles" style="background: var(--title-color); color: var(--bg-color); padding: 14px 28px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; font-weight: 700;">Ver Colección</a>
+                <a href="https://wa.me/523332227033?text=Hola%20Etéreo.%20Quiero%20información%20sobre%20las%20Pet%20ID." style="background: transparent; color: var(--title-color); border: 1px solid var(--card-border); padding: 14px 28px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="message-circle" size="14"></i> Asesoría
+                </a>
+            </div>
         </header>
+
+        <!-- CÓMO FUNCIONA -->
+        <section style="max-width: 800px; margin: 60px auto; padding: 0 20px; text-align: center;">
+            <div class="mono" style="font-size: 0.7rem; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">Ingeniería Invisible</div>
+            <h2 style="font-family: 'Clash Display', sans-serif; font-size: 2rem; color: var(--title-color); margin-bottom: 40px; letter-spacing: 1px;">Sin apps. Sin baterías.</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; text-align: left;">
+                <div class="card" style="padding: 30px 20px;">
+                    <i data-lucide="smartphone-nfc" size="28" style="color: var(--accent); margin-bottom: 15px;"></i>
+                    <h3 style="margin-bottom: 8px; font-size: 1rem; color: var(--title-color);">01. Escanea</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-color); line-height: 1.5;">Cualquier smartphone desbloqueado lee el microchip NFC oculto en la placa con solo acercarlo.</p>
+                </div>
+                <div class="card" style="padding: 30px 20px;">
+                    <i data-lucide="activity" size="28" style="color: var(--accent); margin-bottom: 15px;"></i>
+                    <h3 style="margin-bottom: 8px; font-size: 1rem; color: var(--title-color);">02. Descubre</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-color); line-height: 1.5;">Despliega un expediente vital: alertas médicas, vacunas, veterinario y frecuencia cardíaca.</p>
+                </div>
+                <div class="card" style="padding: 30px 20px;">
+                    <i data-lucide="map-pin" size="28" style="color: var(--accent); margin-bottom: 15px;"></i>
+                    <h3 style="margin-bottom: 8px; font-size: 1rem; color: var(--title-color);">03. Localiza</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-color); line-height: 1.5;">Quien encuentre a tu mascota puede enviarte sus coordenadas GPS exactas con un solo clic.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NIVELES DE MANUFACTURA -->
+        <section id="niveles" style="max-width: 800px; margin: 80px auto; padding: 0 20px;">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <div class="mono" style="font-size: 0.7rem; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">Catálogo</div>
+                <h2 style="font-family: 'Clash Display', sans-serif; font-size: 2rem; color: var(--title-color); letter-spacing: 1px;">Niveles de Manufactura</h2>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <!-- Nivel 1 -->
+                <div class="card" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding: 25px;">
+                    <div>
+                        <div class="mono" style="font-size: 0.65rem; color: var(--text-color); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">Formato Físico</div>
+                        <h3 style="font-size: 1.2rem; color: var(--title-color); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">Origen Clásica</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-color); max-width: 350px; line-height: 1.5;">Placa de aluminio negra con grabado láser profundo a dos caras (nombre y teléfonos). Sin chip.</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="mono" style="font-size: 1.2rem; color: var(--title-color); font-weight: 700; margin-bottom: 10px;">$79 MXN</div>
+                        <a href="https://wa.me/523332227033?text=Hola,%20quiero%20la%20Pet%20ID%20Origen%20Clásica" style="color: var(--accent); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">Solicitar</a>
+                    </div>
+                </div>
+
+                <!-- Nivel 2 -->
+                <div class="card" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding: 25px; border-color: rgba(221, 142, 92, 0.3);">
+                    <div>
+                        <div class="mono" style="font-size: 0.65rem; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">Físico + Digital</div>
+                        <h3 style="font-size: 1.2rem; color: var(--title-color); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"><i data-lucide="smartphone" size="18" style="color: var(--accent);"></i> Conexión Digital</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-color); max-width: 350px; line-height: 1.5;">Grabado láser frontal + Código QR trasero enlazado al expediente médico completo en la nube.</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="mono" style="font-size: 1.2rem; color: var(--title-color); font-weight: 700; margin-bottom: 10px;">$149 MXN</div>
+                        <a href="https://wa.me/523332227033?text=Hola,%20quiero%20la%20Pet%20ID%20Conexión%20Digital" style="color: var(--accent); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">Solicitar</a>
+                    </div>
+                </div>
+
+                <!-- Nivel 3 -->
+                <div class="card" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding: 25px; background: var(--alert-bg); border-color: var(--alert-border);">
+                    <div>
+                        <div class="mono" style="font-size: 0.65rem; color: var(--alert-text); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">Máxima Protección</div>
+                        <h3 style="font-size: 1.2rem; color: var(--title-color); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;"><i data-lucide="shield-check" size="18" style="color: var(--alert-text);"></i> Legado Protegida</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-color); max-width: 350px; line-height: 1.5;">Conexión Digital + Microchip NFC interno. Sellada con resina UV en ambas caras para protección contra agua y rayones.</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="mono" style="font-size: 1.2rem; color: var(--title-color); font-weight: 700; margin-bottom: 10px;">$179 MXN</div>
+                        <a href="https://wa.me/523332227033?text=Hola,%20quiero%20la%20Pet%20ID%20Legado%20Protegida" style="color: var(--alert-text); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--alert-text); padding-bottom: 2px;">Solicitar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER SIMPLE -->
+        <footer style="text-align: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--card-border); max-width: 800px; margin-left: auto; margin-right: auto;">
+            <div class="mono" style="font-size: 0.7rem; color: var(--text-color); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px;">Manufacturado en Guadalajara</div>
+            <p style="font-size: 0.8rem; color: var(--text-color); opacity: 0.7;">Estudio Etéreo © 2026. Todos los derechos reservados.</p>
+        </footer>
     </div>
 
     <!-- ========================================================
