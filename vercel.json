@@ -1,19 +1,8 @@
 {
-  "headers": [
-    {
-      "source": "/base_datos.json",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        }
-      ]
-    }
-  ],
   "rewrites": [
     {
-      "source": "/([a-zA-Z0-9-]+)",
-      "destination": "/?id=$1"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
