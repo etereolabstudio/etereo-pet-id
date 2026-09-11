@@ -27,6 +27,7 @@
         :root {
             --bg-color: #121016;
             --bg-raise: #18161D;
+             --nav-bg: rgba(18,16,22,0.88);
             --text-color: #9B9488;
             --title-color: #EDE6D6;
             --accent: #DD8E5C;
@@ -49,6 +50,7 @@
         [data-theme="light"] {
             --bg-color: #EAE3D3;
             --bg-raise: #F2ECDF;
+             --nav-bg: rgba(234,227,211,0.90);
             --text-color: #6B6459;
             --title-color: #1B1912;
             --accent: #C97440;
@@ -296,7 +298,7 @@
         
         <style>
             /* Estilos de landing perfectos para Escritorio y Móvil con FOTOS REALES */
-            .landing-hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 20px 20px; }
+            .landing-hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 105px 20px 34px; }
             .pasos-grid { display: grid; grid-template-columns: 1fr; gap: 20px; text-align: left; }
             .nivel-card { display: grid; grid-template-columns: 1fr; gap: 25px; padding: 30px 25px; align-items: center; text-align: center; }
             
@@ -318,7 +320,7 @@
             .hero-subline { max-width:640px; margin:0 auto; font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-color); opacity:.72; }
             .hero-trust { display:flex; flex-wrap:wrap; justify-content:center; gap:8px 18px; margin-top:26px; color:var(--text-color); font-family:'Space Mono',monospace; font-size:.61rem; letter-spacing:1.2px; text-transform:uppercase; opacity:.68; }
             .hero-trust span { display:inline-flex; align-items:center; gap:6px; }
-            .section-intro { max-width:610px; margin:-28px auto 38px; color:var(--text-color); font-size:.92rem; line-height:1.7; }
+            .section-intro { max-width:610px; margin:0 auto 38px; color:var(--text-color); font-size:.92rem; line-height:1.7; }
             .scenario-grid { display:grid; grid-template-columns:1fr; gap:12px; text-align:left; }
             .scenario-step { padding:24px 22px; border:1px solid var(--card-border); background:var(--bg-raise); }
             .scenario-step .num { font-family:'Space Mono',monospace; color:var(--accent); font-size:.62rem; letter-spacing:2px; margin-bottom:12px; }
@@ -337,7 +339,7 @@
             .catalog-list { margin:14px 0 0; padding:0; list-style:none; display:grid; gap:7px; }
             .catalog-list li { font-size:.77rem; color:var(--text-color); display:flex; gap:8px; align-items:flex-start; line-height:1.45; }
             .catalog-list li::before { content:'•'; color:var(--accent); }
-            .mobile-cta { position:fixed; left:12px; right:12px; bottom:12px; z-index:9998; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 11px 10px 15px; background:rgba(18,16,22,.92); border:1px solid var(--card-border); backdrop-filter:blur(14px); box-shadow:0 12px 30px rgba(0,0,0,.28); }
+            .mobile-cta { display:none; position:fixed; left:12px; right:12px; bottom:12px; z-index:9998; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 11px 10px 15px; background:rgba(18,16,22,.92); border:1px solid var(--card-border); backdrop-filter:blur(14px); box-shadow:0 12px 30px rgba(0,0,0,.28); }
             [data-theme="light"] .mobile-cta { background:rgba(234,227,211,.94); }
             .mobile-cta .label { font-family:'Space Mono',monospace; font-size:.58rem; letter-spacing:1px; text-transform:uppercase; color:var(--text-color); }
             .mobile-cta .cta-link { display:inline-flex; align-items:center; gap:7px; padding:9px 12px; background:var(--accent); color:#14121A; font-family:'Space Mono',monospace; font-size:.63rem; font-weight:700; letter-spacing:1.2px; text-decoration:none; text-transform:uppercase; }
@@ -354,7 +356,7 @@
                 .trust-strip { grid-template-columns:repeat(3,1fr); }
             }
             @media (min-width: 700px) { .mobile-cta { left:auto; right:24px; bottom:20px; width:auto; min-width:300px; } }
-            @media (max-width: 699px) { #landing-view { padding-bottom:110px !important; } }
+            @media (max-width: 699px) { #landing-view { padding-bottom:96px !important; } .mobile-cta { display:flex; } .landing-hero { min-height: auto; padding-top: 118px; padding-bottom: 64px; } .landing-hero h1 { font-size: clamp(3.1rem, 18vw, 5rem) !important; } .landing-hero > div:nth-of-type(2) { max-width: 360px; } .hero-trust { max-width: 340px; line-height: 1.5; } .nivel-card { gap: 18px; padding: 24px 20px; } .nivel-precio { display:flex; align-items:center; justify-content:space-between; width:100%; padding-top:14px; border-top:1px solid var(--card-border); } .producto-img-container { max-width:260px; } .scenario-step { padding:20px; } }
                 </style>
 
         <!-- TOP BAR FIJO CON REGRESO AL ESTUDIO -->
@@ -429,7 +431,7 @@
 
         <section style="max-width: 1000px; margin: 45px auto 85px; padding: 0 20px; text-align: center;">
             <div class="landing-kicker">02 · Cuando se pierde</div>
-            <h2 style="font-family: 'Clash Display', sans-serif; font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--title-color); margin-bottom: 14px; letter-spacing: 1px;">Una ruta de regreso a casa.</h2>
+            <h2 style="font-family: 'Clash Display', sans-serif; font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--title-color); margin-bottom: 14px; letter-spacing: 1px;">Una ruta simple de regreso a casa.</h2>
             <p class="section-intro">La experiencia está pensada para una situación concreta: alguien encuentra a tu mascota y necesita saber qué hacer, rápido.</p>
             <div class="scenario-grid">
                 <div class="scenario-step"><div class="num">01 · ENCUENTRA</div><h3>Ve la placa.</h3><p>El identificador físico permanece con la mascota y el QR explica dónde continuar.</p></div>
