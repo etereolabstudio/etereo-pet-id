@@ -290,13 +290,13 @@
 <body>
 
    <!-- ========================================================
-         VISTA 1: LA PÁGINA DE VENTAS (LANDING PAGE CON FOTOS REALES)
+         VISTA 1: LA PÁGINA DE VENTAS (LANDING PAGE - VERSIÓN QR)
          ======================================================== -->
     <div id="landing-view" style="display: none; width: 100%; position: relative; z-index: 100; padding-bottom: 80px;">
         
         <style>
             /* Estilos de landing perfectos para Escritorio y Móvil con FOTOS REALES */
-            .landing-hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+            .landing-hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 20px 20px; }
             .pasos-grid { display: grid; grid-template-columns: 1fr; gap: 20px; text-align: left; }
             .nivel-card { display: grid; grid-template-columns: 1fr; gap: 25px; padding: 30px 25px; align-items: center; text-align: center; }
             
@@ -315,13 +315,26 @@
             }
         </style>
 
-        <!-- TOP BAR -->
-        <div style="position: absolute; top: 0; width: 100%; padding: 30px 22px; display: flex; justify-content: space-between; align-items: center; max-width: 1000px; left: 50%; transform: translateX(-50%);">
-            <div style="font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 3px; color: var(--title-color); text-transform: uppercase;">ETÉREO</div>
-            <button id="landing-theme-btn" class="theme-btn" onclick="document.getElementById('theme-btn').click()" aria-label="Cambiar Tema">
-                <i data-lucide="sun" size="16"></i>
-            </button>
-        </div>
+        <!-- TOP BAR FIJO CON REGRESO AL ESTUDIO -->
+        <nav style="position: fixed; top: 0; left: 0; width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--nav-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--card-border); z-index: 9999;">
+            
+            <!-- Izquierda: Marca + Submarca -->
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 1.1rem; letter-spacing: 3px; color: var(--title-color); text-transform: uppercase;">ETÉREO</div>
+                <div class="mono" style="font-size: 0.6rem; color: var(--accent); letter-spacing: 1.5px; border-left: 1px solid var(--card-border); padding-left: 12px; text-transform: uppercase; margin-top: 2px;">Pet ID</div>
+            </div>
+
+            <!-- Derecha: Enlace al estudio y Toggle de Tema -->
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <a href="https://www.etereomx.com" class="mono" style="text-decoration: none; font-size: 0.65rem; color: var(--text-color); letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s ease; display: flex; align-items: center; gap: 6px;" onmouseover="this.style.color='var(--title-color)'" onmouseout="this.style.color='var(--text-color)'">
+                    <span style="display: none; sm:display: inline;">Estudio Principal</span> <i data-lucide="arrow-up-right" size="14"></i>
+                </a>
+                
+                <button id="landing-theme-btn" onclick="document.getElementById('theme-btn').click()" aria-label="Cambiar Tema" style="background: transparent; color: var(--title-color); border: 1px solid var(--card-border); width: 34px; height: 34px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--card-border)'">
+                    <i data-lucide="sun" size="14"></i>
+                </button>
+            </div>
+        </nav>
 
         <!-- HERO SECTION -->
         <header class="landing-hero">
@@ -330,15 +343,21 @@
             <div style="font-family: 'Space Mono', monospace; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; font-size: clamp(0.7rem, 2vw, 1rem);">El expediente que salva vidas</div>
             
             <p style="margin-top: 25px; font-size: 1.05rem; max-width: 520px; color: var(--text-color); opacity: 0.9; line-height: 1.6;">
-                Placas de aluminio anodizado con tecnología pasiva. Escanea y accede al instante al perfil médico, cartilla y contactos de emergencia de tu mascota.
+                Placas de aluminio anodizado con código QR integrado. Escanea y accede al instante al perfil médico, cartilla y contactos de emergencia de tu mascota.
             </p>
             
+            <!-- BOTONES DE ACCIÓN (INCLUYE DEMO) -->
             <div style="display: flex; gap: 15px; margin-top: 35px; flex-wrap: wrap; justify-content: center;">
-                <a href="#niveles" style="background: var(--title-color); color: var(--bg-color); padding: 14px 32px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; font-weight: 700; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Ver Colección</a>
-                <a href="https://wa.me/523332227033?text=Hola%20Etéreo.%20Quiero%20información%20sobre%20las%20Pet%20ID." style="background: transparent; color: var(--title-color); border: 1px solid var(--card-border); padding: 14px 28px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--card-border)'">
-                    <i data-lucide="message-circle" size="14"></i> Asesoría
+                <a href="#niveles" style="background: var(--title-color); color: var(--bg-color); padding: 14px 24px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; font-weight: 700; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Ver Colección</a>
+                
+                <a href="/M6YJ9W" style="background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 14px 24px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: all 0.3s;" onmouseover="this.style.background='var(--accent)'; this.style.color='var(--bg-color)'" onmouseout="this.style.background='transparent'; this.style.color='var(--accent)'">
+                    <i data-lucide="qr-code" size="16"></i> Simular Escaneo
                 </a>
             </div>
+            
+            <a href="https://wa.me/523332227033?text=Hola%20Etéreo.%20Quiero%20información%20sobre%20las%20Pet%20ID." style="margin-top: 20px; color: var(--text-color); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px dashed var(--text-color); padding-bottom: 2px; transition: color 0.3s;" onmouseover="this.style.color='var(--title-color)'; this.style.borderColor='var(--title-color)'" onmouseout="this.style.color='var(--text-color)'; this.style.borderColor='var(--text-color)'">
+                ¿Dudas? Contáctanos por WhatsApp
+            </a>
         </header>
 
         <!-- CÓMO FUNCIONA -->
@@ -348,9 +367,9 @@
             
             <div class="pasos-grid">
                 <div class="card" style="padding: 40px 25px;">
-                    <i data-lucide="smartphone-nfc" size="32" style="color: var(--accent); margin-bottom: 18px;"></i>
+                    <i data-lucide="scan-line" size="32" style="color: var(--accent); margin-bottom: 18px;"></i>
                     <h3 style="margin-bottom: 10px; font-size: 1.1rem; color: var(--title-color);">01. Escanea</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-color); line-height: 1.6;">Cualquier smartphone desbloqueado lee el microchip NFC oculto en la placa con solo acercarlo.</p>
+                    <p style="font-size: 0.9rem; color: var(--text-color); line-height: 1.6;">Abre la cámara de cualquier smartphone y escanea el código QR grabado al reverso de la placa.</p>
                 </div>
                 <div class="card" style="padding: 40px 25px;">
                     <i data-lucide="activity" size="32" style="color: var(--accent); margin-bottom: 18px;"></i>
@@ -377,7 +396,6 @@
                 <!-- Nivel 1 -->
                 <div class="card nivel-card">
                     <div class="producto-img-container">
-                        <!-- CAMBIA EL SRC POR TU FOTO REAL -->
                         <img src="./fotos/placeholder-origen.jpg" alt="Pet ID Origen Clásica" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'><rect width=\'400\' height=\'300\' fill=\'%2318161D\'/><text x=\'50%\' y=\'50%\' fill=\'%239B9488\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\'>FOTO: ORIGEN CLÁSICA</text></svg>'">
                     </div>
                     <div class="nivel-texto">
@@ -387,41 +405,39 @@
                     </div>
                     <div class="nivel-precio">
                         <div class="mono" style="font-size: 1.3rem; color: var(--title-color); font-weight: 700; margin-bottom: 10px;">$79 MXN</div>
-                        <a href="https://wa.me/523332227033?text=Hola,%20quiero%20la%20Pet%20ID%20Origen%20Clásica" style="color: var(--accent); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">Solicitar</a>
+                        <a href="https://wa.me/523332227033?text=Hola,%20quiero%20la%20Pet%20ID%20Origen%20Clásica" style="color: var(--accent); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">Solicitar</a>
                     </div>
                 </div>
 
                 <!-- Nivel 2 -->
                 <div class="card nivel-card" style="border-color: rgba(221, 142, 92, 0.3);">
                     <div class="producto-img-container" style="border-color: rgba(221, 142, 92, 0.3);">
-                        <!-- CAMBIA EL SRC POR TU FOTO REAL -->
                         <img src="./fotos/placeholder-conexion.jpg" alt="Pet ID Conexión Digital" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'><rect width=\'400\' height=\'300\' fill=\'%2318161D\'/><text x=\'50%\' y=\'50%\' fill=\'%23DD8E5C\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\'>FOTO: CONEXIÓN DIGITAL (QR)</text></svg>'">
                     </div>
                     <div class="nivel-texto">
                         <div class="mono" style="font-size: 0.65rem; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">Físico + Digital</div>
-                        <h3 style="font-size: 1.3rem; color: var(--title-color); margin-bottom: 6px; display: flex; align-items: center; justify-content: inherit; gap: 8px;"><i data-lucide="smartphone" size="18" style="color: var(--accent);"></i> Conexión Digital</h3>
+                        <h3 style="font-size: 1.3rem; color: var(--title-color); margin-bottom: 6px; display: flex; align-items: center; justify-content: inherit; gap: 8px;"><i data-lucide="qr-code" size="18" style="color: var(--accent);"></i> Conexión Digital</h3>
                         <p style="font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">Grabado láser frontal + Código QR trasero enlazado al expediente médico completo en la nube. Actualizable.</p>
                     </div>
                     <div class="nivel-precio">
                         <div class="mono" style="font-size: 1.3rem; color: var(--title-color); font-weight: 700; margin-bottom: 10px;">$149 MXN</div>
-                        <a href="https://wa.me/523332227033?text=Hola,%20quiero%20la%20Pet%20ID%20Conexión%20Digital" style="color: var(--accent); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">Solicitar</a>
+                        <a href="https://wa.me/523332227033?text=Hola,%20quiero%20la%20Pet%20ID%20Conexión%20Digital" style="color: var(--accent); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">Solicitar</a>
                     </div>
                 </div>
 
                 <!-- Nivel 3 -->
                 <div class="card nivel-card" style="background: var(--alert-bg); border-color: var(--alert-border);">
                     <div class="producto-img-container" style="border-color: var(--alert-border);">
-                        <!-- CAMBIA EL SRC POR TU FOTO REAL -->
                         <img src="./fotos/placeholder-legado.jpg" alt="Pet ID Legado Protegida" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'><rect width=\'400\' height=\'300\' fill=\'%2318161D\'/><text x=\'50%\' y=\'50%\' fill=\'%23D9805D\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\'>FOTO: LEGADO PROTEGIDA (RESINA)</text></svg>'">
                     </div>
                     <div class="nivel-texto">
                         <div class="mono" style="font-size: 0.65rem; color: var(--alert-text); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;">Máxima Protección</div>
                         <h3 style="font-size: 1.3rem; color: var(--title-color); margin-bottom: 6px; display: flex; align-items: center; justify-content: inherit; gap: 8px;"><i data-lucide="shield-check" size="18" style="color: var(--alert-text);"></i> Legado Protegida</h3>
-                        <p style="font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">Conexión Digital + Microchip NFC interno. Sellada con resina UV en ambas caras para un acabado brillante y protección contra agua o rayones.</p>
+                        <p style="font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">Conexión Digital con máxima durabilidad. Sellada con resina UV en ambas caras para un acabado brillante y protección contra agua o rayones.</p>
                     </div>
                     <div class="nivel-precio" style="border-color: var(--alert-border);">
                         <div class="mono" style="font-size: 1.3rem; color: var(--title-color); font-weight: 700; margin-bottom: 10px;">$179 MXN</div>
-                        <a href="https://wa.me/523332227033?text=Hola,%20quiero%20la%20Pet%20ID%20Legado%20Protegida" style="color: var(--alert-text); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--alert-text); padding-bottom: 2px;">Solicitar</a>
+                        <a href="https://wa.me/523332227033?text=Hola,%20quiero%20la%20Pet%20ID%20Legado%20Protegida" style="color: var(--alert-text); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--alert-text); padding-bottom: 2px; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='1'">Solicitar</a>
                     </div>
                 </div>
             </div>
