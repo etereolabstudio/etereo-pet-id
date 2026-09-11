@@ -318,18 +318,14 @@
         <!-- TOP BAR FIJO CON REGRESO AL ESTUDIO -->
         <nav style="position: fixed; top: 0; left: 0; width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--nav-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--card-border); z-index: 9999;">
             
-            <!-- Izquierda: Marca + Submarca -->
+            <!-- Izquierda: Marca + Submarca. El wordmark funciona como regreso al estudio. -->
             <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 1.1rem; letter-spacing: 3px; color: var(--title-color); text-transform: uppercase;">ETÉREO</div>
+                <a href="https://www.etereomx.com" aria-label="Ir al estudio principal de Etéreo" style="font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 1.1rem; letter-spacing: 3px; color: var(--title-color); text-transform: uppercase; text-decoration: none; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.65'" onmouseout="this.style.opacity='1'">ETÉREO</a>
                 <div class="mono" style="font-size: 0.6rem; color: var(--accent); letter-spacing: 1.5px; border-left: 1px solid var(--card-border); padding-left: 12px; text-transform: uppercase; margin-top: 2px;">Pet ID</div>
             </div>
 
-            <!-- Derecha: Enlace al estudio y Toggle de Tema -->
+            <!-- Derecha: Toggle de Tema -->
             <div style="display: flex; align-items: center; gap: 15px;">
-                <a href="https://www.etereomx.com" class="mono" style="text-decoration: none; font-size: 0.65rem; color: var(--text-color); letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s ease; display: flex; align-items: center; gap: 6px;" onmouseover="this.style.color='var(--title-color)'" onmouseout="this.style.color='var(--text-color)'">
-                    <span style="display: none; sm:display: inline;">Estudio Principal</span> <i data-lucide="arrow-up-right" size="14"></i>
-                </a>
-                
                 <button id="landing-theme-btn" onclick="document.getElementById('theme-btn').click()" aria-label="Cambiar Tema" style="background: transparent; color: var(--title-color); border: 1px solid var(--card-border); width: 34px; height: 34px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--card-border)'">
                     <i data-lucide="sun" size="14"></i>
                 </button>
@@ -350,7 +346,7 @@
             <div style="display: flex; gap: 15px; margin-top: 35px; flex-wrap: wrap; justify-content: center;">
                 <a href="#niveles" style="background: var(--title-color); color: var(--bg-color); padding: 14px 24px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; font-weight: 700; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Ver Colección</a>
                 
-                <a href="/M6YJ9W" style="background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 14px 24px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: all 0.3s;" onmouseover="this.style.background='var(--accent)'; this.style.color='var(--bg-color)'" onmouseout="this.style.background='transparent'; this.style.color='var(--accent)'">
+                <a href="/L6DBUW" style="background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 14px 24px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; border-radius: 2px; display: flex; align-items: center; gap: 8px; transition: all 0.3s;" onmouseover="this.style.background='var(--accent)'; this.style.color='var(--bg-color)'" onmouseout="this.style.background='transparent'; this.style.color='var(--accent)'">
                     <i data-lucide="qr-code" size="16"></i> Simular Escaneo
                 </a>
             </div>
@@ -452,7 +448,7 @@
 
     <!-- ========================================================
          VISTA 2: EL PERFIL MÉDICO (TU CÓDIGO ORIGINAL INTACTO)
-         Se mostrará si la URL tiene ID (ej. p.etereomx.com/M6YJ9W)
+         Se mostrará si la URL tiene ID (ej. p.etereomx.com/L6DBUW)
          ======================================================== -->
     <div id="profile-view" style="width: 100%; display: flex; justify-content: center; position: relative;">
         <!-- TUS ELEMENTOS GLOBALES DE FONDO -->
@@ -756,7 +752,7 @@
             document.getElementById('landing-view').style.display = 'block';
             document.title = 'Pet ID | Etéreo';
         } else {
-            // Si hay ID (M6YJ9W), apagamos ventas y dejamos fluir tu código intacto
+            // Si hay ID, apagamos ventas y dejamos fluir tu código intacto
             document.getElementById('landing-view').style.display = 'none';
             document.getElementById('profile-view').style.display = 'flex';
 
