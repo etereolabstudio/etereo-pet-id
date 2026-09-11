@@ -1,0 +1,27 @@
+{
+    "nombre": "Milo",
+    "apellidos": "Hernandez",
+    "especie_raza": "Schnauzer",
+    "microchip": "985141000742631",
+    "fecha_nacimiento": "14/03/2021",
+    "sexo": "Macho",
+    "cartilla": {
+        "rabia": "12/02/2026",
+        "multiple": "15/01/2026",
+        "desparasitacion": "20/07/2026"
+    },
+    "contacto_principal": {
+        "nombre": "Carlos Hernández López",
+        "telefono": "3332227033"
+    },
+    "contacto_emergencia": {
+        "telefono": "3332227033"
+    },
+    "veterinario": {
+        "nombre": "Dra. Laura Méndez García",
+        "telefono": "3332227033"
+    },
+    "direccion_opcional": "Guadalajara, Jalisco, México",
+    "condiciones_medicas": "- Alergia conocida a pollo.\n- Antecedente de dermatitis alérgica.\n- No requiere medicación permanente.",
+    "foto": "L6DBUW.jpg"
+}
