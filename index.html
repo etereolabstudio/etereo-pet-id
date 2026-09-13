@@ -304,7 +304,7 @@
             
             /* Contenedor fotográfico para el producto */
             .producto-img-container { width: 100%; max-width: 220px; margin: 0 auto; aspect-ratio: 4/3; overflow: hidden; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--card-border); background: var(--bg-color); display: flex; justify-content: center; align-items: center; }
-            .producto-img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+            .producto-img-container img { width: 100%; height: 100%; object-fit: contain; padding: 12px; transition: transform 0.5s ease; }
             .producto-img-container:hover img { transform: scale(1.05); }
 
             /* Adaptación para computadoras (Desktop) */
@@ -460,7 +460,7 @@
                     <div class="producto-img-container">
                         <img src="./fotos/pet-id-origen.png" alt="Pet ID Origen Clásica" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'><rect width=\'400\' height=\'300\' fill=\'%2318161D\'/><text x=\'50%\' y=\'50%\' fill=\'%239B9488\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\'>FOTO: ORIGEN CLÁSICA</text></svg>'">
                     </div>
-                    <div class="nivel-textimg src="./fotos/pet-id-origen-producto.pngo">
+                    <div class="nivel-texto">
                         <div class="mono" style="font-size: 0.65rem; color: var(--text-color); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">Formato Físico</div>
                         <h3 style="font-size: 1.3rem; color: var(--title-color); margin-bottom: 6px; display: flex; align-items: center; justify-content: inherit; gap: 8px;">Origen Clásica</h3>
                         <p style="font-size: 0.9rem; color: var(--text-color); line-height: 1.5;">La opción esencial para llevar los datos de contacto directamente en la placa.</p>
@@ -475,7 +475,7 @@
                 <!-- Nivel 2 -->
                 <div class="card nivel-card" style="border-color: rgba(221, 142, 92, 0.3);">
                     <div class="producto-img-container" style="border-color: rgba(221, 142, 92, 0.3);">
-                        img src="./fotos/pet-id-conexion.png" alt="Pet ID Conexión Digital" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'><rect width=\'400\' height=\'300\' fill=\'%2318161D\'/><text x=\'50%\' y=\'50%\' fill=\'%23DD8E5C\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\'>FOTO: CONEXIÓN DIGITAL (QR)</text></svg>'">
+                        <img src="./fotos/pet-id-conexion.png" alt="Pet ID Conexión Digital" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'><rect width=\'400\' height=\'300\' fill=\'%2318161D\'/><text x=\'50%\' y=\'50%\' fill=\'%23DD8E5C\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\'>FOTO: CONEXIÓN DIGITAL (QR)</text></svg>'">
                     </div>
                     <div class="nivel-texto">
                         <div class="mono" style="font-size: 0.65rem; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">Físico + Digital</div>
